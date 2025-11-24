@@ -1,5 +1,5 @@
-# ABC as Intelligence Oracle: Central Sales Framework
-**GH Systems: The UMA Oracle for Government Intelligence**
+# ABC as Sovereign Oracle: Central Sales Framework
+**GH Systems: The UMA Oracle for Sovereign Intelligence**
 
 ---
 
@@ -14,7 +14,7 @@
 
 ---
 
-## The Intelligence Oracle Problem
+## The Sovereign Oracle Problem
 
 ### Current State
 
@@ -50,7 +50,7 @@
 
 ## Core Value Propositions
 
-### 1. Solves the "Intelligence Oracle Problem"
+### 1. Solves the "Sovereign Oracle Problem"
 
 **Problem:** Government agencies need objective, verifiable intelligence to resolve disputes.
 
@@ -86,12 +86,12 @@
 
 ## Positioning Statement
 
-**"GH Systems ABC: The UMA Oracle for Intelligence"**
+**"GH Systems ABC: The UMA Oracle for Sovereign Intelligence"**
 
 ### Tagline Options
 
 1. **"Verifiable Intelligence in <500ms"**
-2. **"The Truth Oracle for Intelligence"**
+2. **"The Truth Oracle for Sovereign Intelligence"**
 3. **"Cryptographic Proof for Intelligence Disputes"**
 4. **"Objective Intelligence, Instant Consensus"**
 
@@ -116,7 +116,7 @@
 **ABC provides the oracle layer:**
 - **White-label licensing:** Integrate ABC compilation into existing platforms
 - **API access:** Real-time threat assessments for enterprise customers
-- **Custom deployments:** On-premise or cloud-based intelligence oracles
+- **Custom deployments:** On-premise or cloud-based sovereign oracles
 
 **Use Cases:**
 - Exchange risk scoring (automated KYC/AML threat assessment)
@@ -137,7 +137,7 @@
 **Cantina uses experts to verify bugs.**
 **Crypto intelligence platforms use ABC to verify threats.**
 
-**The oracle layer for intelligence verification."**
+**The oracle layer for sovereign intelligence verification."**
 
 ---
 
@@ -294,7 +294,7 @@
 
 ```
 ┌─────────────────────────────────────────────┐
-│  THE ORACLE LAYER FOR INTELLIGENCE          │
+│  THE ORACLE LAYER FOR SOVEREIGN INTELLIGENCE          │
 ├─────────────────────────────────────────────┤
 │                                             │
 │  Polymarket → UMA Oracle                    │
@@ -322,7 +322,7 @@
 
 **Problem Statement:** "Government agencies spend weeks arguing about threat assessments. Intelligence bounties take months to evaluate. There's no objective truth layer for national security intelligence."
 
-**Solution:** "GH Systems ABC is the UMA Oracle for government intelligence. We provide cryptographically verifiable intelligence assessments in <500ms—the same trustless, automated model that DeFi uses, applied to national security."
+**Solution:** "GH Systems ABC is the UMA Oracle for sovereign intelligence. We provide cryptographically verifiable intelligence assessments in <500ms—the same trustless, automated model that DeFi uses, applied to national security."
 
 ### For Private Sector (Licensing)
 
@@ -354,11 +354,11 @@
 
 ### Primary Message
 
-**"GH Systems ABC: The oracle layer for intelligence. Cryptographically verifiable truth in <500ms."**
+**"GH Systems ABC: The oracle layer for sovereign intelligence. Cryptographically verifiable truth in <500ms."**
 
 ### Supporting Messages
 
-1. **"Solves the intelligence oracle problem"** — Objective, verifiable assessments (government + private sector)
+1. **"Solves the sovereign oracle problem"** — Objective, verifiable assessments (government + private sector)
 2. **"Creates bounty resolution layer"** — Automated evaluation, clear winners (government)
 3. **"Enables verifiable intelligence markets"** — Public risk scores, cryptographic proof (government)
 4. **"Licensing for crypto intelligence platforms"** — White-label, API, custom deployments (private sector)
@@ -373,7 +373,7 @@
 
 ---
 
-**GH Systems: The Truth Oracle for Intelligence**
+**GH Systems: The Truth Oracle for Sovereign Intelligence**
 
 ---
 

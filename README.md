@@ -1,4 +1,4 @@
-# GH Systems ABC: The Intelligence Oracle
+# GH Systems ABC: The Sovereign Oracle
 **Cryptographically Verifiable Intelligence in <500ms**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
@@ -14,9 +14,9 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 ---
 
-## ⚖️ The Intelligence Oracle
+## ⚖️ The Sovereign Oracle
 
-**GH Systems ABC is the UMA Oracle for Intelligence** — resolving disputes, verifying threats, and providing objective truth in <500ms.
+**GH Systems ABC is the UMA Oracle for Sovereign Intelligence** — resolving disputes, verifying threats, and providing objective truth in <500ms.
 
 Just as **Polymarket uses UMA** to resolve prediction markets and **Cantina uses experts** to verify bugs, **GH Systems ABC** provides cryptographically verifiable intelligence assessments for government and private sector.
 
