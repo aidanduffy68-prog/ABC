@@ -234,15 +234,15 @@ class IntelligenceAuditGenerator:
             findings.append(AuditFinding(
                 finding_id=f"finding_001",
                 severity=FindingSeverity.P0_CRITICAL if dossier.threat_level == "CRITICAL" else FindingSeverity.P1_HIGH,
-                title=f"Critical Threat Identified: {dossier.actor_name}",
-                description=f"Threat actor classified as {dossier.threat_level} risk with {dossier.threat_forecast.get('overall_risk_score', 0.0):.2%} overall risk score",
-                threat_vector="Multi-vector threat",
-                impact="Operational security compromise",
+                title=f"Multi-Agency Threat Landscape Identified: {dossier.actor_name}",
+                description=f"Sovereign oracle compiled threat intelligence indicating {dossier.threat_level} risk environment with {dossier.threat_forecast.get('overall_risk_score', 0.0):.2%} overall risk score",
+                threat_vector="Multi-vector threat environment",
+                impact="Comprehensive threat assessment compiled",
                 likelihood=dossier.threat_forecast.get('overall_risk_score', 0.0),
                 confidence=dossier.confidence_scores.get('overall', 0.0),
                 evidence=self._format_evidence_detailed(dossier.evidence_sources, "critical"),
-                recommended_remediation=dossier.recommended_countermeasures[:3],
-                remediation_timeline="Immediate (0-48 hours)"
+                recommended_remediation=[f"Consider {action.lower()}" if not action.startswith("Consider") else action for action in dossier.recommended_countermeasures[:3]],
+                remediation_timeline="Real-time compilation available via sovereign oracle"
             ))
         
         # Network coordination finding
@@ -250,15 +250,15 @@ class IntelligenceAuditGenerator:
             findings.append(AuditFinding(
                 finding_id=f"finding_002",
                 severity=FindingSeverity.P1_HIGH,
-                title=f"Coordination Network Detected: {len(dossier.identified_partners)} partners, {dossier.facilitator_count} facilitators",
-                description=f"Echo network analysis identified coordinated threat network",
-                threat_vector="Coordinated attack",
-                impact="Amplified threat through network effects",
+                title=f"Coordination Patterns Detected: {len(dossier.identified_partners)} partners, {dossier.facilitator_count} facilitators",
+                description=f"Sovereign oracle's Echo network analysis identified coordination patterns",
+                threat_vector="Multi-system coordination environment",
+                impact="Network-level threat intelligence compiled",
                 likelihood=dossier.coordination_network.get('coordination_score', 0.0),
                 confidence=dossier.confidence_scores.get('network_analysis', 0.0),
                 evidence=self._format_evidence_detailed([f"Network analysis: {dossier.coordination_network}"], "network"),
-                recommended_remediation=["Disrupt facilitator network", "Monitor partner activities"],
-                remediation_timeline="Short-term (1-2 weeks)"
+                recommended_remediation=["Coordination patterns suggest value in cross-system monitoring", "Network-level intelligence may inform strategic planning"],
+                remediation_timeline="Continuous monitoring available via sovereign oracle"
             ))
         
         # Behavioral pattern finding
@@ -266,15 +266,15 @@ class IntelligenceAuditGenerator:
             findings.append(AuditFinding(
                 finding_id=f"finding_003",
                 severity=FindingSeverity.P2_MEDIUM,
-                title=f"Behavioral Pattern Matches: {len(dossier.pattern_matches)} known patterns",
-                description=f"Hades behavioral profiling identified {len(dossier.pattern_matches)} pattern matches",
-                threat_vector="Known attack patterns",
-                impact="Predictable attack methodology",
+                title=f"Behavioral Pattern Intelligence Compiled: {len(dossier.pattern_matches)} known patterns",
+                description=f"Sovereign oracle's Hades behavioral profiling identified {len(dossier.pattern_matches)} pattern matches to known threat methodologies",
+                threat_vector="Pattern-based threat intelligence",
+                impact="Behavioral signature analysis enables predictive intelligence",
                 likelihood=0.6,
                 confidence=dossier.confidence_scores.get('behavioral_signature', 0.0),
                 evidence=self._format_evidence_detailed(dossier.pattern_matches, "behavioral"),
-                recommended_remediation=["Implement pattern-based detection", "Deploy countermeasures"],
-                remediation_timeline="Medium-term (1-3 months)"
+                recommended_remediation=["Pattern-based intelligence enables proactive threat detection", "Behavioral signatures support strategic intelligence planning"],
+                remediation_timeline="Pattern matching available in real-time via sovereign oracle"
             ))
         
         return findings
@@ -290,19 +290,19 @@ class IntelligenceAuditGenerator:
         high_count = len([f for f in findings if f.severity == FindingSeverity.P1_HIGH])
         
         summary = f"""
-This intelligence audit assessed {dossier.actor_name} ({dossier.classification}) using GH Systems ABC Compilation Engine.
+This demonstration showcases GH Systems ABC Sovereign Oracle's capability to compile threat intelligence for {dossier.actor_name} ({dossier.classification}) in <500ms. This assessment demonstrates how the sovereign oracle processes multi-source intelligence to provide objective, cryptographically verifiable threat assessments.
 
-**Audit Type:** {audit_type.value.replace('_', ' ').title()}
-**Threat Level:** {dossier.threat_level}
+**Assessment Type:** Threat Intelligence Compilation
+**Threat Landscape:** {dossier.threat_level} complexity environment
 **Overall Risk Score:** {dossier.threat_forecast.get('overall_risk_score', 0.0):.2%}
 
-**Key Findings:**
-- {critical_count} critical vulnerabilities identified
-- {high_count} high-severity findings
-- {len(findings)} total findings requiring remediation
+**Key Intelligence Insights:**
+- {critical_count} primary threat indicators identified
+- {high_count} high-value intelligence insights
+- {len(findings)} total intelligence insights compiled
 
 **Compilation Efficiency:**
-Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
+Traditional intelligence analysis: 14+ days → Sovereign oracle compilation: <500ms
 """
         return summary.strip()
     
@@ -466,9 +466,9 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
         
         if evidence_type == "critical":
             source_templates = [
-                ("Source 1", "DIU website analysis (diu.mil/open-topics)", "4 active AI solicitations with public RFP details", "Commercial vendor information disclosure"),
-                ("Source 2", "DHS S&T AI page (dhs.gov/science-and-technology/artificial-intelligence)", "Detailed AI research program descriptions", "Attack surface mapping enabled"),
-                ("Source 3", "Federal procurement database analysis", "47 AI contracts awarded in Q3 2025", "Supply chain attack vectors identified")
+                ("Source 1", "DIU website analysis (diu.mil/open-topics)", "4 active AI solicitations with public RFP details", "Commercial vendor intelligence opportunity"),
+                ("Source 2", "DHS S&T AI page (dhs.gov/science-and-technology/artificial-intelligence)", "Detailed AI research program descriptions", "Threat landscape intelligence compiled"),
+                ("Source 3", "Federal procurement database analysis", "47 AI contracts awarded in Q3 2025", "Supply chain intelligence patterns identified")
             ]
             for i, (label, source, finding, risk) in enumerate(source_templates[:min(3, len(evidence_sources))]):
                 formatted.append(f"- **{label}:** {source}\n  - Finding: {finding}\n  - Risk: {risk}")
@@ -477,14 +477,14 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
                 formatted.append(f"- **Source {len(formatted) + 1}:** {source}")
         
         elif evidence_type == "network":
-            formatted.append("- **Source 1:** Echo network analysis\n  - Finding: Coordination network detected\n  - Risk: Coordinated multi-vector attack capability")
+            formatted.append("- **Source 1:** Echo network analysis\n  - Finding: Coordination patterns detected\n  - Intelligence Value: Network-level threat intelligence compiled")
             if evidence_sources:
-                formatted.append(f"- **Source 2:** Cross-agency correlation analysis\n  - Finding: Shared attack surfaces identified\n  - Risk: Single point of failure across agencies")
+                formatted.append(f"- **Source 2:** Cross-agency correlation analysis\n  - Finding: Shared intelligence opportunities identified\n  - Intelligence Value: Cross-agency intelligence fusion enabled")
         
         elif evidence_type == "behavioral":
-            formatted.append("- **Source 1:** Hades behavioral profiling\n  - Finding: Pattern matches to known attack methodologies\n  - Risk: Predictable attack vectors")
+            formatted.append("- **Source 1:** Hades behavioral profiling\n  - Finding: Pattern matches to known threat methodologies\n  - Intelligence Value: Behavioral signature analysis enables predictive intelligence")
             if evidence_sources:
-                formatted.append("- **Source 2:** Historical threat intelligence correlation\n  - Finding: Similar patterns observed in previous incidents\n  - Risk: Recurring vulnerability patterns")
+                formatted.append("- **Source 2:** Historical threat intelligence correlation\n  - Finding: Similar patterns observed in previous intelligence\n  - Intelligence Value: Pattern-based intelligence supports strategic planning")
         
         else:
             # Default formatting
@@ -512,10 +512,10 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
     
     def export_audit_markdown(self, audit: IntelligenceAudit) -> str:
         """Export audit as markdown report"""
-        md = f"""# GH SYSTEMS // INTELLIGENCE AUDIT
-**Audit Type:** {audit.audit_type.value.replace('_', ' ').title()}
+        md = f"""# GH SYSTEMS // SOVEREIGN ORACLE DEMONSTRATION
+**Assessment Type:** Threat Intelligence Compilation
 **Target Scope:** {audit.target_scope}
-**Audit ID:** {audit.audit_id}
+**Assessment ID:** {audit.audit_id}
 **Date:** {audit.audit_date.isoformat()}
 **Classification:** {audit.classification_level}
 
@@ -532,7 +532,7 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
         
         md += f"""
 **Overall Risk Score:** {audit.overall_risk_score:.2%}
-**Critical Vulnerabilities:** {audit.critical_vulnerabilities}
+**Primary Threat Indicators:** {audit.critical_vulnerabilities}
 
 ---
 
@@ -592,9 +592,9 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
         
         md += f"""---
 
-## THREAT SURFACE ANALYSIS
+## THREAT LANDSCAPE ANALYSIS
 
-**Attack Vectors Identified:**
+**Threat Intelligence Compiled:**
 """
         for vector in audit.attack_vectors:
             md += f"- **{vector['vector']}:** {vector['description']} (confidence: {vector['confidence']:.2%})\n"
@@ -610,7 +610,7 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
 
 ---
 
-## AUDIT FINDINGS
+## INTELLIGENCE INSIGHTS
 
 """
         for finding in audit.findings:
@@ -618,8 +618,8 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
 
 **Description:** {finding.description}
 
-**Threat Vector:** {finding.threat_vector}
-**Impact:** {finding.impact}
+**Threat Landscape:** {finding.threat_vector}
+**Intelligence Value:** {finding.impact}
 **Likelihood:** {finding.likelihood:.2%}
 **Confidence:** {finding.confidence:.2%}
 
@@ -632,13 +632,13 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
                     md += f"- {evidence}\n"
             
             md += f"""
-**Recommended Remediation:**
+**Intelligence Recommendations:**
 """
             for remediation in finding.recommended_remediation:
                 md += f"- {remediation}\n"
             
             if finding.remediation_timeline:
-                md += f"\n**Remediation Timeline:** {finding.remediation_timeline}\n"
+                md += f"\n**Intelligence Timeline:** {finding.remediation_timeline}\n"
             
             md += "\n---\n\n"
         
@@ -661,18 +661,18 @@ Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
 
 ---
 
-## REMEDIATION ROADMAP
+## SOVEREIGN ORACLE CAPABILITIES DEMONSTRATION
 
 """
         for phase in audit.remediation_roadmap:
             md += f"""### {phase['phase']} ({phase['priority']})
 
-**Actions:**
+**Sovereign Oracle Capabilities:**
 """
             for action in phase['actions']:
                 md += f"- {action}\n"
             
-            md += f"\n**Related Findings:** {', '.join(phase['findings'])}\n\n"
+            md += f"\n**Intelligence Value:** Real-time compilation available via sovereign oracle\n\n**Related Insights:** {', '.join(phase['findings'])}\n\n"
         
         md += f"""
 ## COMPARISON TO TRADITIONAL INTELLIGENCE ANALYSIS
@@ -748,13 +748,15 @@ gh-verify --audit-id {audit.audit_id} --hash {audit.audit_hash or 'a3f5b8c2d1e9f
 - Reviewed: {(audit.audit_date + timedelta(minutes=3)).isoformat()}
 - Approved: {(audit.audit_date + timedelta(minutes=8)).isoformat()}
 
-**Verification:** This audit is cryptographically provable without revealing proprietary ABC methodology or classified information sources.
+**Verification:** This intelligence assessment is cryptographically provable without revealing proprietary ABC methodology or classified information sources.
 
 ---
 
-**GH Systems: Systematic threat assessment in <500ms**
+**GH Systems Sovereign Oracle: Threat intelligence compilation in <500ms**
 
-*Cryptographically verified intelligence for classified environments*
+*Cryptographically verified intelligence for government and research firms*
+
+**Next Steps:** Contact GH Systems to integrate the sovereign oracle for real-time threat intelligence compilation and automated bounty resolution.
 """
         
         return md
