@@ -44,6 +44,7 @@ ABC is an AI-driven ingestion engine that compiles raw threat telemetry (Chainal
 - **`hades/`** - Behavioral profiling engine (PyTorch implementation for risk scoring)
 - **`echo/`** - Coordination detection engine (network mapping, facilitator networks)
 - **`nemesis/`** - Pre-emptive targeting engine (AI-powered threat ontology)
+- **`nemesis/intelligence_audit/`** - Intelligence audit generator (for security researchers transitioning to intel)
 - **`hypnos/`** - Long-term memory system (pattern consolidation, dormant threat tracking)
 - **`settlements/`** - Fiat-to-BTC bridge for FAR-compliant government payments
 - **`nemesis/on_chain_receipt/`** - Cryptographic receipt system with Merkle trees
@@ -63,6 +64,32 @@ pip install -r requirements.txt
 # Run the compilation engine (Demo Mode)
 python -m src.main --mode=demo
 ```
+
+---
+
+## 🔍 Intelligence Audits (For Security Researchers)
+
+**The Metaphor:** If you've done security audits (Cantina, Spearbit, etc.), intelligence audits work the same way—just applied to threats instead of code.
+
+- **Same structure:** Findings with severity (P0-P3), methodology documentation, remediation roadmap
+- **Same methodology:** Systematic assessment, just different domain
+- **Easy transition:** Familiar format for security researchers getting into intelligence
+
+```python
+from nemesis.intelligence_audit import IntelligenceAuditGenerator, AuditType
+
+generator = IntelligenceAuditGenerator()
+audit = generator.generate_audit(
+    audit_type=AuditType.PRE_DEPLOYMENT,
+    target_scope="DoD AI Infrastructure",
+    behavioral_signature={...},
+    network_data={...},
+    threat_forecast={...}
+)
+markdown = generator.export_audit_markdown(audit)
+```
+
+See `nemesis/intelligence_audit/example_usage.py` for complete examples.
 
 ---
 
