@@ -1,4 +1,4 @@
-# GH SYSTEMS // SOVEREIGN ORACLE DEMONSTRATION
+# GH SYSTEMS // THREAT INTEL COMPILATION
 **Assessment Type:** Threat Intelligence Compilation
 **Target Scope:** Department of War & DHS AI Infrastructure
 **Assessment ID:** assessment_DoW_DHS_002_20251121

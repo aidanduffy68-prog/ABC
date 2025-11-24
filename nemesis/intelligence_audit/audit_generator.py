@@ -512,7 +512,7 @@ Traditional intelligence analysis: 14+ days → Sovereign oracle compilation: <5
     
     def export_audit_markdown(self, audit: IntelligenceAudit) -> str:
         """Export audit as markdown report"""
-        md = f"""# GH SYSTEMS // SOVEREIGN ORACLE DEMONSTRATION
+        md = f"""# GH SYSTEMS // THREAT INTEL COMPILATION
 **Assessment Type:** Threat Intelligence Compilation
 **Target Scope:** {audit.target_scope}
 **Assessment ID:** {audit.audit_id}
