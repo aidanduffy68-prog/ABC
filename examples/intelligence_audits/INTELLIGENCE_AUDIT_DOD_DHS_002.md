@@ -1,30 +1,50 @@
 # GH SYSTEMS // THREAT INTEL COMPILATION
-**Assessment Type:** Threat Intelligence Compilation
-**Target Scope:** Department of War & DHS AI Infrastructure
-**Assessment ID:** assessment_DoW_DHS_002_20251121
-**Date:** 2025-11-21T14:32:00Z
+
+**What is this?** This is a threat intelligence compilation—think security audit, but for intelligence. We analyze behavioral patterns, coordination networks, and threat indicators to produce actionable intelligence assessments.
+
+**Target:** Department of War & DHS AI Infrastructure  
+**Assessment ID:** assessment_DoW_DHS_002_20251121  
+**Date:** 2025-11-21T14:32:00Z  
 **Classification:** CONFIDENTIAL
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-This demonstration showcases GH Systems ABC Sovereign Oracle's capability to compile threat intelligence for Department of War & DHS AI Systems in <500ms. This assessment demonstrates how the sovereign oracle processes multi-source intelligence to provide objective, cryptographically verifiable threat assessments.
+**The Bottom Line:** GH Systems ABC Sovereign Oracle compiled a complete threat intelligence assessment for Department of War & DHS AI infrastructure in **<500ms** (vs. 14+ days traditional analysis).
 
-**Assessment Type:** Threat Intelligence Compilation
-**Threat Landscape:** Complex multi-agency environment
-**Overall Risk Score:** 88.00%
+**Overall Risk Score:** **88% (Critical)**
 
-**Key Intelligence Insights:**
-- Multi-agency threat landscape identified across Department of War & DHS AI systems
-- Coordination patterns detected across 3 primary systems
-- Behavioral pattern matches: 4 known threat patterns identified
+**What We Found:**
+- 3 primary threat indicators identified
+- Coordination patterns detected across 3 systems
+- 4 behavioral pattern matches to known threat methodologies
 
-**Overall Risk Score:** 88.00%
-**Primary Threat Indicators:** 3
+**How It Works:**
+1. **HADES** (Behavioral Profiling) → Identifies threat patterns
+2. **ECHO** (Coordination Detection) → Maps network relationships  
+3. **NEMESIS** (Threat Forecasting) → Generates targeting intelligence
 
-**Compilation Efficiency:**
-Traditional intelligence analysis: 14+ days → ABC compilation: <500ms
+**Result:** Cryptographically verifiable intelligence assessment with no political bias, instant consensus.
+
+---
+
+## KEY TAKEAWAYS (At a Glance)
+
+**Risk Level:** 🔴 **Critical (88%)**
+
+**Top 3 Findings:**
+1. **Multi-agency threat landscape** - Complex threat environment across DoW & DHS AI systems
+2. **Coordination patterns** - 3 systems showing coordinated threat indicators  
+3. **Behavioral matches** - 4 patterns matching known threat methodologies
+
+**Speed:** <500ms compilation (vs. 14+ days traditional)
+
+**What This Means:** The sovereign oracle successfully compiled a complete threat assessment in real-time, demonstrating its capability to resolve intelligence disputes objectively and instantly.
+
+<div align="center">
+  <img src="../../docs/oracle_resolution_flow.png" alt="Sovereign Oracle Resolution Flow" width="600"/>
+</div>
 
 ---
 
