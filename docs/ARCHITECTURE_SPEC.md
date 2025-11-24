@@ -128,7 +128,7 @@ See `nemesis/AI_THREAT_ONTOLOGY_SPEC.md` for complete architecture.
 - **Bitcoin bounty validation** – Treasury posted 10 BTC bounty; ABC submitted package; funds released automatically within 4 hours (vs. 18-month traditional procurement)
 - **AI-Powered Threat Ontology** – ABC now learns, evolves, and provides deeper intelligence than rule-based systems
 - **On-Chain Cryptographic Receipts** – Everything proprietary stays off-chain. Only minimal cryptographic proofs go on-chain, turning intelligence into verifiable objects
-- **Threat actor dossiers** – `examples/demo_dossiers/` (e.g., Lazarus Group) provide operational playbooks with Hades/Echo/Nemesis outputs
+- **Intelligence audits** – `examples/intelligence_audits/` provide systematic threat assessments in audit format
 
 ---
 
@@ -138,7 +138,7 @@ See `nemesis/AI_THREAT_ONTOLOGY_SPEC.md` for complete architecture.
 
 **Proof-of-Concept:** Federal AI security intelligence dossiers (NASA-001, DoD-DHS-002) demonstrate compilation capability for government AI infrastructure vulnerabilities. This positions GH Systems for intelligence in battlefields where crypto connects cyber and physical domains.
 
-See `examples/demo_dossiers/THREAT_DOSSIER_NASA_001.md` and `examples/demo_dossiers/THREAT_DOSSIER_DOD_DHS_002.md` for examples.
+See `examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md` and `examples/intelligence_audits/THREAT_DOSSIER_NASA_001.md` for examples.
 
 ---
 

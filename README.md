@@ -120,7 +120,7 @@ This system is designed for Defense & Intelligence use cases. For the full opera
 
 - **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
 - **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Central sales framework
-- **[📊 Intelligence Audit Examples](examples/demo_dossiers/)** - Operational audit examples
+- **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational audit examples
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[📖 Glossary](GLOSSARY.md)** - Maps Greek god names to engineering domains
 
