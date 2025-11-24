@@ -1,5 +1,5 @@
-# ABC: Adversarial Behavior Compiler (v2.0)
-**High-Frequency Threat Intelligence System for Crypto-Native Defense**
+# GH Systems ABC: The Intelligence Oracle
+**Cryptographically Verifiable Intelligence in <500ms**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
 ![FastAPI](https://img.shields.io/badge/FastAPI-High_Performance-green?style=flat-square)
@@ -11,6 +11,44 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 <div align="left">
   <img src="Deal%20Room/Assets/gh-systems-logo.png" alt="GH Systems Logo" width="150"/>
 </div>
+
+---
+
+## ⚖️ The Intelligence Oracle
+
+**GH Systems ABC is the UMA Oracle for Intelligence** — resolving disputes, verifying threats, and providing objective truth in <500ms.
+
+Just as **Polymarket uses UMA** to resolve prediction markets and **Cantina uses experts** to verify bugs, **GH Systems ABC** provides cryptographically verifiable intelligence assessments for government and private sector.
+
+**The Problem:** Intelligence disputes take 14+ days, are subjective, unverifiable, and agencies disagree.
+
+**The Solution:** Objective threat assessments in <500ms with cryptographic proof—instant consensus, no political bias.
+
+**Use Cases:**
+- **Intelligence Bounty Resolution** — Automatically evaluate submissions, determine winners
+- **Inter-Agency Dispute Resolution** — Resolve disagreements with objective assessments
+- **Real-Time Threat Verification** — Instant threat assessment vs. 14-day investigations
+- **Private Sector Licensing** — Exchange risk scoring, DeFi security, custody compliance
+
+**Value Prop:** Trustless, automated, verifiable intelligence resolution—same model as DeFi oracles, applied to intelligence.
+
+See **[Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** for complete sales framework.
+
+---
+
+## The Oracle Comparison
+
+| Platform | Oracle | Problem | Solution |
+|----------|--------|---------|----------|
+| **Polymarket** | UMA Oracle | Who won? What's the truth? | Decentralized truth verification |
+| **Cantina** | Expert Triage | Is this a real bug? | Expert review + reputation |
+| **Government** | **GH Systems ABC** | Is this a threat? What's the risk? | **Cryptographically verifiable intelligence in <500ms** |
+| **Crypto Intelligence Platforms** | **GH Systems ABC (Licensed)** | Real-time wallet risk? Exchange security? | **White-label API or custom deployment** |
+
+**Private Sector Licensing:**
+- **Platform Licensing:** $500K-$2M/year (white-label ABC for crypto intelligence platforms)
+- **API Access:** $0.10-$1.00 per compilation (exchanges, DeFi protocols)
+- **Custom Deployments:** $1M-$5M one-time (institutional custody, large exchanges)
 
 ---
 
@@ -59,42 +97,6 @@ ABC is an AI-driven ingestion engine that compiles raw threat telemetry (Chainal
 - **Same structure:** Findings with severity (P0-P3), methodology documentation, remediation roadmap
 - **Same methodology:** Systematic assessment, just different domain
 - **Easy transition:** Familiar format for security researchers getting into intelligence
-
----
-
-## ⚖️ ABC as Intelligence Oracle
-
-**The Oracle Comparison:**
-
-| Platform | Oracle | Problem | Solution |
-|----------|--------|---------|----------|
-| **Polymarket** | UMA Oracle | Who won? What's the truth? | Decentralized truth verification |
-| **Cantina** | Expert Triage | Is this a real bug? | Expert review + reputation |
-| **Government** | **GH Systems ABC** | Is this a threat? What's the risk? | **Cryptographically verifiable intelligence in <500ms** |
-| **Crypto Intelligence Platforms** | **GH Systems ABC (Licensed)** | Real-time wallet risk? Exchange security? | **White-label API or custom deployment** |
-
-**The Intelligence Oracle Problem:**
-
-**Current State:** Government disputes take 14+ days, are subjective, unverifiable, and agencies disagree.
-
-**ABC Solution:** Objective threat assessments in <500ms with cryptographic proof—instant consensus, no political bias.
-
-**Use Cases:**
-
-1. **Intelligence Bounty Resolution** — Automatically evaluate submissions, determine winners based on verifiable metrics
-2. **Inter-Agency Dispute Resolution** — Resolve disagreements with objective, cryptographically provable assessments
-3. **Real-Time Threat Verification** — Instant threat assessment vs. 14-day investigations
-
-**Value Prop:** "The UMA Oracle for Intelligence" — Trustless, automated, verifiable intelligence resolution.
-
-**Private Sector Licensing:**
-- **Platform Licensing:** $500K-$2M/year (white-label ABC for crypto intelligence platforms)
-- **API Access:** $0.10-$1.00 per compilation (exchanges, DeFi protocols)
-- **Custom Deployments:** $1M-$5M one-time (institutional custody, large exchanges)
-
-**Use Cases:** Exchange risk scoring, DeFi protocol security, custody compliance, KYC/AML automation
-
-See **[Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** for complete sales framework.
 
 ```python
 from nemesis.intelligence_audit import IntelligenceAuditGenerator, AuditType
