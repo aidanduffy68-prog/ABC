@@ -52,21 +52,6 @@ ABC is an AI-driven ingestion engine that compiles raw threat telemetry (Chainal
 
 ---
 
-## 🚀 Setup & Usage
-
-```bash
-# Clone the repo
-git clone https://github.com/aidanduffy68-prog/ABC.git
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the compilation engine (Demo Mode)
-python -m src.main --mode=demo
-```
-
----
-
 ## 🔍 Intelligence Audits (For Security Researchers)
 
 **The Metaphor:** If you've done security audits (Cantina, Spearbit, etc.), intelligence audits work the same way—just applied to threats instead of code.
@@ -86,6 +71,7 @@ python -m src.main --mode=demo
 | **Polymarket** | UMA Oracle | Who won? What's the truth? | Decentralized truth verification |
 | **Cantina** | Expert Triage | Is this a real bug? | Expert review + reputation |
 | **Government** | **GH Systems ABC** | Is this a threat? What's the risk? | **Cryptographically verifiable intelligence in <500ms** |
+| **Crypto Intelligence Platforms** | **GH Systems ABC (Licensed)** | Real-time wallet risk? Exchange security? | **White-label API or custom deployment** |
 
 **The Intelligence Oracle Problem:**
 
@@ -99,7 +85,14 @@ python -m src.main --mode=demo
 2. **Inter-Agency Dispute Resolution** — Resolve disagreements with objective, cryptographically provable assessments
 3. **Real-Time Threat Verification** — Instant threat assessment vs. 14-day investigations
 
-**Value Prop:** "The UMA Oracle for Government Intelligence" — Trustless, automated, verifiable intelligence resolution.
+**Value Prop:** "The UMA Oracle for Intelligence" — Trustless, automated, verifiable intelligence resolution.
+
+**Private Sector Licensing:**
+- **Platform Licensing:** $500K-$2M/year (white-label ABC for crypto intelligence platforms)
+- **API Access:** $0.10-$1.00 per compilation (exchanges, DeFi protocols)
+- **Custom Deployments:** $1M-$5M one-time (institutional custody, large exchanges)
+
+**Use Cases:** Exchange risk scoring, DeFi protocol security, custody compliance, KYC/AML automation
 
 See **[Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** for complete sales framework.
 
