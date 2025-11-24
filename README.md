@@ -75,6 +75,34 @@ python -m src.main --mode=demo
 - **Same methodology:** Systematic assessment, just different domain
 - **Easy transition:** Familiar format for security researchers getting into intelligence
 
+---
+
+## ⚖️ ABC as Intelligence Oracle
+
+**The Oracle Comparison:**
+
+| Platform | Oracle | Problem | Solution |
+|----------|--------|---------|----------|
+| **Polymarket** | UMA Oracle | Who won? What's the truth? | Decentralized truth verification |
+| **Cantina** | Expert Triage | Is this a real bug? | Expert review + reputation |
+| **Government** | **GH Systems ABC** | Is this a threat? What's the risk? | **Cryptographically verifiable intelligence in <500ms** |
+
+**The Intelligence Oracle Problem:**
+
+**Current State:** Government disputes take 14+ days, are subjective, unverifiable, and agencies disagree.
+
+**ABC Solution:** Objective threat assessments in <500ms with cryptographic proof—instant consensus, no political bias.
+
+**Use Cases:**
+
+1. **Intelligence Bounty Resolution** — Automatically evaluate submissions, determine winners based on verifiable metrics
+2. **Inter-Agency Dispute Resolution** — Resolve disagreements with objective, cryptographically provable assessments
+3. **Real-Time Threat Verification** — Instant threat assessment vs. 14-day investigations
+
+**Value Prop:** "The UMA Oracle for Government Intelligence" — Trustless, automated, verifiable intelligence resolution.
+
+See **[Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** for complete sales framework.
+
 ```python
 from nemesis.intelligence_audit import IntelligenceAuditGenerator, AuditType
 
@@ -98,7 +126,8 @@ See `nemesis/intelligence_audit/example_usage.py` for complete examples.
 This system is designed for Defense & Intelligence use cases. For the full operational specification, including the Semantic Understanding Layer and Predictive Threat Modeling, please see:
 
 - **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
-- **[📊 Threat Dossier Examples](examples/demo_dossiers/)** - Operational playbook examples
+- **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Central sales framework
+- **[📊 Intelligence Audit Examples](examples/demo_dossiers/)** - Operational audit examples
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[📖 Glossary](GLOSSARY.md)** - Maps Greek god names to engineering domains
 
