@@ -1,6 +1,6 @@
 # GH SYSTEMS // THREAT INTEL COMPILATION
 
-**What is this?** This is a threat intelligence compilation—think security audit, but for intelligence. We analyze behavioral patterns, coordination networks, and threat indicators to produce actionable intelligence assessments.
+**What is this?** This is a threat intelligence compilation think security audit, but for intelligence. We analyze behavioral patterns, coordination networks, and threat indicators to produce actionable intelligence assessments.
 
 **Assessment Type:** Threat Intelligence Compilation
 
@@ -40,10 +40,6 @@ GH Systems' ABC Sovereign Oracle delivers real-time threat intelligence for Trea
 **Speed:** <500ms | **Frameworks:** HADES (profiling), ECHO (networks), NEMESIS (forecasting).
 
 **Impact:** Enables bias-free consensus for Treasury's financial security.
-
-<div align="center">
-  <img src="../../docs/oracle_resolution_flow.png" alt="Sovereign Oracle Resolution Flow" width="600"/>
-</div>
 
 ---
 
@@ -92,10 +88,15 @@ GH Systems' ABC Sovereign Oracle delivers real-time threat intelligence for Trea
 
 ## KNOWN ISSUES & LIMITATIONS
 
-| Issue | Status | Impact | Mitigation |
-|-------|--------|--------|------------|
-| #1: Limited Classified Access | Acknowledged | Unclassified-only analysis | Minimum risk baseline; integrate classified feeds. |
-| #2: Rapid AI Deployment Pace | Ongoing | Evolving threats | Continuous oracle monitoring. |
+**Issue #1: Limited Classified Access**
+- **Status:** Acknowledged
+- **Impact:** Unclassified-only analysis
+- **Mitigation:** Minimum risk baseline; integrate classified feeds
+
+**Issue #2: Rapid AI Deployment Pace**
+- **Status:** Ongoing
+- **Impact:** Evolving threats
+- **Mitigation:** Continuous oracle monitoring
 
 ---
 
@@ -195,12 +196,6 @@ GH Systems' ABC Sovereign Oracle delivers real-time threat intelligence for Trea
 | Sanctions Automation | 87% | Crypto enforcement trends |
 | Coordination Gaps | 82% | Cross-bureau silos |
 | Crypto Dependencies | 85% | AML AI models |
-
-<div align="center">
-  <img src="../../Deal%20Room/Assets/treasury_risk_score_breakdown.png" alt="Treasury AI Infrastructure Risk Scores" width="800"/>
-  
-  *Risk scores by category: All critical thresholds exceeded*
-</div>
 
 **Insights:**
 - **Financial Integration:** Dynamic landscapes in sanctions/crime AI; supply chain ops.
