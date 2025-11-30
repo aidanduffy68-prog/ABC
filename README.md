@@ -66,16 +66,10 @@ With the **Genesis Mission** launching the largest AI infrastructure deployment 
 
 ---
 
-## ⚡ Quick Summary (TL;DR)
-
-ABC compiles raw threat telemetry into actionable intelligence packages in **<500ms** (vs. 14+ days traditional). Key features: **Behavioral Graph** (GNN clustering), **Event-Driven Pipeline** (async ingestion), **Deterministic Schemas** (Pydantic validation), **Cryptographic Provenance** (Merkle-tree proofs).
-
----
-
 ## 🏗 System Architecture
 
 <div align="center">
-  <img src="docs/ontology_to_target_intel.png" alt="ABC System Architecture: Ontology to Target Intelligence" width="800"/>
+  <img src="docs/new_ontology.png" alt="ABC System Architecture: Ontology to Target Intelligence" width="800"/>
 </div>
 
 ---
@@ -94,26 +88,6 @@ ABC compiles raw threat telemetry into actionable intelligence packages in **<50
 - **`settlements/`** - Fiat-to-BTC bridge for FAR-compliant government payments
 - **`nemesis/on_chain_receipt/`** - Cryptographic receipt system with Merkle trees
 - **`docs/`** - Full Whitepaper and Defense-Grade Specifications
-
----
-
-## 🔍 Intelligence Audits (For Security Researchers)
-
-**The Metaphor:** If you've done security audits (Cantina, Spearbit, etc.), intelligence audits work the same way—just applied to threats instead of code. Same structure (P0-P3 findings), same methodology, familiar format.
-
-```python
-from nemesis.intelligence_audit import IntelligenceAuditGenerator, AuditType
-
-generator = IntelligenceAuditGenerator()
-audit = generator.generate_audit(
-    audit_type=AuditType.PRE_DEPLOYMENT,
-    target_scope="DoD AI Infrastructure",
-    behavioral_signature={...},
-    network_data={...},
-    threat_forecast={...}
-)
-markdown = generator.export_audit_markdown(audit)
-```
 
 ---
 
