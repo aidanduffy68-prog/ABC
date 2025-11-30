@@ -81,6 +81,7 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 - **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Sales framework
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
+- **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
 
 ---
 
