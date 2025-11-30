@@ -71,7 +71,7 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 
 ## 📖 Full Documentation
 
-- **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
+- **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec (includes current status)
 - **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Sales framework
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
@@ -90,11 +90,9 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 
 ---
 
-## 🎯 Current Status
+## 🎯 Mission
 
-**Core ingestion pipeline is production-ready.** Advanced AI features (GNN inference, vector DB) are in active development.
-
-See [Current Status](docs/ARCHITECTURE_SPEC.md#current-status) for detailed implementation status.
+**GH Systems' ultimate goal is to industrialize the crypto intelligence industry.** We're building the infrastructure layer that standardizes, automates, and operationalizes intelligence workflows—transforming fragmented, artisanal processes into a unified, scalable system that enables coherent, strategic action at national scale.
 
 ---
 
