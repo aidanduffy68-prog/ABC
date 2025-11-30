@@ -54,18 +54,24 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 
 ## 📂 Repository Map (Where the Code Lives)
 
-- **`src/core/ingestion/`** - Adapters for external APIs and data normalization logic
-- **`src/schemas/`** - Strict Pydantic definitions for Threat Actors and Events
-- **`src/api/routes/`** - FastAPI endpoints for the intelligence dashboard
-- **`src/graph/builder.py`** - NetworkX graph manipulation and relationship inference
+**Core Engines (`src/core/`):**
 - **`hades/`** - Behavioral profiling engine (PyTorch implementation for risk scoring)
 - **`echo/`** - Coordination detection engine (network mapping, facilitator networks)
 - **`nemesis/`** - Pre-emptive targeting engine (AI-powered threat ontology)
-- **`nemesis/intelligence_audit/`** - Intelligence audit generator (for security researchers transitioning to intel)
 - **`hypnos/`** - Long-term memory system (pattern consolidation, dormant threat tracking)
+
+**Infrastructure (`src/`):**
+- **`ingestion/`** - Adapters for external APIs and data normalization logic
+- **`schemas/`** - Strict Pydantic definitions for Threat Actors and Events
+- **`api/routes/`** - FastAPI endpoints for the intelligence dashboard
+- **`graph/`** - NetworkX graph manipulation and relationship inference
 - **`settlements/`** - Fiat-to-BTC bridge for FAR-compliant government payments
+
+**Additional:**
+- **`nemesis/intelligence_audit/`** - Intelligence audit generator (for security researchers transitioning to intel)
 - **`nemesis/on_chain_receipt/`** - Cryptographic receipt system with Merkle trees
 - **`docs/`** - Full Whitepaper and Defense-Grade Specifications
+- **`examples/`** - Intelligence audit examples and demonstrations
 
 ---
 
@@ -87,12 +93,6 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 - **PyTorch Geometric** - Graph Neural Networks (in development)
 - **Bitcoin** - On-chain cryptographic receipts (OP_RETURN)
 - **PostgreSQL/Neo4j** - Graph database for Hypnos Core
-
----
-
-## 🎯 Mission
-
-**GH Systems' ultimate goal is to industrialize the crypto intelligence industry.** We're building the infrastructure layer that standardizes, automates, and operationalizes intelligence workflows—transforming fragmented, artisanal processes into a unified, scalable system that enables coherent, strategic action at national scale.
 
 ---
 

@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from datetime import datetime
 import json
 
-from data_schemas.actor_schema import Actor, Event, Pattern, TargetingPackage
+from src.schemas.actor_schema import Actor, Event, Pattern, TargetingPackage
 
 
 @dataclass

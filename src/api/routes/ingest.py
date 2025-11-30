@@ -13,7 +13,7 @@ import logging
 
 from src.schemas.threat_actor import ThreatActor, ActorType
 try:
-    from core.ingestion.validator import IngestionValidator, ValidationError
+    from src.ingestion.validator import IngestionValidator, ValidationError
 except ImportError:
     # Fallback if validator not available
     from typing import List as ValidationErrorList
