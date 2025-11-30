@@ -12,6 +12,7 @@ from datetime import datetime
 import logging
 
 from src.schemas.threat_actor import ThreatActor, ActorType
+from src.core.middleware.log_sanitizer import safe_log
 try:
     from src.ingestion.validator import IngestionValidator, ValidationError
 except ImportError:
@@ -38,13 +39,20 @@ router = APIRouter(prefix="/api/v1/ingest", tags=["ingestion"])
 
 class IngestRequest(BaseModel):
     """Request model for ingestion endpoint"""
-    vendor: str = Field(..., description="Vendor name (Chainalysis, TRM, Chaos, etc.)", min_length=1)
+    vendor: str = Field(..., description="Vendor name (Chainalysis, TRM, Chaos, etc.)", min_length=1, max_length=50)
     timestamp: datetime = Field(default_factory=datetime.now, description="Feed timestamp")
-    data: List[Dict[str, Any]] = Field(..., description="Array of entity data", min_items=1)
+    data: List[Dict[str, Any]] = Field(..., description="Array of entity data", min_items=1, max_items=10000)
     
     @validator('vendor')
     def validate_vendor(cls, v):
-        """Validate vendor name"""
+        """Validate vendor name - SECURITY: Whitelist approach"""
+        import re
+        # Strip whitespace
+        v = v.strip()
+        # Validate format (alphanumeric and spaces only)
+        if not re.match(r'^[a-zA-Z0-9\s]+$', v):
+            raise ValueError("vendor contains invalid characters")
+        # Whitelist valid vendors
         valid_vendors = ["Chainalysis", "TRM", "Chaos", "Custom"]
         if v not in valid_vendors:
             raise ValueError(f"vendor must be one of {valid_vendors}")
@@ -52,9 +60,11 @@ class IngestRequest(BaseModel):
     
     @validator('data')
     def validate_data_not_empty(cls, v):
-        """Validate data array is not empty"""
+        """Validate data array - SECURITY: Size limits"""
         if not v:
             raise ValueError("data array cannot be empty")
+        if len(v) > 10000:
+            raise ValueError("data array too large (max 10000 items)")
         return v
 
 
@@ -85,6 +95,8 @@ class IngestError(BaseModel):
         500: {"model": IngestError, "description": "Internal server error"}
     }
 )
+# SECURITY: Note - Authentication should be added via middleware
+# Example: dependencies=[Depends(verify_fastapi_token)]
 async def ingest_vendor_feed(
     request: IngestRequest,
     validator: IngestionValidator = Depends(lambda: IngestionValidator())
@@ -105,8 +117,9 @@ async def ingest_vendor_feed(
         HTTPException: 400 if validation fails, 500 if ingestion fails
     """
     try:
-        logger.info(f"Ingesting feed from vendor: {request.vendor}")
-        logger.info(f"Feed contains {len(request.data)} entities")
+        # SECURITY: Use safe logging to prevent sensitive data leakage
+        safe_log(logger, 'info', 'Ingesting feed from vendor: %s', request.vendor)
+        safe_log(logger, 'info', 'Feed contains %d entities', len(request.data))
         
         # Step 1: Validate feed structure
         is_valid, errors, warnings = validator.validate_vendor_feed(

@@ -5,6 +5,7 @@ Automated monitoring and vulnerability detection for government AI infrastructur
 Copyright (c) 2025 GH Systems. All rights reserved.
 """
 
+import os
 import requests
 import time
 from typing import Dict, Any, List, Optional
@@ -81,8 +82,20 @@ class FederalAIMonitor:
         api_vulnerabilities = []
         
         try:
+            # SECURITY: Use environment variable for API key
+            api_key = os.getenv('FEDERAL_AI_API_KEY', '')
+            if not api_key:
+                # Skip API test if no key configured (secure default)
+                api_vulnerabilities.append({
+                    "type": "api_configuration_missing",
+                    "severity": "low",
+                    "description": "API key not configured - skipping test",
+                    "confidence": 0.5
+                })
+                return api_vulnerabilities
+            
             # Test API endpoint
-            response = requests.get(api_endpoint, params={"api_key": "DEMO_KEY"}, timeout=5)
+            response = requests.get(api_endpoint, params={"api_key": api_key}, timeout=5)
             if response.status_code == 403:
                 api_vulnerabilities.append({
                     "type": "api_authentication_bypass",

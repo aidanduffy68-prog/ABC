@@ -5,6 +5,8 @@ WebSocket and REST API for real-time threat intelligence delivery
 Copyright (c) 2025 GH Systems. All rights reserved.
 """
 
+import os
+import secrets
 from flask import Flask, jsonify, request
 from flask_socketio import SocketIO, emit
 from typing import Dict, Any, List, Optional
@@ -15,23 +17,47 @@ from src.core.nemesis.compilation_engine import ABCCompilationEngine, CompiledIn
 from src.core.nemesis.signal_intake.federal_ai_monitor import FederalAIMonitor, monitor_federal_ai_systems
 from src.core.nemesis.real_time_platform.alert_system import alert_system
 from src.core.nemesis.on_chain_receipt.bitcoin_integration import BitcoinOnChainIntegration
+from src.core.middleware.auth import require_auth, require_role
+from src.core.middleware.rate_limit import rate_limit
+from src.core.middleware.log_sanitizer import safe_log
+from src.core.middleware.request_limits import limit_request_size, check_request_size
+from src.core.middleware.error_handler import register_flask_error_handlers, SecureErrorHandler
+from src.core.middleware.audit_log import log_intelligence_compiled, log_federal_ai_scan
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'gh-systems-abc-platform'
-socketio = SocketIO(app, cors_allowed_origins="*")
+# SECURITY: Use environment variable for secret key, generate random if not set
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', secrets.token_hex(32))
+
+# SECURITY: CORS configuration from environment variable
+allowed_origins = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if os.getenv('CORS_ALLOWED_ORIGINS') else []
+if not allowed_origins or allowed_origins == ['']:
+    # Default to no CORS if not configured (most secure)
+    allowed_origins = []
+socketio = SocketIO(app, cors_allowed_origins=allowed_origins if allowed_origins else None)
 
 # Initialize engines
 compilation_engine = ABCCompilationEngine()
 federal_monitor = FederalAIMonitor()
 bitcoin_integration = BitcoinOnChainIntegration()
 
+# SECURITY: Register error handlers
+register_flask_error_handlers(app)
+
+# SECURITY: Add request size limit check
+@app.before_request
+def before_request():
+    """Check request size before processing"""
+    result = check_request_size()
+    if result:
+        return result
+
 
 # REST API Endpoints
 
 @app.route('/api/v1/health', methods=['GET'])
 def health_check():
-    """Health check endpoint"""
+    """Health check endpoint (public, no auth required)"""
     return jsonify({
         "status": "healthy",
         "version": "1.0.0",
@@ -40,6 +66,9 @@ def health_check():
 
 
 @app.route('/api/v1/compile', methods=['POST'])
+@require_auth  # SECURITY: Require authentication
+@rate_limit(max_requests=10, window_seconds=60)  # SECURITY: Rate limiting
+@limit_request_size(max_size=10 * 1024 * 1024)  # SECURITY: 10MB limit
 def compile_intelligence():
     """
     Compile intelligence through Hades → Echo → Nemesis pipeline
@@ -56,14 +85,27 @@ def compile_intelligence():
     try:
         data = request.json or {}
         
-        actor_id = data.get('actor_id')
-        actor_name = data.get('actor_name', actor_id)
+        # SECURITY: Input validation and sanitization
+        actor_id = data.get('actor_id', '').strip()
+        actor_name = data.get('actor_name', actor_id).strip()
         raw_intelligence = data.get('raw_intelligence', [])
         transaction_data = data.get('transaction_data')
         network_data = data.get('network_data')
         
-        if not actor_id:
-            return jsonify({"error": "actor_id is required"}), 400
+        # Validate actor_id format (alphanumeric, underscore, hyphen only)
+        import re
+        if not actor_id or not re.match(r'^[a-zA-Z0-9_-]+$', actor_id):
+            return jsonify({"error": "Invalid actor_id format"}), 400
+        
+        if len(actor_id) > 100:
+            return jsonify({"error": "actor_id too long (max 100 characters)"}), 400
+        
+        # SECURITY: Log sanitized request
+        safe_log(app.logger, 'info', 'Compiling intelligence for actor: %s', actor_id)
+        
+        # SECURITY: Audit log intelligence compilation
+        user_id = getattr(g, 'user_id', 'anonymous')
+        ip_address = request.remote_addr or request.environ.get('HTTP_X_FORWARDED_FOR', 'unknown')
         
         # Compile intelligence
         compiled = compilation_engine.compile_intelligence(
@@ -116,6 +158,14 @@ def compile_intelligence():
                 "timestamp": alert.created_at.isoformat()
             })
         
+        # SECURITY: Audit log successful compilation
+        log_intelligence_compiled(
+            user_id=user_id,
+            ip_address=ip_address,
+            actor_id=actor_id,
+            compilation_id=compiled.compilation_id
+        )
+        
         # Return compiled intelligence
         return jsonify({
             "status": "success",
@@ -129,10 +179,14 @@ def compile_intelligence():
         }), 200
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        # SECURITY: Use secure error handling
+        return SecureErrorHandler.handle_flask_error(e)
 
 
 @app.route('/api/v1/federal-ai/scan', methods=['POST'])
+@require_auth  # SECURITY: Require authentication
+@require_role('admin', 'operator')  # SECURITY: Require elevated privileges
+@rate_limit(max_requests=5, window_seconds=60)  # SECURITY: Stricter rate limit for sensitive operations
 def scan_federal_ai():
     """
     Scan federal AI systems for vulnerabilities
@@ -144,7 +198,12 @@ def scan_federal_ai():
     """
     try:
         data = request.json or {}
+        # SECURITY: Input validation
         agencies = data.get('agencies', ['NASA', 'DoD', 'DHS'])
+        if not isinstance(agencies, list):
+            return jsonify({"error": "agencies must be a list"}), 400
+        if len(agencies) > 10:
+            return jsonify({"error": "Too many agencies (max 10)"}), 400
         
         systems = []
         if 'NASA' in agencies:
@@ -175,6 +234,15 @@ def scan_federal_ai():
             ]
         }
         alerts = alert_system.evaluate_federal_ai_scan(scan_data)
+        
+        # SECURITY: Audit log federal AI scan
+        user_id = getattr(g, 'user_id', 'anonymous')
+        ip_address = request.remote_addr or request.environ.get('HTTP_X_FORWARDED_FOR', 'unknown')
+        log_federal_ai_scan(
+            user_id=user_id,
+            ip_address=ip_address,
+            agencies=agencies
+        )
         
         # Emit real-time update
         socketio.emit('federal_ai_scan_complete', {
@@ -221,10 +289,13 @@ def scan_federal_ai():
         }), 200
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        # SECURITY: Use secure error handling
+        return SecureErrorHandler.handle_flask_error(e)
 
 
 @app.route('/api/v1/alerts', methods=['GET'])
+@require_auth  # SECURITY: Require authentication
+@rate_limit(max_requests=20, window_seconds=60)  # SECURITY: Rate limiting
 def get_alerts():
     """Get active alerts"""
     from src.core.nemesis.real_time_platform.alert_system import AlertSeverity
@@ -260,6 +331,9 @@ def get_alerts():
 
 
 @app.route('/api/v1/alerts/<alert_id>/acknowledge', methods=['POST'])
+@require_auth  # SECURITY: Require authentication
+@require_role('admin', 'operator')  # SECURITY: Require elevated privileges
+@rate_limit(max_requests=10, window_seconds=60)  # SECURITY: Rate limiting
 def acknowledge_alert(alert_id):
     """Acknowledge alert"""
     success = alert_system.acknowledge_alert(alert_id)
@@ -271,6 +345,8 @@ def acknowledge_alert(alert_id):
 
 
 @app.route('/api/v1/alerts/stats', methods=['GET'])
+@require_auth  # SECURITY: Require authentication
+@rate_limit(max_requests=30, window_seconds=60)  # SECURITY: Rate limiting
 def get_alert_stats():
     """Get alert statistics"""
     stats = alert_system.get_alert_stats()
@@ -278,6 +354,8 @@ def get_alert_stats():
 
 
 @app.route('/api/v1/receipts/verify', methods=['POST'])
+@require_auth  # SECURITY: Require authentication
+@rate_limit(max_requests=20, window_seconds=60)  # SECURITY: Rate limiting
 def verify_receipt():
     """Verify cryptographic receipt"""
     from src.core.nemesis.on_chain_receipt.receipt_verifier import ReceiptVerifier
@@ -297,6 +375,10 @@ def verify_receipt():
 
 
 @app.route('/api/v1/federal-ai/compile', methods=['POST'])
+@require_auth  # SECURITY: Require authentication
+@require_role('admin', 'operator')  # SECURITY: Require elevated privileges
+@rate_limit(max_requests=5, window_seconds=60)  # SECURITY: Stricter rate limit
+@limit_request_size(max_size=10 * 1024 * 1024)  # SECURITY: 10MB limit
 def compile_federal_ai_intelligence():
     """
     Compile federal AI security intelligence
@@ -311,12 +393,21 @@ def compile_federal_ai_intelligence():
     try:
         data = request.json or {}
         
-        target_agency = data.get('target_agency')
+        # SECURITY: Input validation
+        target_agency = data.get('target_agency', '').strip()
         ai_system_data = data.get('ai_system_data', {})
         vulnerability_data = data.get('vulnerability_data', [])
         
         if not target_agency:
             return jsonify({"error": "target_agency is required"}), 400
+        
+        # Validate target_agency format
+        import re
+        if not re.match(r'^[a-zA-Z0-9\s_-]+$', target_agency):
+            return jsonify({"error": "Invalid target_agency format"}), 400
+        
+        if len(target_agency) > 100:
+            return jsonify({"error": "target_agency too long (max 100 characters)"}), 400
         
         # Compile federal AI intelligence
         compiled = compilation_engine.compile_federal_ai_intelligence(
@@ -346,7 +437,8 @@ def compile_federal_ai_intelligence():
         }), 200
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        # SECURITY: Use secure error handling
+        return SecureErrorHandler.handle_flask_error(e)
 
 
 # WebSocket Events
@@ -372,8 +464,12 @@ def handle_subscribe(data):
 
 
 if __name__ == '__main__':
+    # SECURITY: Disable debug mode in production
+    debug_mode = os.getenv('DEBUG', 'false').lower() == 'true'
+    
     print("Starting ABC Real-Time Threat Intelligence Platform...")
     print("API: http://localhost:5000")
     print("WebSocket: ws://localhost:5000")
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    print(f"Debug mode: {debug_mode}")
+    socketio.run(app, host='0.0.0.0', port=5000, debug=debug_mode)
 

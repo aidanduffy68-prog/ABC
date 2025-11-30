@@ -14,9 +14,18 @@ from collections import defaultdict
 from .api_server import compilation_engine, federal_monitor
 
 
+import os
+import secrets
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'gh-systems-dashboard'
-socketio = SocketIO(app, cors_allowed_origins="*")
+# SECURITY: Use environment variable for secret key, generate random if not set
+app.config['SECRET_KEY'] = os.getenv('DASHBOARD_SECRET_KEY', secrets.token_hex(32))
+
+# SECURITY: CORS configuration from environment variable
+allowed_origins = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if os.getenv('CORS_ALLOWED_ORIGINS') else []
+if not allowed_origins or allowed_origins == ['']:
+    allowed_origins = []
+socketio = SocketIO(app, cors_allowed_origins=allowed_origins if allowed_origins else None)
 
 # In-memory storage (in production, use database)
 threat_store = {
