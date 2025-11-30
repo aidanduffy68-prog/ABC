@@ -1,0 +1,9 @@
+# Security Dependencies for GH Systems ABC
+# Install with: pip install -r requirements-security.txt
+
+# JWT Authentication
+PyJWT>=2.8.0
+
+# Note: These are additional security dependencies
+# The main requirements.txt should also include these
+
