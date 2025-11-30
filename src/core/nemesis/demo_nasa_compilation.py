@@ -10,10 +10,10 @@ import requests
 import json
 from datetime import datetime
 
-from nemesis.compilation_engine import ABCCompilationEngine
-from nemesis.signal_intake.federal_ai_monitor import FederalAIMonitor
-from nemesis.on_chain_receipt.bitcoin_integration import BitcoinOnChainIntegration
-from nemesis.on_chain_receipt.receipt_verifier import ReceiptVerifier
+from src.core.nemesis.compilation_engine import ABCCompilationEngine
+from src.core.nemesis.signal_intake.federal_ai_monitor import FederalAIMonitor
+from src.core.nemesis.on_chain_receipt.bitcoin_integration import BitcoinOnChainIntegration
+from src.core.nemesis.on_chain_receipt.receipt_verifier import ReceiptVerifier
 
 
 def demo_nasa_compilation():

@@ -190,7 +190,7 @@ class ThreatDossierGenerator:
         # Lazy import
         if self._receipt_generator is None:
             try:
-                from nemesis.on_chain_receipt import CryptographicReceiptGenerator
+                from src.core.nemesis.on_chain_receipt import CryptographicReceiptGenerator
                 self._receipt_generator = CryptographicReceiptGenerator()
             except ImportError:
                 # If receipt system not available, return None

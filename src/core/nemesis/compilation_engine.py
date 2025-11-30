@@ -11,12 +11,12 @@ from datetime import datetime
 from dataclasses import dataclass, field, asdict
 
 # Import AI ontology components
-from nemesis.ai_ontology.integration_layer import ABCIntegrationLayer
-from nemesis.ai_ontology.behavioral_signature import AIHadesProfiler, BehavioralSignature
-from nemesis.ai_ontology.relationship_inference import RelationshipInferenceEngine, InferredRelationship
-from nemesis.ai_ontology.predictive_modeling import PredictiveThreatModel, ThreatForecast
-from nemesis.ai_ontology.threat_dossier_generator import ThreatDossierGenerator, ThreatDossier
-from nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator, IntelligenceReceipt
+from src.core.nemesis.ai_ontology.integration_layer import ABCIntegrationLayer
+from src.core.nemesis.ai_ontology.behavioral_signature import AIHadesProfiler, BehavioralSignature
+from src.core.nemesis.ai_ontology.relationship_inference import RelationshipInferenceEngine, InferredRelationship
+from src.core.nemesis.ai_ontology.predictive_modeling import PredictiveThreatModel, ThreatForecast
+from src.core.nemesis.ai_ontology.threat_dossier_generator import ThreatDossierGenerator, ThreatDossier
+from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator, IntelligenceReceipt
 
 
 @dataclass

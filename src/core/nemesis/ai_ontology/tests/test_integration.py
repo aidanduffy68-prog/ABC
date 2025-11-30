@@ -4,7 +4,7 @@ Integration tests for AI ontology components
 
 import unittest
 from datetime import datetime
-from nemesis.ai_ontology import ABCIntegrationLayer
+from src.core.nemesis.ai_ontology import ABCIntegrationLayer
 
 
 class TestABCIntegration(unittest.TestCase):

@@ -11,7 +11,7 @@ from datetime import datetime
 # Add parent directories to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator
+from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator
 
 def generate_visual_example():
     """Generate a complete example for visual demonstration"""

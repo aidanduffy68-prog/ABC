@@ -109,7 +109,7 @@ class ThreatActor(BaseModel):
             raise ValueError("risk_score must be between 0.0 and 1.0")
         return v
     
-    @root_validator
+    @root_validator(skip_on_failure=True)
     def validate_risk_band_consistency(cls, values):
         """Ensure risk_band is consistent with risk_score"""
         risk_score = values.get('risk_score')

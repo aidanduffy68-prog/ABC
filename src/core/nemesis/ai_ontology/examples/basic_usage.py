@@ -2,7 +2,7 @@
 Basic Usage Examples for AI-Powered Threat Ontology
 """
 
-from nemesis.ai_ontology import (
+from src.core.nemesis.ai_ontology import (
     ABCIntegrationLayer,
     AIHadesProfiler,
     PredictiveThreatModel,

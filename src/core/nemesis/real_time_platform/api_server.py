@@ -11,10 +11,10 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 import json
 
-from nemesis.compilation_engine import ABCCompilationEngine, CompiledIntelligence
-from nemesis.signal_intake.federal_ai_monitor import FederalAIMonitor, monitor_federal_ai_systems
-from nemesis.real_time_platform.alert_system import alert_system
-from nemesis.on_chain_receipt.bitcoin_integration import BitcoinOnChainIntegration
+from src.core.nemesis.compilation_engine import ABCCompilationEngine, CompiledIntelligence
+from src.core.nemesis.signal_intake.federal_ai_monitor import FederalAIMonitor, monitor_federal_ai_systems
+from src.core.nemesis.real_time_platform.alert_system import alert_system
+from src.core.nemesis.on_chain_receipt.bitcoin_integration import BitcoinOnChainIntegration
 
 
 app = Flask(__name__)
@@ -227,7 +227,7 @@ def scan_federal_ai():
 @app.route('/api/v1/alerts', methods=['GET'])
 def get_alerts():
     """Get active alerts"""
-    from nemesis.real_time_platform.alert_system import AlertSeverity
+    from src.core.nemesis.real_time_platform.alert_system import AlertSeverity
     
     severity = request.args.get('severity')
     severity_enum = None
@@ -280,7 +280,7 @@ def get_alert_stats():
 @app.route('/api/v1/receipts/verify', methods=['POST'])
 def verify_receipt():
     """Verify cryptographic receipt"""
-    from nemesis.on_chain_receipt.receipt_verifier import ReceiptVerifier
+    from src.core.nemesis.on_chain_receipt.receipt_verifier import ReceiptVerifier
     
     data = request.json or {}
     receipt = data.get('receipt')
