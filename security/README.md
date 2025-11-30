@@ -11,6 +11,8 @@ This folder contains all security-related documentation, configuration, and setu
 - **`QUICK_START_SECURITY.md`** - Quick reference for getting started with security setup
 - **`setup_security.sh`** - Automated script to generate `.env` file with secure keys
 - **`requirements-security.txt`** - Additional security dependencies (PyJWT, etc.)
+- **`test_deployment.py`** - Deployment readiness test script
+- **`test_security.py`** - Security configuration verification script
 - **`test_deployment.py`** - Deployment readiness verification script
 - **`test_security_setup.py`** - Security configuration verification script
 
@@ -29,6 +31,16 @@ This folder contains all security-related documentation, configuration, and setu
 3. **Review configuration:**
    ```bash
    cat security/QUICK_START_SECURITY.md
+   ```
+
+4. **Test deployment readiness:**
+   ```bash
+   python3 security/test_deployment.py
+   ```
+
+5. **Verify security setup:**
+   ```bash
+   python3 security/test_security.py
    ```
 
 ## Security Middleware
