@@ -22,7 +22,7 @@ def test_imports():
         ("Threat Actor Schema", "src.schemas.threat_actor", "ThreatActor"),
         ("Ingestion Validator", "src.ingestion.validator", "IngestionValidator"),
         ("Graph Builder", "src.graph.builder", "ThreatIntelligenceGraph"),
-        ("Compilation Engine", "src.core.nemesis.compilation_engine", "CompilationEngine"),
+        ("Compilation Engine", "src.core.nemesis.compilation_engine", "ABCCompilationEngine"),
     ]
     
     passed = 0
