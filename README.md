@@ -24,6 +24,8 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof.
 
+**[🎬 Try the Quick Demo](examples/QUICK_DEMO.md)** | **[🚀 Get Started in 5 Minutes](GETTING_STARTED.md)**
+
 ---
 
 ## 🛡️ Recent Threat Intel Compilations
@@ -77,13 +79,38 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 
 ---
 
+## 🚀 Quick Start
+
+**Get started in 5 minutes:**
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+pip install -r security/requirements-security.txt
+
+# Configure security
+./security/setup_security.sh
+
+# Try your first compilation
+python3 scripts/compile_intelligence.py \
+  --actor-id "demo_001" \
+  --actor-name "Demo Threat Actor" \
+  --intel-file sample_intel.json
+```
+
+**[📖 Full Getting Started Guide](GETTING_STARTED.md)** | **[🔧 CLI Tools](scripts/README.md)** | **[📊 View Examples](examples/intelligence_audits/)**
+
+---
+
 ## 📖 Full Documentation
 
-- **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec (includes current status)
+- **[🚀 Getting Started Guide](GETTING_STARTED.md)** - 5-minute quick start
+- **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
 - **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Sales framework
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
+- **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities
 
 ---
 
