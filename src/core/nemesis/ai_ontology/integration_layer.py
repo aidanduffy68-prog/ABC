@@ -63,16 +63,20 @@ class ABCIntegrationLayer:
         # Step 2: Auto-classification
         classified_entities = []
         for entity in entities:
-            classification = self.classifier.classify_entity(entity)
+            # Convert entity to dict format for classification
+            entity_data = {
+                "actor_id": entity.entity_id,
+                "risk_score": getattr(entity, 'risk_score', 0.5),
+                "behavioral_signatures": {},
+                "attributes": entity.attributes
+            }
+            classification = self.classifier.classify_threat_actor(entity_data)
             classified_entities.append({
                 "entity": entity,
                 "classification": classification
             })
         
-        # Step 3: Relationship inference
-        relationships = self.relationship_engine.infer_relationships(classified_entities)
-        
-        # Step 4: Behavioral signatures (if transaction data available)
+        # Step 3: Behavioral signatures (initialize empty, populate if transaction data available)
         behavioral_signatures = {}
         if transaction_data:
             for entity in classified_entities:
@@ -84,6 +88,26 @@ class ABCIntegrationLayer:
                     intelligence_reports=[item.get("text", "") for item in raw_intelligence]
                 )
                 behavioral_signatures[actor_id] = signature
+        
+        # Step 4: Relationship inference
+        # Convert entities to dict format for relationship inference
+        entities_list = []
+        for item in classified_entities:
+            entity = item["entity"]
+            entity_dict = {
+                "entity_id": entity.entity_id,
+                "name": entity.name,
+                "entity_type": entity.entity_type.value if hasattr(entity.entity_type, 'value') else str(entity.entity_type),
+                "attributes": entity.attributes,
+                "address": entity.attributes.get("address", "") if isinstance(entity.attributes, dict) else ""
+            }
+            entities_list.append(entity_dict)
+        
+        entities_dict = {
+            "entities": entities_list,
+            "behavioral_signatures": behavioral_signatures
+        }
+        relationships = self.relationship_engine.infer_relationships(entities_dict)
         
         # Step 5: Threat forecasting
         forecasts = {}

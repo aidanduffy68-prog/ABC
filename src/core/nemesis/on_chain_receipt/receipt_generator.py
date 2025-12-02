@@ -91,9 +91,15 @@ class CryptographicReceiptGenerator:
         receipt_id = self._generate_receipt_id(intelligence_hash)
         
         # Create minimal metadata (no proprietary info)
+        # Estimate package size (avoid full serialization here)
+        try:
+            package_size = len(str(intelligence_package))
+        except:
+            package_size = 0
+        
         metadata = {
             "version": self.receipt_version,
-            "package_size": len(json.dumps(intelligence_package)),
+            "package_size": package_size,
             "generated_at": datetime.now().isoformat()
         }
         
@@ -134,11 +140,48 @@ class CryptographicReceiptGenerator:
         - No formatting changes (whitespace) should affect hash
         """
         # Canonical JSON: sort keys, no extra whitespace, consistent encoding
+        # Handle non-serializable types (datetime, enums, etc.)
+        def json_serializer(obj):
+            """JSON serializer for objects not serializable by default json code"""
+            from datetime import datetime
+            from enum import Enum
+            if isinstance(obj, datetime):
+                return obj.isoformat()
+            elif isinstance(obj, Enum):
+                return obj.value if hasattr(obj, 'value') else str(obj)
+            raise TypeError(f"Type {type(obj)} not serializable")
+        
+        # Convert package to fully serializable format first
+        def make_serializable(obj):
+            """Recursively convert objects to JSON-serializable format"""
+            if isinstance(obj, dict):
+                return {str(k): make_serializable(v) for k, v in obj.items()}
+            elif isinstance(obj, (list, tuple)):
+                return [make_serializable(item) for item in obj]
+            elif isinstance(obj, datetime):
+                return obj.isoformat()
+            elif isinstance(obj, Enum):
+                return obj.value if hasattr(obj, 'value') else str(obj)
+            elif hasattr(obj, '__dataclass_fields__'):
+                # Handle dataclass
+                return make_serializable(asdict(obj))
+            elif hasattr(obj, '__dict__'):
+                # Handle regular object
+                try:
+                    return make_serializable(obj.__dict__)
+                except:
+                    return str(obj)
+            else:
+                return obj
+        
+        serializable_package = make_serializable(package)
+        
         package_json = json.dumps(
-            package,
+            serializable_package,
             sort_keys=True,
             ensure_ascii=False,
-            separators=(',', ':')  # No extra whitespace
+            separators=(',', ':'),  # No extra whitespace
+            default=json_serializer
         )
         return hashlib.sha256(package_json.encode('utf-8')).hexdigest()
     

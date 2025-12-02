@@ -138,7 +138,7 @@ Return JSON array of entities with:
 - name
 - attributes
 - confidence (0-1)
-- relationships (list of {entity_id, relationship_type})
+- relationships (list of {{entity_id, relationship_type}})
 """
     
     def extract_from_multiple_sources(self, sources: List[Dict[str, str]]) -> List[ExtractedEntity]:

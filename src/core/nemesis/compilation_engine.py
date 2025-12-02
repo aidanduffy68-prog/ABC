@@ -125,9 +125,15 @@ class ABCCompilationEngine:
         
         # Step 3: NEMESIS - Targeting Package Generation
         # Generate executable targeting packages
-        threat_forecast = self.predictive_model.forecast_threat(
+        # Convert behavioral signature to dict format
+        behavioral_signature_dict = {
+            "traits": {k.value if hasattr(k, 'value') else str(k): v for k, v in behavioral_signature.traits.items()},
+            "confidence": behavioral_signature.confidence,
+            "risk_score": behavioral_signature.traits.get("risk_tolerance", 0.5) if hasattr(behavioral_signature.traits, 'get') else 0.5
+        }
+        threat_forecast = self.predictive_model.generate_forecast(
             actor_id=actor_id,
-            behavioral_signature=behavioral_signature,
+            behavioral_signature=behavioral_signature_dict,
             network_data=coordination_network,
             transaction_history=transaction_data or []
         )
@@ -189,16 +195,19 @@ class ABCCompilationEngine:
         facilitators = []
         
         for rel in relationships:
-            if rel.relationship_type.value in ["coordinates_with", "partners_with"]:
+            # Handle both enum and string relationship types
+            rel_type = rel.relationship_type.value if hasattr(rel.relationship_type, 'value') else str(rel.relationship_type)
+            
+            if rel_type in ["coordinates_with", "partners_with", "COORDINATES_WITH", "PARTNERS_WITH"]:
                 partners.append({
                     "entity_id": rel.target_entity_id,
-                    "relationship_type": rel.relationship_type.value,
+                    "relationship_type": rel_type,
                     "confidence": rel.confidence
                 })
-            elif rel.relationship_type.value in ["facilitates", "enables"]:
+            elif rel_type in ["facilitates", "enables", "FACILITATES", "ENABLES"]:
                 facilitators.append({
                     "entity_id": rel.target_entity_id,
-                    "relationship_type": rel.relationship_type.value,
+                    "relationship_type": rel_type,
                     "confidence": rel.confidence
                 })
         
