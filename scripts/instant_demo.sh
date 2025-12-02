@@ -24,6 +24,27 @@ cd "$PROJECT_ROOT"
 echo "📦 Setting up demo environment..."
 echo ""
 
+# Check if we're in the right directory (has src/ and scripts/)
+if [ ! -d "src" ] || [ ! -d "scripts" ]; then
+    echo "⚠️  Warning: Not in project root. Attempting to find project root..."
+    # Try to find project root by looking for src/ directory
+    if [ -d "$PROJECT_ROOT/src" ] && [ -d "$PROJECT_ROOT/scripts" ]; then
+        cd "$PROJECT_ROOT"
+        echo "✅ Found project root: $PROJECT_ROOT"
+    else
+        echo "❌ Error: Cannot find project root. Please run from ABC directory."
+        echo "   Or clone the repo: git clone https://github.com/aidanduffy68-prog/ABC.git"
+        exit 1
+    fi
+fi
+
+# Check if dependencies are installed
+if ! python3 -c "import sys; sys.path.insert(0, '.'); from src.core.nemesis.compilation_engine import ABCCompilationEngine" 2>/dev/null; then
+    echo "⚠️  Warning: Dependencies may not be installed."
+    echo "   Attempting to continue anyway..."
+    echo ""
+fi
+
 # Create sample intelligence data
 cat > /tmp/demo_intel.json << 'EOF'
 [

@@ -9,8 +9,18 @@
 **One command. No setup required.**
 
 ```bash
-curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash
+# Option 1: Run directly from GitHub (requires git clone first)
+git clone https://github.com/aidanduffy68-prog/ABC.git
+cd ABC
+bash scripts/instant_demo.sh
+
+# Option 2: If you already have the repo cloned
+bash scripts/instant_demo.sh
 ```
+
+**Prerequisites:**
+- Python 3.8+ installed
+- Dependencies installed: `pip install -r requirements.txt`
 
 **What happens:**
 1. ✅ Sets up demo environment automatically
