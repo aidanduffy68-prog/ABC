@@ -8,15 +8,46 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import logging
 
 from src.api.routes import ingest, status
+from src.core.middleware.request_logger import RequestLoggerMiddleware
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 
 # Create FastAPI app
 app = FastAPI(
     title="GH Systems ABC API",
     description="Truth verification for post-AGI intelligence",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+    openapi_tags=[
+        {
+            "name": "ingestion",
+            "description": "Vendor feed ingestion endpoints for threat intelligence data",
+        },
+        {
+            "name": "status",
+            "description": "Health, readiness, and version information endpoints",
+        },
+    ],
+    contact={
+        "name": "GH Systems",
+        "url": "https://github.com/aidanduffy68-prog/ABC",
+    },
+    license_info={
+        "name": "Proprietary",
+    },
 )
+
+# Add request logging middleware (first, so it logs everything)
+app.add_middleware(RequestLoggerMiddleware)
 
 # SECURITY: CORS configuration from environment variable
 allowed_origins = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if os.getenv('CORS_ALLOWED_ORIGINS') else []
