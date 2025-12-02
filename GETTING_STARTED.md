@@ -6,21 +6,25 @@
 
 ## 🎯 Fastest Path to Magic Moment (60 seconds)
 
-**One command. No setup required.**
+**Quick setup, then one command:**
 
 ```bash
-# Option 1: Run directly from GitHub (requires git clone first)
+# Step 1: Clone the repository
 git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
-bash scripts/instant_demo.sh
 
-# Option 2: If you already have the repo cloned
+# Step 2: Install dependencies (one-time setup)
+pip install -r requirements.txt
+
+# Step 3: Run the instant demo
 bash scripts/instant_demo.sh
 ```
 
 **Prerequisites:**
-- Python 3.8+ installed
-- Dependencies installed: `pip install -r requirements.txt`
+- Python 3.8+ installed (`python3 --version` to check)
+- pip installed (usually comes with Python)
+
+**That's it!** The script will handle the rest and get you to your Magic Moment.
 
 **What happens:**
 1. ✅ Sets up demo environment automatically

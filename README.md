@@ -26,7 +26,7 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **[🎯 Get Started: Reach Your Magic Moment in 60 Seconds](GETTING_STARTED.md)**
 
-**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. One command gets you there: `curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash`
+**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. Get there in 60 seconds: `git clone https://github.com/aidanduffy68-prog/ABC.git && cd ABC && pip install -r requirements.txt && bash scripts/instant_demo.sh`
 
 ---
 
@@ -86,7 +86,11 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 **Fastest path (one command, no setup):**
 
 ```bash
-curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash
+# Clone, install, and run
+git clone https://github.com/aidanduffy68-prog/ABC.git
+cd ABC
+pip install -r requirements.txt
+bash scripts/instant_demo.sh
 ```
 
 **This will:**
