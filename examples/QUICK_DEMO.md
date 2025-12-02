@@ -1,6 +1,8 @@
-# Quick Demo: Verify Truth in <500ms
+# Quick Demo: Your Magic Moment
 
-**See GH Systems ABC in action with a real-world example**
+**Experience the Magic Moment: Verify truth in post-AGI intelligence in <60 seconds**
+
+**The Magic Moment:** When you successfully compile intelligence in <500ms and see the cryptographic proof, you've hit the moment where you understand the value and are unlikely to churn.
 
 ---
 
@@ -31,9 +33,27 @@ cat examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md
 
 ---
 
+## 🎯 Reach Your Magic Moment
+
+**Fastest Path (60 seconds):**
+
+```bash
+# Instant demo - no setup required
+curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash
+```
+
+**This will:**
+1. Set up the demo environment
+2. Compile sample intelligence
+3. Show you the <500ms result
+4. Display the cryptographic proof
+5. **Celebrate your Magic Moment!**
+
+---
+
 ## Try It Yourself
 
-### Option 1: Use the CLI Tool
+### Option 1: Instant Demo (Fastest to Magic Moment)
 
 ```bash
 # Create sample intelligence data

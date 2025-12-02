@@ -4,6 +4,19 @@
 
 ---
 
+## 🎯 Your Magic Moment
+
+**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof.
+
+**Why it matters:** Once you experience this, you understand the value and are unlikely to churn.
+
+**Fastest path (60 seconds):**
+```bash
+curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash
+```
+
+---
+
 ## 🚀 Quick Start (5 minutes)
 
 ### Step 1: Install Dependencies

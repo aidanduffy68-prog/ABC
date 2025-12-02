@@ -90,8 +90,32 @@ def format_output(compiled):
         print(f"   Hash: {receipt.get('hash', 'N/A')[:16]}...")
         print(f"   Timestamp: {receipt.get('timestamp', 'N/A')}")
     
+    # Check if this is a Magic Moment (first successful compilation)
+    is_magic_moment = compiled.compilation_time_ms < 500 and compiled.confidence_score > 0
+    
     print("\n" + "=" * 60)
-    print("✅ Compilation complete!")
+    if is_magic_moment:
+        print("🎉 MAGIC MOMENT ACHIEVED! 🎉")
+        print("=" * 60)
+        print("")
+        print("You've successfully verified truth in post-AGI intelligence!")
+        print("")
+        print("This is what government agencies need when AGI generates")
+        print("conflicting threat assessments. You've just experienced")
+        print("the solution: cryptographically verifiable intelligence")
+        print("in <500ms with mathematical proof.")
+        print("")
+        print("=" * 60)
+        print("What's Next?")
+        print("=" * 60)
+        print("")
+        print("1. Try with your own data")
+        print("2. Explore the API: src/core/nemesis/ai_ontology/api_documentation.md")
+        print("3. Review examples: examples/intelligence_audits/")
+        print("4. Read the architecture: docs/ARCHITECTURE_SPEC.md")
+        print("")
+    else:
+        print("✅ Compilation complete!")
     print("=" * 60 + "\n")
 
 

@@ -24,7 +24,9 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof.
 
-**[🎬 Try the Quick Demo](examples/QUICK_DEMO.md)** | **[🚀 Get Started in 5 Minutes](GETTING_STARTED.md)**
+**[🎯 Reach Your Magic Moment (<60s)](examples/QUICK_DEMO.md)** | **[🚀 Get Started in 5 Minutes](GETTING_STARTED.md)**
+
+**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. [Learn more →](MAGIC_MOMENT.md)
 
 ---
 
