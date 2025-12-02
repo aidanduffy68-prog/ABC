@@ -1,6 +1,6 @@
 # Quick Demo: Your Magic Moment
 
-**Experience the Magic Moment: Verify truth in post-AGI intelligence in <60 seconds**
+**→ For the fastest path, see [GETTING_STARTED.md](../GETTING_STARTED.md) - it's now streamlined to get you to your Magic Moment in 60 seconds.**
 
 **The Magic Moment:** When you successfully compile intelligence in <500ms and see the cryptographic proof, you've hit the moment where you understand the value and are unlikely to churn.
 

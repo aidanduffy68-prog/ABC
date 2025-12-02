@@ -24,9 +24,9 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof.
 
-**[🎯 Reach Your Magic Moment (<60s)](examples/QUICK_DEMO.md)** | **[🚀 Get Started in 5 Minutes](GETTING_STARTED.md)**
+**[🎯 Get Started: Reach Your Magic Moment in 60 Seconds](GETTING_STARTED.md)**
 
-**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. [Learn more →](MAGIC_MOMENT.md)
+**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. One command gets you there: `curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash`
 
 ---
 
@@ -81,40 +81,19 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start: Magic Moment in 60 Seconds
 
-**Get started in 5 minutes:**
+**Fastest path (one command, no setup):**
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-pip install -r security/requirements-security.txt
-
-# Configure security
-./security/setup_security.sh
-
-# Create sample intelligence file
-cat > sample_intel.json << 'EOF'
-[
-  {
-    "text": "North Korean hackers coordinating with Russian facilitators",
-    "source": "intel_feed_1",
-    "type": "intelligence_report"
-  },
-  {
-    "text": "Multiple wallets showing synchronized transaction patterns",
-    "source": "blockchain_analysis",
-    "type": "transaction_analysis"
-  }
-]
-EOF
-
-# Try your first compilation
-python3 scripts/compile_intelligence.py \
-  --actor-id "demo_001" \
-  --actor-name "Demo Threat Actor" \
-  --intel-file sample_intel.json
+curl -s https://raw.githubusercontent.com/aidanduffy68-prog/ABC/main/scripts/instant_demo.sh | bash
 ```
+
+**This will:**
+- ✅ Set up demo environment automatically
+- ✅ Compile sample intelligence in <500ms
+- ✅ Show cryptographic proof
+- 🎉 **Celebrate your Magic Moment!**
 
 **[📖 Full Getting Started Guide](GETTING_STARTED.md)** | **[🔧 CLI Tools](scripts/README.md)** | **[📊 View Examples](examples/intelligence_audits/)**
 
