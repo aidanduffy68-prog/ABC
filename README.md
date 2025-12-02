@@ -93,6 +93,22 @@ pip install -r security/requirements-security.txt
 # Configure security
 ./security/setup_security.sh
 
+# Create sample intelligence file
+cat > sample_intel.json << 'EOF'
+[
+  {
+    "text": "North Korean hackers coordinating with Russian facilitators",
+    "source": "intel_feed_1",
+    "type": "intelligence_report"
+  },
+  {
+    "text": "Multiple wallets showing synchronized transaction patterns",
+    "source": "blockchain_analysis",
+    "type": "transaction_analysis"
+  }
+]
+EOF
+
 # Try your first compilation
 python3 scripts/compile_intelligence.py \
   --actor-id "demo_001" \

@@ -88,19 +88,30 @@ python3 scripts/compile_intelligence.py \
 ### Option 3: Run the API Server
 
 ```bash
-# Start the API server
-python3 -m src.core.nemesis.real_time_platform.api_server
+# Start the FastAPI server
+python3 scripts/run_api_server.py
 
-# In another terminal, make a request
-curl -X POST http://localhost:5000/api/v1/compile \
+# In another terminal, make a request to the ingestion endpoint
+curl -X POST http://localhost:8000/api/v1/ingest/feed \
   -H "Content-Type: application/json" \
   -d '{
-    "actor_id": "demo_001",
-    "actor_name": "Demo Threat Actor",
-    "raw_intelligence": [
-      {"text": "Threat intelligence data", "source": "demo"}
+    "vendor": "Custom",
+    "data": [
+      {
+        "entity_type": "actor",
+        "actor_id": "demo_001",
+        "actor_name": "Demo Threat Actor",
+        "actor_type": "CRIMINAL_ORGANIZATION"
+      }
     ]
   }'
+
+# Or check the health endpoint
+curl http://localhost:8000/api/v1/status/health
+
+# View API documentation
+# Swagger UI: http://localhost:8000/docs
+# ReDoc: http://localhost:8000/redoc
 ```
 
 ---

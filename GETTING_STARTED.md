@@ -45,7 +45,7 @@ python3 security/test_deployment.py
 
 ```bash
 # Create a sample intelligence file
-cat > sample_intel.json << EOF
+cat > sample_intel.json << 'EOF'
 [
   {
     "text": "North Korean hackers coordinating with Russian facilitators",
@@ -139,7 +139,16 @@ python3 scripts/compile_intelligence.py \
 ### Run API Server
 
 ```bash
-python3 -m src.core.nemesis.real_time_platform.api_server
+# Start the FastAPI server
+python3 scripts/run_api_server.py
+
+# Or with custom options
+python3 scripts/run_api_server.py --host 0.0.0.0 --port 8000 --reload
+
+# API docs will be available at:
+# - Swagger UI: http://localhost:8000/docs
+# - ReDoc: http://localhost:8000/redoc
+# - Health: http://localhost:8000/api/v1/status/health
 ```
 
 ---

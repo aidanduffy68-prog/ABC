@@ -49,7 +49,7 @@ echo "🔍 Compiling intelligence..."
 echo ""
 
 # Run compilation
-python3 scripts/compile_intelligence.py \
+python3 "$PROJECT_ROOT/scripts/compile_intelligence.py" \
   --actor-id "demo_instant_$(date +%s)" \
   --actor-name "Demo Threat Actor" \
   --intel-file /tmp/demo_intel.json \
