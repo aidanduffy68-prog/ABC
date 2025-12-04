@@ -57,5 +57,10 @@ All security middleware is located in `src/core/middleware/`:
 
 ✅ **All critical and high-priority security fixes implemented**  
 ✅ **Ready for test deployment**  
-✅ **13 NIST 800-53 controls addressed**
+✅ **13 NIST 800-53 controls addressed**  
+✅ **75% compliant with CISA/NSA AI-OT security principles**
+
+## Additional Resources
+
+- **[AI-OT Security Compliance](../docs/AI_OT_SECURITY_COMPLIANCE.md)** - Comprehensive compliance checklist based on CISA/NSA "Principles for Secure AI in OT" guidance (December 2025)
 
