@@ -166,6 +166,28 @@ class ABCCompilationEngine:
             threat_forecast
         )
         
+        # Record metrics for drift detection
+        drift_metrics = ModelPerformanceMetrics(
+            timestamp=datetime.now(),
+            confidence_score=confidence_score,
+            compilation_time_ms=compilation_time_ms,
+            behavioral_signature_confidence=behavioral_signature.confidence,
+            coordination_network_score=coordination_network.get('network_confidence', 0.0),
+            threat_forecast_risk=threat_forecast.overall_risk_score
+        )
+        
+        # Check for drift
+        drift_alerts = self.drift_detector.record_metrics(drift_metrics)
+        
+        # Log drift alerts if any
+        if drift_alerts:
+            import logging
+            logger = logging.getLogger(__name__)
+            for alert in drift_alerts:
+                logger.warning(
+                    f"Model drift detected: {alert.alert_type} ({alert.severity}) - {alert.message}"
+                )
+        
         # Build compiled intelligence
         compiled = CompiledIntelligence(
             compilation_id=compilation_id,
@@ -179,7 +201,8 @@ class ABCCompilationEngine:
             threat_forecast=threat_forecast,
             compilation_time_ms=compilation_time_ms,
             confidence_score=confidence_score,
-            sources=[item.get("source", "unknown") for item in raw_intelligence if isinstance(item, dict)]
+            sources=[item.get("source", "unknown") for item in raw_intelligence if isinstance(item, dict)],
+            drift_alerts=drift_alerts
         )
         
         # Generate cryptographic receipt if requested
