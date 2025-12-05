@@ -112,6 +112,7 @@ bash scripts/instant_demo.sh
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
 - **[🛡️ AI-OT Security Compliance](docs/AI_OT_SECURITY_COMPLIANCE.md)** - CISA/NSA AI-OT security principles compliance
+- **[🔗 Foundry Integration](docs/FOUNDRY_INTEGRATION.md)** - Palantir Foundry integration guide
 - **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities
 
 ---
