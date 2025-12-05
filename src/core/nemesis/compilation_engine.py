@@ -91,18 +91,70 @@ class ABCCompilationEngine:
         generate_receipt: bool = True
     ) -> CompiledIntelligence:
         """
-        Compile intelligence through Hades → Echo → Nemesis pipeline
+        Compile intelligence through Hades → Echo → Nemesis pipeline.
+        
+        This is the core compilation method that orchestrates the entire intelligence
+        processing pipeline. It processes raw intelligence data through behavioral
+        profiling, coordination detection, and threat forecasting to produce an
+        actionable targeting package.
+        
+        The compilation process:
+        1. Extracts entities and relationships from raw intelligence (HADES)
+        2. Builds coordination networks from transaction and network data (ECHO)
+        3. Generates threat forecasts and targeting packages (NEMESIS)
+        4. Records performance metrics for drift detection
+        5. Optionally generates cryptographic receipt for verification
+        
+        Performance:
+            Target: <500ms compilation time
+            Typical: 0.3-2.0ms for standard intelligence feeds
         
         Args:
-            actor_id: Unique identifier for the actor
-            actor_name: Name/designation of the actor
-            raw_intelligence: Unstructured intelligence feeds
-            transaction_data: Historical transaction data
-            network_data: Network coordination data
-            generate_receipt: Whether to generate cryptographic receipt
-            
+            actor_id: Unique identifier for the threat actor (e.g., "lazarus_001").
+                Must be alphanumeric with underscores/hyphens only.
+            actor_name: Human-readable name or designation of the actor
+                (e.g., "Lazarus Group").
+            raw_intelligence: List of unstructured intelligence reports. Each item
+                should contain at minimum a "text" field with intelligence content.
+                Example: [{"text": "Threat intelligence", "source": "feed_1"}]
+            transaction_data: Optional list of transaction records for network
+                analysis. Used by ECHO for coordination detection.
+            network_data: Optional network metadata for relationship inference.
+                Can include known associations, communication patterns, etc.
+            generate_receipt: If True, generates cryptographic receipt with SHA-256
+                hash for verification. Default: True.
+        
         Returns:
-            CompiledIntelligence package ready for delivery
+            CompiledIntelligence object containing:
+            - Behavioral signature with confidence scores
+            - Coordination network with partners/facilitators
+            - Threat forecast with risk scores and predictions
+            - Targeting package with actionable recommendations
+            - Performance metrics and drift alerts (if any)
+            - Cryptographic receipt (if generate_receipt=True)
+        
+        Raises:
+            ValueError: If actor_id is invalid or raw_intelligence is empty
+            RuntimeError: If compilation pipeline fails
+        
+        Example:
+            ```python
+            engine = ABCCompilationEngine()
+            compiled = engine.compile_intelligence(
+                actor_id="threat_001",
+                actor_name="Threat Actor",
+                raw_intelligence=[
+                    {"text": "Suspicious activity detected", "source": "feed_1"}
+                ],
+                transaction_data=[{"tx_hash": "0x123...", "value": 1000}],
+                generate_receipt=True
+            )
+            
+            # Access results
+            print(f"Risk: {compiled.targeting_package['risk_assessment']['threat_level']}")
+            print(f"Confidence: {compiled.confidence_score:.2%}")
+            print(f"Time: {compiled.compilation_time_ms:.2f}ms")
+            ```
         """
         start_time = time.time()
         compilation_id = f"abc_{actor_id}_{int(time.time())}"
@@ -259,7 +311,27 @@ class ABCCompilationEngine:
         coordination_network: Dict[str, Any],
         threat_forecast: ThreatForecast
     ) -> Dict[str, Any]:
-        """Generate executable targeting package"""
+        """
+        Generate executable targeting package from compiled intelligence.
+        
+        Creates an actionable targeting package that combines behavioral insights,
+        coordination network data, and threat forecasts into a structured format
+        ready for operational use.
+        
+        Args:
+            actor_id: Identifier for the target actor
+            behavioral_signature: Behavioral profiling results from HADES
+            coordination_network: Network analysis results from ECHO
+            threat_forecast: Predictive threat analysis from NEMESIS
+        
+        Returns:
+            Targeting package dictionary containing:
+            - targeting_instructions: Top 3 predicted actions with countermeasures
+            - risk_assessment: Overall risk score and threat level
+            - coordination_network: Partner and facilitator data
+            - behavioral_traits: Behavioral trait scores
+            - compiled_at: Timestamp of compilation
+        """
         # Get top predicted actions
         top_predictions = sorted(
             threat_forecast.predictions,
@@ -304,7 +376,22 @@ class ABCCompilationEngine:
         relationships: List[InferredRelationship],
         threat_forecast: ThreatForecast
     ) -> float:
-        """Calculate overall confidence score"""
+        """
+        Calculate overall confidence score from pipeline components.
+        
+        Uses weighted average of confidence scores from each pipeline stage:
+        - Behavioral signature: 40% weight
+        - Relationship confidence: 30% weight
+        - Threat forecast: 30% weight
+        
+        Args:
+            behavioral_signature: HADES behavioral profiling results
+            relationships: ECHO relationship inference results
+            threat_forecast: NEMESIS threat prediction results
+        
+        Returns:
+            Overall confidence score between 0.0 and 1.0
+        """
         sig_confidence = behavioral_signature.confidence
         rel_confidence = sum(r.confidence for r in relationships) / len(relationships) if relationships else 0.0
         forecast_confidence = threat_forecast.overall_risk_score
@@ -317,7 +404,22 @@ class ABCCompilationEngine:
         confidence: float,
         threat_forecast: ThreatForecast
     ) -> str:
-        """Determine threat level from confidence and forecast"""
+        """
+        Determine threat level classification from confidence and risk scores.
+        
+        Threat levels:
+        - CRITICAL: risk_score >= 0.8 or confidence >= 0.9
+        - HIGH: risk_score >= 0.6 or confidence >= 0.7
+        - MEDIUM: risk_score >= 0.4 or confidence >= 0.5
+        - LOW: All other cases
+        
+        Args:
+            confidence: Overall confidence score (0.0-1.0)
+            threat_forecast: Threat forecast with risk score
+        
+        Returns:
+            Threat level string: "critical", "high", "medium", or "low"
+        """
         risk_score = threat_forecast.overall_risk_score
         
         if risk_score >= 0.8 or confidence >= 0.9:
