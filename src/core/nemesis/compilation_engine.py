@@ -6,7 +6,10 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 """
 
 import time
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.core.nemesis.model_monitoring import DriftAlert
 from datetime import datetime
 from dataclasses import dataclass, field, asdict
 
@@ -17,6 +20,7 @@ from src.core.nemesis.ai_ontology.relationship_inference import RelationshipInfe
 from src.core.nemesis.ai_ontology.predictive_modeling import PredictiveThreatModel, ThreatForecast
 from src.core.nemesis.ai_ontology.threat_dossier_generator import ThreatDossierGenerator, ThreatDossier
 from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator, IntelligenceReceipt
+from src.core.nemesis.model_monitoring import get_drift_detector, ModelPerformanceMetrics
 
 
 @dataclass
@@ -42,6 +46,9 @@ class CompiledIntelligence:
     compilation_time_ms: float = 0.0
     confidence_score: float = 0.0
     sources: List[str] = field(default_factory=list)
+    
+    # Drift detection
+    drift_alerts: List['DriftAlert'] = field(default_factory=list)
 
 
 class ABCCompilationEngine:
@@ -68,6 +75,9 @@ class ABCCompilationEngine:
         
         # Cryptographic receipts
         self.receipt_generator = CryptographicReceiptGenerator()
+        
+        # Model drift detection
+        self.drift_detector = get_drift_detector()
         
         self.engine_version = "1.0.0"
     
