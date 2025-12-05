@@ -20,11 +20,11 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes verification impossible, **GH Systems ABC provides cryptographically verifiable assessments in <500ms** — the objective truth layer for post-AGI intelligence operations.
 
-**Built on Palantir Foundry** — We're building the intelligence verification layer on top of Foundry's data infrastructure, enabling real-time threat intelligence compilation, drift detection, and cryptographically verifiable assessments that integrate seamlessly with Foundry datasets and analytics.
+**Built on Palantir Foundry** — We're building the intelligence verification layer on top of Foundry's data infrastructure. Every compilation integrates seamlessly with Foundry datasets, enabling real-time analytics, drift detection, and cryptographically verifiable assessments that flow directly into Foundry pipelines.
 
-**The Genesis Mission** creates the largest AI infrastructure deployment in government history, where this verification problem emerges at scale. **We're building the UMA for intelligence verification.**
+**The Genesis Mission** creates the largest AI infrastructure deployment in government history, where this verification problem emerges at scale. **We're building the UMA for intelligence verification on Foundry.**
 
-**Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof.
+**Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof, ready for Foundry integration.
 
 **[🎯 Get Started: Reach Your Magic Moment in 60 Seconds](GETTING_STARTED.md)**
 
