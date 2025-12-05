@@ -20,6 +20,8 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes verification impossible, **GH Systems ABC provides cryptographically verifiable assessments in <500ms** — the objective truth layer for post-AGI intelligence operations.
 
+**Built on Palantir Foundry** — We're building the intelligence verification layer on top of Foundry's data infrastructure, enabling real-time threat intelligence compilation, drift detection, and cryptographically verifiable assessments that integrate seamlessly with Foundry datasets and analytics.
+
 **The Genesis Mission** creates the largest AI infrastructure deployment in government history, where this verification problem emerges at scale. **We're building the UMA for intelligence verification.**
 
 **Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof.
@@ -112,7 +114,7 @@ bash scripts/instant_demo.sh
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
 - **[🛡️ AI-OT Security Compliance](docs/AI_OT_SECURITY_COMPLIANCE.md)** - CISA/NSA AI-OT security principles compliance
-- **[🔗 Foundry Integration](docs/FOUNDRY_INTEGRATION.md)** - Palantir Foundry integration guide
+- **[🔗 Foundry Integration](docs/FOUNDRY_INTEGRATION.md)** - **Palantir Foundry integration** (real-time feeds, batch exports, data pipeline)
 - **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities
 
 ---
@@ -121,6 +123,7 @@ bash scripts/instant_demo.sh
 
 - **Python 3.11+** - Core language
 - **FastAPI** - High-performance async API framework
+- **Palantir Foundry** - Data infrastructure and analytics platform (integration layer)
 - **Pydantic** - Strict type validation and data schemas
 - **NetworkX** - Graph data structure manipulation
 - **PyTorch Geometric** - Graph Neural Networks (in development)
