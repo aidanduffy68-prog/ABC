@@ -2,8 +2,8 @@
 **Cryptographically Verifiable Intelligence in <500ms**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
+![Palantir Foundry](https://img.shields.io/badge/Palantir-Foundry-red?style=flat-square)
 ![FastAPI](https://img.shields.io/badge/FastAPI-High_Performance-green?style=flat-square)
-![PyTorch Geometric](https://img.shields.io/badge/PyTorch-Geometric-orange?style=flat-square)
 ![Architecture](https://img.shields.io/badge/Architecture-Event_Driven-purple?style=flat-square)
 
 Copyright (c) 2025 GH Systems. All rights reserved.
