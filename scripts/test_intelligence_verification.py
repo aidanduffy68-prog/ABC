@@ -55,35 +55,52 @@ def test_intelligence_verification(scenario_name, actor_id, actor_name, intellig
     hash_value = receipt_data.get('intelligence_hash', receipt_data.get('hash', 'N/A'))
     timestamp = receipt_data.get('timestamp', 'N/A')
     
+    # Extract signature from verification
+    verifier = ReceiptVerifier()
+    verification_result = verifier.verify_receipt(receipt_data)
+    signature = verification_result.get('checks', {}).get('signature_verification', {}).get('signature', 'N/A')
+    
+    # Determine threat level from risk score
+    risk_score = compiled.targeting_package.get('risk_assessment', {}).get('overall_risk', 0)
+    if risk_score >= 0.85:
+        threat_level = 'critical'
+    elif risk_score >= 0.70:
+        threat_level = 'high'
+    elif risk_score >= 0.50:
+        threat_level = 'medium'
+    else:
+        threat_level = 'low'
+    
     print(f"\n✅ Compilation Complete:")
     print(f"   ⏱️  Time: {compiled.compilation_time_ms:.2f}ms")
     print(f"   📊 Confidence: {compiled.confidence_score:.2%}")
-    print(f"   🎯 Risk Score: {compiled.targeting_package.get('risk_assessment', {}).get('overall_risk', 0)*100:.1f}%")
+    print(f"   🎯 Risk Score: {risk_score*100:.1f}%")
+    print(f"   ⚠️  Threat Level: {threat_level.upper()}")
     
     print(f"\n🔐 Cryptographic Verification:")
     print(f"   Hash: {hash_value}")
     print(f"   Timestamp: {timestamp}")
-    
-    # Verify hash
-    verifier = ReceiptVerifier()
-    verification_result = verifier.verify_receipt(receipt_data)
+    print(f"   Signature: {signature}")
+    print(f"   Actor ID: {actor_id}")
+    print(f"   Threat Level: {threat_level}")
     
     print(f"\n✅ Hash Verification:")
     hash_valid = verification_result.get('verified', False) or verification_result.get('checks', {}).get('structure_validity', False)
     print(f"   Status: {'VERIFIED' if hash_valid else 'FAILED'}")
     print(f"   Hash Match: {hash_valid}")
     
-    hash_valid = verification_result.get('verified', False) or verification_result.get('checks', {}).get('structure_validity', False)
-    
     return {
         'scenario': scenario_name,
         'hash': hash_value,
         'timestamp': timestamp,
+        'signature': signature,
+        'actor_id': actor_id,
+        'threat_level': threat_level,
         'verification': verification_result,
         'hash_valid': hash_valid,
         'compilation_time_ms': compiled.compilation_time_ms,
         'confidence': compiled.confidence_score,
-        'risk_score': compiled.targeting_package.get('risk_assessment', {}).get('overall_risk', 0)
+        'risk_score': risk_score
     }
 
 def main():
@@ -277,6 +294,9 @@ def main():
         print(f"\n📋 {result['scenario']}")
         print(f"   Hash: {result['hash']}")
         print(f"   Timestamp: {result['timestamp']}")
+        print(f"   Signature: {result.get('signature', 'N/A')}")
+        print(f"   Actor ID: {result.get('actor_id', 'N/A')}")
+        print(f"   Threat Level: {result.get('threat_level', 'N/A').upper()}")
         print(f"   Verification: {'✅ VERIFIED' if result.get('hash_valid', False) else '❌ FAILED'}")
         print(f"   Confidence: {result['confidence']:.2%}")
         print(f"   Risk Score: {result['risk_score']*100:.1f}%")
