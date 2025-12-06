@@ -133,7 +133,7 @@ def main():
     
     result1 = test_intelligence_verification(
         "DOGE AI Integration Failures",
-        "doge_ai_integration_001",
+        "DoW",
         "DOGE - AI Integration Failure Analysis",
         doge_ai_intel
     )
@@ -160,7 +160,7 @@ def main():
     
     result2 = test_intelligence_verification(
         "DOGE Wasteful Spending",
-        "doge_wasteful_spending_001",
+        "Treasury",
         "DOGE - Wasteful Spending Analysis",
         doge_waste_intel
     )
@@ -187,7 +187,7 @@ def main():
     
     result3 = test_intelligence_verification(
         "Public-Private Partnership Opportunities",
-        "partnership_opportunities_001",
+        "Treasury",
         "Partnership Intelligence - National Debt Reduction",
         partnership_intel
     )
@@ -214,7 +214,7 @@ def main():
     
     result4 = test_intelligence_verification(
         "CIA Supply Chain Intelligence",
-        "cia_supply_chain_001",
+        "CIA",
         "CIA - Supply Chain Vulnerability Analysis",
         cia_supply_intel
     )
@@ -241,7 +241,7 @@ def main():
     
     result5 = test_intelligence_verification(
         "Defense Industrial Base Supply Chain",
-        "defense_supply_chain_001",
+        "DoW",
         "DoD - Defense Industrial Base Security",
         defense_supply_intel
     )
@@ -268,7 +268,7 @@ def main():
     
     result6 = test_intelligence_verification(
         "Economic Security - Critical Minerals",
-        "economic_minerals_001",
+        "Treasury",
         "Economic Security - Critical Mineral Dependencies",
         economic_minerals_intel
     )
