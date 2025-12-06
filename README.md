@@ -24,6 +24,8 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **The Genesis Mission** creates the largest AI infrastructure deployment in government history, where this verification problem emerges at scale. **We're building the UMA for intelligence verification on Foundry.**
 
+**Aligned with National Security Strategy 2025** — ABC directly supports U.S. strategic priorities: AI & technology dominance (Genesis Mission), economic security (supply chain intelligence), cybersecurity (real-time attribution), and sovereignty (objective truth layer for intelligence disputes).
+
 **Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof, ready for Foundry integration.
 
 **[🎯 Get Started: Reach Your Magic Moment in 60 Seconds](GETTING_STARTED.md)**
