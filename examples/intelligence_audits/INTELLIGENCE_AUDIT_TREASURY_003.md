@@ -10,7 +10,7 @@
 
 **Date:** 2025-11-25T10:15:00Z
 
-**Classification:** CONFIDENTIAL
+**Classification:** UNCLASSIFIED // PUBLIC DEMONSTRATION
 
 ---
 

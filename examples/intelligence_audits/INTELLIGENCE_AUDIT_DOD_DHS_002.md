@@ -5,7 +5,7 @@
 **Target:** Department of War & DHS AI Infrastructure  
 **Assessment ID:** assessment_DoW_DHS_002_20251121  
 **Date:** 2025-11-21T14:32:00Z  
-**Classification:** CONFIDENTIAL
+**Classification:** UNCLASSIFIED // PUBLIC DEMONSTRATION
 
 ---
 
@@ -25,7 +25,7 @@
 2. **ECHO** (Coordination Detection) → Maps network relationships  
 3. **NEMESIS** (Threat Forecasting) → Generates targeting intelligence
 
-**Result:** Cryptographically verifiable intelligence assessment with no political bias, instant consensus.
+**Result:** Intelligence assessment with cryptographic signature support (requires proper key configuration) and no political bias, instant consensus.
 
 ---
 
@@ -442,7 +442,7 @@ gh-verify --audit-id audit_DoW_DHS_002_20251121 --hash a3f5b8c2d1e9f4a7b6c3d2e1f
 - Reviewed: 2025-11-21T14:35:00Z
 - Approved: 2025-11-21T14:40:00Z
 
-**Verification:** This intelligence assessment is cryptographically provable without revealing proprietary ABC methodology or classified information sources.
+**Verification:** This intelligence assessment includes cryptographic signature support (RSA-PSS) when properly configured. Hash-based verification available. No classified information sources used.
 
 ---
 
