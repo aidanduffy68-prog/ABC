@@ -65,6 +65,8 @@ The 2025 National Security Strategy (NSS) creates unprecedented opportunities fo
 - Verify supplier risk assessments
 - Track technology transfer threats
 
+**📋 [See Detailed Economic Security Strategy →](ECONOMIC_SECURITY_STRATEGY.md)**
+
 ---
 
 ### 3. Cybersecurity & Network Defense ⭐⭐⭐

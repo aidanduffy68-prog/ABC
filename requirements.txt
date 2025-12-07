@@ -30,3 +30,6 @@ python-dateutil>=2.8.0
 # pip install -r requirements-security.txt
 # Includes: PyJWT>=2.8.0
 
+# Cryptographic Signatures (REQUIRED for production)
+cryptography>=41.0.0
+

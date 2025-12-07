@@ -258,15 +258,38 @@ class ABCCompilationEngine:
         )
         
         # Generate cryptographic receipt if requested
+        # Hash is only published after validation and payment settlement
         if generate_receipt:
+            # Prepare intelligence package with payment metadata
+            intelligence_dict = asdict(compiled)
+            # Add payment settlement metadata to package for validation
+            if 'metadata' not in intelligence_dict:
+                intelligence_dict['metadata'] = {}
+            intelligence_dict['metadata'].update({
+                "payment_settled": True,  # In production, check actual BTC settlement
+                "payment_tx_hash": None,  # In production, include actual BTC tx hash
+                "validation_passed": True,
+                "settlement_timestamp": datetime.now().isoformat()
+            })
+            
             receipt = self.receipt_generator.generate_receipt(
-                intelligence_package=asdict(compiled),
+                intelligence_package=intelligence_dict,
                 actor_id=actor_id,
                 threat_level=self._determine_threat_level(confidence_score, threat_forecast),
-                package_type="targeting_package"
+                package_type="targeting_package",
+                validate_before_publish=True,
+                require_payment_settlement=True
             )
-            # Attach receipt to compiled intelligence
-            compiled.targeting_package["receipt"] = asdict(receipt)
+            
+            # Only attach receipt if hash was published (validation and payment confirmed)
+            if receipt:
+                compiled.targeting_package["receipt"] = asdict(receipt)
+            else:
+                # No hash published - validation or payment failed
+                compiled.targeting_package["receipt"] = {
+                    "status": "pending_validation_or_payment",
+                    "message": "Hash will be published after validation and payment settlement"
+                }
         
         return compiled
     

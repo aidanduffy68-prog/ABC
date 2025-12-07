@@ -13,6 +13,7 @@ import logging
 
 from src.schemas.threat_actor import ThreatActor, ActorType
 from src.core.middleware.log_sanitizer import safe_log
+from src.core.middleware.api_auth import verify_api_token, require_vendor
 try:
     from src.ingestion.validator import IngestionValidator, ValidationError
 except ImportError:
@@ -91,15 +92,17 @@ class IngestError(BaseModel):
     status_code=status.HTTP_201_CREATED,
     responses={
         400: {"model": IngestError, "description": "Validation error"},
+        401: {"model": IngestError, "description": "Authentication required"},
+        403: {"model": IngestError, "description": "Insufficient permissions"},
         422: {"model": IngestError, "description": "Unprocessable entity"},
         500: {"model": IngestError, "description": "Internal server error"}
-    }
+    },
+    dependencies=[Depends(require_vendor)]
 )
-# SECURITY: Note - Authentication should be added via middleware
-# Example: dependencies=[Depends(verify_fastapi_token)]
 async def ingest_vendor_feed(
     request: IngestRequest,
-    validator: IngestionValidator = Depends(lambda: IngestionValidator())
+    validator: IngestionValidator = Depends(lambda: IngestionValidator()),
+    token_payload: dict = Depends(verify_api_token)
 ) -> IngestResponse:
     """
     Ingest vendor feed data
@@ -118,6 +121,10 @@ async def ingest_vendor_feed(
     """
     try:
         # SECURITY: Use safe logging to prevent sensitive data leakage
+        # Log authenticated user
+        user_id = token_payload.get("sub", "unknown")
+        user_role = token_payload.get("role", "unknown")
+        safe_log(logger, 'info', 'Feed ingestion by user: %s (role: %s)', user_id, user_role)
         safe_log(logger, 'info', 'Ingesting feed from vendor: %s', request.vendor)
         safe_log(logger, 'info', 'Feed contains %d entities', len(request.data))
         

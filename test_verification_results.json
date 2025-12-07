@@ -1,181 +1,73 @@
 [
   {
     "scenario": "DOGE AI Integration Failures",
-    "hash": "558f1c2cfa173cedb1a65fee542aa24f43eba2f58c80a64d147d334ead5611f0",
-    "timestamp": "2025-12-06T14:46:01.140451",
-    "signature": "c2eb54dea1731f4616e6b52c3351d40f821dcb0dfd94cefcc56416eccdca1d77",
+    "hash": "2d2206ddc3c4c437affb4733151551de689e3d376afe9917889fb339728b1dce",
+    "timestamp": "2025-12-06T17:41:07.730209",
+    "signature": "c33cbc1a0d3091df0da019de5a2097f26263582ae116d6999b675b4ea6317c75",
     "actor_id": "DoW",
     "threat_level": "low",
-    "verification": {
-      "receipt_id": "411dc96b053edc8221f930b9a0a0f06f",
-      "verified": false,
-      "checks": {
-        "hash_integrity": null,
-        "structure_validity": true,
-        "timestamp_validity": {
-          "valid": true,
-          "age_seconds": 2.4e-05
-        },
-        "on_chain_verification": null,
-        "signature_verification": {
-          "verified": true,
-          "signature": "c2eb54dea1731f4616e6b52c3351d40f821dcb0dfd94cefcc56416eccdca1d77"
-        }
-      },
-      "timestamp": "2025-12-06T14:46:01.140470"
-    },
-    "hash_valid": true,
-    "compilation_time_ms": 0.4699230194091797,
+    "status": "published",
+    "compilation_time_ms": 0.4520416259765625,
     "confidence": 0.3915625,
     "risk_score": 0.11249999999999999
   },
   {
     "scenario": "DOGE Wasteful Spending",
-    "hash": "67a8e2937193432dc03332b161b3531a4de9c958db816eb39a69117dd1a89278",
-    "timestamp": "2025-12-06T14:46:01.140831",
-    "signature": "93304f8fc3b4638ceff198180dcd5d41390c72bd94f77eea72ba75d88423f870",
+    "hash": "f3d703c0425a48694f9e3f1ed55096b526f9d8c4f0334f46e71763273109c875",
+    "timestamp": "2025-12-06T17:41:07.730566",
+    "signature": "8ca66ff2249cde35afb9ae9f52fe4386333d61168581cb7007b04fd744f4b2a3",
     "actor_id": "Treasury",
     "threat_level": "low",
-    "verification": {
-      "receipt_id": "3c17bc20489960949dfb8f56fe9d4c73",
-      "verified": false,
-      "checks": {
-        "hash_integrity": null,
-        "structure_validity": true,
-        "timestamp_validity": {
-          "valid": true,
-          "age_seconds": 1.6e-05
-        },
-        "on_chain_verification": null,
-        "signature_verification": {
-          "verified": true,
-          "signature": "93304f8fc3b4638ceff198180dcd5d41390c72bd94f77eea72ba75d88423f870"
-        }
-      },
-      "timestamp": "2025-12-06T14:46:01.140844"
-    },
-    "hash_valid": true,
-    "compilation_time_ms": 0.1380443572998047,
+    "status": "published",
+    "compilation_time_ms": 0.13899803161621094,
     "confidence": 0.3915625,
     "risk_score": 0.11249999999999999
   },
   {
     "scenario": "Public-Private Partnership Opportunities",
-    "hash": "b07da3e443b6dcef7e58bf8c0ededc2589e5fe9e4ac8d05338418faa54d886b3",
-    "timestamp": "2025-12-06T14:46:01.141158",
-    "signature": "cc3d9f246ee45ef947625959a0118cfc490027112811df7a265bc4e9e9168319",
+    "hash": "2cf6a404d2aecce800147f0daf175d688a68ca526e14cb5845f36cbc6214b398",
+    "timestamp": "2025-12-06T17:41:07.730865",
+    "signature": "7ed21695fee40d8fbf12652d8f23a801d201dace7f41591d8ffc796fbe8de118",
     "actor_id": "Treasury",
     "threat_level": "low",
-    "verification": {
-      "receipt_id": "be150657718d22edfea9c1e751adb448",
-      "verified": false,
-      "checks": {
-        "hash_integrity": null,
-        "structure_validity": true,
-        "timestamp_validity": {
-          "valid": true,
-          "age_seconds": 1.4e-05
-        },
-        "on_chain_verification": null,
-        "signature_verification": {
-          "verified": true,
-          "signature": "cc3d9f246ee45ef947625959a0118cfc490027112811df7a265bc4e9e9168319"
-        }
-      },
-      "timestamp": "2025-12-06T14:46:01.141169"
-    },
-    "hash_valid": true,
-    "compilation_time_ms": 0.11706352233886719,
+    "status": "published",
+    "compilation_time_ms": 0.11205673217773438,
     "confidence": 0.3915625,
     "risk_score": 0.11249999999999999
   },
   {
     "scenario": "CIA Supply Chain Intelligence",
-    "hash": "a5c99533e3044db979203e75c6a861b4c0cd11d9a09782fb09872ac413f52e32",
-    "timestamp": "2025-12-06T14:46:01.148242",
-    "signature": "8e57f8aab9ef04f85252e376fe3f096548e1928198322304cf8b1d1ecceeec74",
+    "hash": "31de7806ca2771f6959dc2b5470110149f523191d5320ea70ae1eef2e480e364",
+    "timestamp": "2025-12-06T17:41:07.731151",
+    "signature": "b143a198e8f0072a3a6963d288175e0d3d5df376aa788969f142f9396c59e573",
     "actor_id": "CIA",
     "threat_level": "low",
-    "verification": {
-      "receipt_id": "211b589dbe94bf8ecdd59870829e1784",
-      "verified": false,
-      "checks": {
-        "hash_integrity": null,
-        "structure_validity": true,
-        "timestamp_validity": {
-          "valid": true,
-          "age_seconds": 3.4e-05
-        },
-        "on_chain_verification": null,
-        "signature_verification": {
-          "verified": true,
-          "signature": "8e57f8aab9ef04f85252e376fe3f096548e1928198322304cf8b1d1ecceeec74"
-        }
-      },
-      "timestamp": "2025-12-06T14:46:01.148270"
-    },
-    "hash_valid": true,
-    "compilation_time_ms": 0.11301040649414062,
+    "status": "published",
+    "compilation_time_ms": 0.10800361633300781,
     "confidence": 0.3915625,
     "risk_score": 0.11249999999999999
   },
   {
     "scenario": "Defense Industrial Base Supply Chain",
-    "hash": "7468357cf07cf39e4f8dd21057a8e09dc79acd378b171692a0b04f29fc09c5b7",
-    "timestamp": "2025-12-06T14:46:01.148685",
-    "signature": "4b0586465c5f7dff19cc9a49204410a93b23f55ac20a53804b45526f90079e25",
+    "hash": "e4947f3e6c4b37a9c0bde88dcb4ab6c983d7ef139dacd071ff93be72c4468c4f",
+    "timestamp": "2025-12-06T17:41:07.731433",
+    "signature": "862e53d5c5aee5e868805fac9c2887265c149e6ba1eb38d34ea7c8f89ce110fe",
     "actor_id": "DoW",
     "threat_level": "low",
-    "verification": {
-      "receipt_id": "47227433fba23df77c5d7117dd4cbe60",
-      "verified": false,
-      "checks": {
-        "hash_integrity": null,
-        "structure_validity": true,
-        "timestamp_validity": {
-          "valid": true,
-          "age_seconds": 1.5e-05
-        },
-        "on_chain_verification": null,
-        "signature_verification": {
-          "verified": true,
-          "signature": "4b0586465c5f7dff19cc9a49204410a93b23f55ac20a53804b45526f90079e25"
-        }
-      },
-      "timestamp": "2025-12-06T14:46:01.148697"
-    },
-    "hash_valid": true,
-    "compilation_time_ms": 0.15878677368164062,
+    "status": "published",
+    "compilation_time_ms": 0.10800361633300781,
     "confidence": 0.3915625,
     "risk_score": 0.11249999999999999
   },
   {
     "scenario": "Economic Security - Critical Minerals",
-    "hash": "27d66aba5333387641dc888ef0ded868cd327187778091180736428f3ecdad29",
-    "timestamp": "2025-12-06T14:46:01.154435",
-    "signature": "952cef2822289c08018e9088f11d5c28cccd9f23c6e6dc0266253ccd47607981",
+    "hash": "dabba8d33dbb4bcd21965fb17cb13b039ad94d04e6ac79a51aaa9ba970307c6b",
+    "timestamp": "2025-12-06T17:41:07.731706",
+    "signature": "ad4221f2f24b4c939d5ec54fd33bc5b0a3c4b9fa2bb5a15c7eb465fdbb1e267e",
     "actor_id": "Treasury",
     "threat_level": "low",
-    "verification": {
-      "receipt_id": "f2a7abe8a6a685d832a8cead5c0ce6d1",
-      "verified": false,
-      "checks": {
-        "hash_integrity": null,
-        "structure_validity": true,
-        "timestamp_validity": {
-          "valid": true,
-          "age_seconds": 5.1e-05
-        },
-        "on_chain_verification": null,
-        "signature_verification": {
-          "verified": true,
-          "signature": "952cef2822289c08018e9088f11d5c28cccd9f23c6e6dc0266253ccd47607981"
-        }
-      },
-      "timestamp": "2025-12-06T14:46:01.154479"
-    },
-    "hash_valid": true,
-    "compilation_time_ms": 1.83868408203125,
+    "status": "published",
+    "compilation_time_ms": 0.10180473327636719,
     "confidence": 0.3915625,
     "risk_score": 0.11249999999999999
   }

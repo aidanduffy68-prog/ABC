@@ -270,6 +270,10 @@ GH Systems' ABC Sovereign Oracle delivers real-time threat intelligence for CIA 
 
 **Overall:** 86% (CRITICAL) | **Impact:** Strategic (CRITICAL); Economic (Supply Chain Security); Timeline (24 hours)
 
+<div align="center">
+  <img src="../../Deal Room/Assets/cia_supply_chain_risk_score_breakdown.png" alt="CIA Supply Chain Intelligence: Critical Risk Surfaces" width="800"/>
+</div>
+
 | Category | Risk Score | Key Driver |
 |----------|------------|------------|
 | Critical Minerals | 88% | Chinese rare earth processing control |

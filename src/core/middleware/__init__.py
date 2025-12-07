@@ -50,6 +50,20 @@ from .audit_log import (
     log_federal_ai_scan
 )
 
+# FastAPI-specific authentication (JWT-based)
+try:
+    from .api_auth import (
+        verify_api_token,
+        require_role as require_role_fastapi,
+        require_admin,
+        require_vendor,
+        require_analyst,
+        create_access_token
+    )
+    API_AUTH_AVAILABLE = True
+except ImportError:
+    API_AUTH_AVAILABLE = False
+
 __all__ = [
     'generate_token',
     'verify_token',
@@ -79,4 +93,15 @@ __all__ = [
     'log_intelligence_compiled',
     'log_federal_ai_scan'
 ]
+
+# Add FastAPI auth exports if available
+if API_AUTH_AVAILABLE:
+    __all__.extend([
+        'verify_api_token',
+        'require_role_fastapi',
+        'require_admin',
+        'require_vendor',
+        'require_analyst',
+        'create_access_token'
+    ])
 

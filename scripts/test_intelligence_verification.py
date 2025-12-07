@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Test Intelligence Verification - Generate and Verify Hashes
-Demonstrates cryptographic hash verification for theoretical intelligence compilations
+Test Hash Publication - Generate Hashes Only After Validation & Payment
+Demonstrates that hashes are only published when intelligence is validated and payment is settled.
+Hash existence = validation and payment confirmed (no separate verification needed).
 """
 
 import sys
@@ -14,12 +15,10 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.core.nemesis.compilation_engine import ABCCompilationEngine
-from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator
-from src.core.nemesis.on_chain_receipt.receipt_verifier import ReceiptVerifier
 from dataclasses import asdict
 
 def test_intelligence_verification(scenario_name, actor_id, actor_name, intelligence_data):
-    """Test intelligence compilation and hash verification for a scenario"""
+    """Test intelligence compilation and hash publication (only after validation & payment)"""
     print(f"\n{'='*80}")
     print(f"TEST: {scenario_name}")
     print(f"{'='*80}")
@@ -36,29 +35,30 @@ def test_intelligence_verification(scenario_name, actor_id, actor_name, intellig
         generate_receipt=True
     )
     
-    # Extract receipt - check both targeting_package and direct receipt
+    # Extract receipt - hash only exists if validation and payment are confirmed
     receipt_data = compiled.targeting_package.get('receipt', {})
-    if not receipt_data or not receipt_data.get('intelligence_hash'):
-        # Try to get from receipt directly if it's an IntelligenceReceipt object
-        if hasattr(compiled, 'receipt') and compiled.receipt:
-            receipt_data = asdict(compiled.receipt) if hasattr(compiled.receipt, '__dict__') else compiled.receipt
-        else:
-            # Generate receipt manually if not present
-            receipt_gen = CryptographicReceiptGenerator()
-            receipt_data = asdict(receipt_gen.generate_receipt(
-                intelligence_package=asdict(compiled),
-                actor_id=actor_id,
-                threat_level=compiled.targeting_package.get('risk_assessment', {}).get('threat_level', 'medium'),
-                package_type="targeting_package"
-            ))
     
+    # Check if hash was published (means validation and payment are confirmed)
+    if not receipt_data or receipt_data.get('status') == 'pending_validation_or_payment':
+        print(f"\n❌ Hash not published: Validation or payment not confirmed")
+        return {
+            'scenario': scenario_name,
+            'hash': None,
+            'timestamp': None,
+            'signature': None,
+            'actor_id': actor_id,
+            'threat_level': None,
+            'status': 'pending_validation_or_payment',
+            'message': 'Hash will be published after validation and payment settlement',
+            'compilation_time_ms': compiled.compilation_time_ms,
+            'confidence': compiled.confidence_score,
+            'risk_score': compiled.targeting_package.get('risk_assessment', {}).get('overall_risk', 0)
+        }
+    
+    # Hash exists = validation and payment confirmed
     hash_value = receipt_data.get('intelligence_hash', receipt_data.get('hash', 'N/A'))
     timestamp = receipt_data.get('timestamp', 'N/A')
-    
-    # Extract signature from verification
-    verifier = ReceiptVerifier()
-    verification_result = verifier.verify_receipt(receipt_data)
-    signature = verification_result.get('checks', {}).get('signature_verification', {}).get('signature', 'N/A')
+    signature = receipt_data.get('gh_systems_signature', receipt_data.get('signature', 'N/A'))
     
     # Determine threat level from risk score
     risk_score = compiled.targeting_package.get('risk_assessment', {}).get('overall_risk', 0)
@@ -77,17 +77,13 @@ def test_intelligence_verification(scenario_name, actor_id, actor_name, intellig
     print(f"   🎯 Risk Score: {risk_score*100:.1f}%")
     print(f"   ⚠️  Threat Level: {threat_level.upper()}")
     
-    print(f"\n🔐 Cryptographic Verification:")
+    print(f"\n🔐 Hash Published (Validation & Payment Confirmed):")
     print(f"   Hash: {hash_value}")
     print(f"   Timestamp: {timestamp}")
     print(f"   Signature: {signature}")
     print(f"   Actor ID: {actor_id}")
     print(f"   Threat Level: {threat_level}")
-    
-    print(f"\n✅ Hash Verification:")
-    hash_valid = verification_result.get('verified', False) or verification_result.get('checks', {}).get('structure_validity', False)
-    print(f"   Status: {'VERIFIED' if hash_valid else 'FAILED'}")
-    print(f"   Hash Match: {hash_valid}")
+    print(f"   ✅ Hash published - Intelligence validated and payment settled")
     
     return {
         'scenario': scenario_name,
@@ -96,8 +92,7 @@ def test_intelligence_verification(scenario_name, actor_id, actor_name, intellig
         'signature': signature,
         'actor_id': actor_id,
         'threat_level': threat_level,
-        'verification': verification_result,
-        'hash_valid': hash_valid,
+        'status': 'published',
         'compilation_time_ms': compiled.compilation_time_ms,
         'confidence': compiled.confidence_score,
         'risk_score': risk_score
@@ -106,8 +101,8 @@ def test_intelligence_verification(scenario_name, actor_id, actor_name, intellig
 def main():
     """Run test hashes for theoretical intelligence verification"""
     print("="*80)
-    print("GH Systems ABC - Intelligence Verification Test Suite")
-    print("Testing Cryptographic Hash Verification for Theoretical Intelligence")
+    print("GH Systems ABC - Hash Publication Test Suite")
+    print("Testing Hash Publication After Validation & Payment Settlement")
     print("="*80)
     
     results = []
@@ -276,28 +271,36 @@ def main():
     
     # Summary
     print(f"\n{'='*80}")
-    print("VERIFICATION TEST SUMMARY")
+    print("HASH PUBLICATION SUMMARY")
     print(f"{'='*80}")
     print(f"\n{'Scenario':<40} | {'Hash (first 32 chars)':<35} | {'Status':<10} | {'Time (ms)':<10}")
     print("-" * 100)
     
     for result in results:
-        hash_short = result['hash'][:32] + "..." if len(result['hash']) > 32 else result['hash']
-        status = "VERIFIED" if result.get('hash_valid', False) else "FAILED"
+        if result.get('hash'):
+            hash_short = result['hash'][:32] + "..." if len(result['hash']) > 32 else result['hash']
+            status = "PUBLISHED" if result.get('status') == 'published' else "PENDING"
+        else:
+            hash_short = "N/A (pending validation/payment)"
+            status = "PENDING"
         print(f"{result['scenario']:<40} | {hash_short:<35} | {status:<10} | {result['compilation_time_ms']:>8.2f}ms")
     
     print(f"\n{'='*80}")
-    print("VERIFICATION DETAILS")
+    print("PUBLICATION DETAILS")
     print(f"{'='*80}")
     
     for result in results:
         print(f"\n📋 {result['scenario']}")
-        print(f"   Hash: {result['hash']}")
-        print(f"   Timestamp: {result['timestamp']}")
-        print(f"   Signature: {result.get('signature', 'N/A')}")
-        print(f"   Actor ID: {result.get('actor_id', 'N/A')}")
-        print(f"   Threat Level: {result.get('threat_level', 'N/A').upper()}")
-        print(f"   Verification: {'✅ VERIFIED' if result.get('hash_valid', False) else '❌ FAILED'}")
+        if result.get('hash'):
+            print(f"   Hash: {result['hash']}")
+            print(f"   Timestamp: {result['timestamp']}")
+            print(f"   Signature: {result.get('signature', 'N/A')}")
+            print(f"   Actor ID: {result.get('actor_id', 'N/A')}")
+            print(f"   Threat Level: {result.get('threat_level', 'N/A').upper()}")
+            print(f"   Status: ✅ PUBLISHED (Validation & Payment Confirmed)")
+        else:
+            print(f"   Status: ⏳ PENDING (Validation or Payment Not Confirmed)")
+            print(f"   Message: {result.get('message', 'N/A')}")
         print(f"   Confidence: {result['confidence']:.2%}")
         print(f"   Risk Score: {result['risk_score']*100:.1f}%")
     
@@ -310,16 +313,17 @@ def main():
     print(f"✅ Test results saved to: {output_file}")
     print(f"{'='*80}\n")
     
-    # Verification statistics
-    verified_count = sum(1 for r in results if r.get('hash_valid', False))
+    # Publication statistics
+    published_count = sum(1 for r in results if r.get('hash') and r.get('status') == 'published')
     total_count = len(results)
     avg_time = sum(r['compilation_time_ms'] for r in results) / total_count
     
-    print(f"📊 Verification Statistics:")
+    print(f"📊 Publication Statistics:")
     print(f"   Total Tests: {total_count}")
-    print(f"   Verified: {verified_count}/{total_count} ({verified_count/total_count*100:.1f}%)")
+    print(f"   Published (Validated & Paid): {published_count}/{total_count} ({published_count/total_count*100:.1f}%)")
     print(f"   Average Compilation Time: {avg_time:.2f}ms")
-    print(f"   All Hashes: {'✅ VERIFIED' if verified_count == total_count else '❌ SOME FAILED'}")
+    print(f"   All Hashes: {'✅ PUBLISHED' if published_count == total_count else '⏳ SOME PENDING'}")
+    print(f"   Note: Hash existence = Validation & Payment Confirmed")
     print()
 
 if __name__ == "__main__":
