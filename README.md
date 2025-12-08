@@ -18,21 +18,17 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 **GH Systems ABC is the oracle that verifies truth when AGI generates threat assessments.**
 
-When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes verification impossible, **GH Systems ABC provides cryptographically verifiable assessments in <500ms** — the objective truth layer for post-AGI intelligence operations.
+When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes verification impossible, **ABC provides cryptographically verifiable assessments in <500ms** — the objective truth layer for post-AGI intelligence operations.
 
-**Built on Palantir Foundry** — We're building the intelligence verification layer on top of Foundry's data infrastructure. Every compilation integrates seamlessly with Foundry datasets, enabling real-time analytics, drift detection, and cryptographically verifiable assessments that flow directly into Foundry pipelines.
+**Built on Palantir Foundry** — Intelligence verification layer integrating with Foundry datasets for real-time analytics and cryptographically verifiable assessments.
 
-**The Genesis Mission** creates the largest AI infrastructure deployment in government history, where this verification problem emerges at scale. **We're building the UMA for intelligence verification on Foundry.**
+> **⚠️ Important: We're NOT building a "government chain"** — ABC is **chain-agnostic**. Agencies choose Bitcoin, Ethereum, Polygon, or any supported blockchain. We focus on the oracle (verification), not blockchain infrastructure.
 
-> **⚠️ Important: We're NOT building a "government chain"** — ABC is **chain-agnostic**. Agencies can use Bitcoin, Ethereum, Polygon, or any supported blockchain for cryptographic verification. We focus on the oracle (intelligence verification), not blockchain infrastructure. Each agency deploys on their preferred stack.
+**Aligned with National Security Strategy 2025** — Supports AI dominance (Genesis Mission), economic security, cybersecurity, and sovereignty priorities.
 
-**Aligned with National Security Strategy 2025** — ABC directly supports U.S. strategic priorities: AI & technology dominance (Genesis Mission), economic security (supply chain intelligence), cybersecurity (real-time attribution), and sovereignty (objective truth layer for intelligence disputes).
+**Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — compiled in <500ms with cryptographic proof.
 
-**Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof, ready for Foundry integration.
-
-**[🎯 Get Started: Reach Your Magic Moment in 60 Seconds](GETTING_STARTED.md)**
-
-**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. Get there in 60 seconds: `git clone https://github.com/aidanduffy68-prog/ABC.git && cd ABC && pip install -r requirements.txt && bash scripts/instant_demo.sh`
+**[🎯 Get Started: Magic Moment in 60 Seconds](GETTING_STARTED.md)** — `git clone https://github.com/aidanduffy68-prog/ABC.git && cd ABC && pip install -r requirements.txt && bash scripts/instant_demo.sh`
 
 ---
 
