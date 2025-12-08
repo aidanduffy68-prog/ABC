@@ -24,6 +24,8 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **The Genesis Mission** creates the largest AI infrastructure deployment in government history, where this verification problem emerges at scale. **We're building the UMA for intelligence verification on Foundry.**
 
+> **⚠️ Important: We're NOT building a "government chain"** — ABC is **chain-agnostic**. Agencies can use Bitcoin, Ethereum, Polygon, or any supported blockchain for cryptographic verification. We focus on the oracle (intelligence verification), not blockchain infrastructure. Each agency deploys on their preferred stack.
+
 **Aligned with National Security Strategy 2025** — ABC directly supports U.S. strategic priorities: AI & technology dominance (Genesis Mission), economic security (supply chain intelligence), cybersecurity (real-time attribution), and sovereignty (objective truth layer for intelligence disputes).
 
 **Recent Deployments:** Department of War & DHS (88% risk), Treasury (85% risk) — both compiled in <500ms with cryptographic proof, ready for Foundry integration.
@@ -129,7 +131,7 @@ bash scripts/instant_demo.sh
 - **Pydantic** - Strict type validation and data schemas
 - **NetworkX** - Graph data structure manipulation
 - **PyTorch Geometric** - Graph Neural Networks (in development)
-- **Bitcoin** - On-chain cryptographic receipts (OP_RETURN)
+- **Chain-Agnostic Blockchain Support** - Cryptographic receipts on Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported network (agencies choose their preferred chain)
 - **PostgreSQL/Neo4j** - Graph database for Hypnos Core
 
 ---

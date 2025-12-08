@@ -17,6 +17,8 @@ Agencies already disagree (CIA: 85%, DHS: 60%). Add AI-generated intelligence an
 - **Dispute resolution** — Objective truth layer for intelligence conflicts
 - **Instant consensus** — <500ms compilation vs. 14+ days traditional
 
+> **Note:** We're NOT building a "government chain." ABC is **chain-agnostic** — agencies can use Bitcoin, Ethereum, Polygon, or any supported blockchain. We focus on the oracle (verification), not blockchain infrastructure.
+
 ## The Oracle Comparison
 
 | Platform | Oracle | Problem | Solution | Mechanism | Trust |

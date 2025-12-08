@@ -1,30 +1,50 @@
 """
-On-Chain Cryptographic Receipt System
-Generates minimal cryptographic proofs of intelligence outputs without revealing proprietary systems
+On-Chain Receipt System
+Chain-agnostic cryptographic receipt generation and verification
+
+Copyright (c) 2025 GH Systems. All rights reserved.
 """
 
 from .receipt_generator import (
     CryptographicReceiptGenerator,
     IntelligenceReceipt,
-    ReceiptStatus
+    ReceiptStatus,
+    ReceiptVerifier
 )
 
-from .bitcoin_integration import (
-    BitcoinOnChainIntegration,
-    submit_receipt_to_bitcoin
+from .blockchain_abstraction import (
+    BlockchainNetwork,
+    ChainConfig,
+    OnChainCommitment,
+    BlockchainAdapter,
+    BlockchainAdapterFactory,
+    ChainAgnosticReceiptManager,
+    commit_receipt_to_chain
 )
 
-from .receipt_verifier import (
-    ReceiptVerifier,
-    verify_receipt
-)
+from .bitcoin_adapter import BitcoinAdapter
+from .ethereum_adapter import EthereumAdapter
+
+# Register blockchain adapters
+BlockchainAdapterFactory.register_adapter(BlockchainNetwork.BITCOIN, BitcoinAdapter)
+BlockchainAdapterFactory.register_adapter(BlockchainNetwork.ETHEREUM, EthereumAdapter)
+BlockchainAdapterFactory.register_adapter(BlockchainNetwork.POLYGON, EthereumAdapter)
+BlockchainAdapterFactory.register_adapter(BlockchainNetwork.ARBITRUM, EthereumAdapter)
+BlockchainAdapterFactory.register_adapter(BlockchainNetwork.BASE, EthereumAdapter)
+BlockchainAdapterFactory.register_adapter(BlockchainNetwork.OPTIMISM, EthereumAdapter)
 
 __all__ = [
     "CryptographicReceiptGenerator",
     "IntelligenceReceipt",
     "ReceiptStatus",
-    "BitcoinOnChainIntegration",
-    "submit_receipt_to_bitcoin",
     "ReceiptVerifier",
-    "verify_receipt"
+    "BlockchainNetwork",
+    "ChainConfig",
+    "OnChainCommitment",
+    "BlockchainAdapter",
+    "BlockchainAdapterFactory",
+    "ChainAgnosticReceiptManager",
+    "commit_receipt_to_chain",
+    "BitcoinAdapter",
+    "EthereumAdapter",
 ]

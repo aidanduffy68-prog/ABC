@@ -88,7 +88,8 @@ class ABCCompilationEngine:
         raw_intelligence: List[Dict[str, Any]],
         transaction_data: Optional[List[Dict[str, Any]]] = None,
         network_data: Optional[Dict[str, Any]] = None,
-        generate_receipt: bool = True
+        generate_receipt: bool = True,
+        preferred_blockchain: Optional[str] = None
     ) -> CompiledIntelligence:
         """
         Compile intelligence through Hades → Echo → Nemesis pipeline.
@@ -283,7 +284,24 @@ class ABCCompilationEngine:
             
             # Only attach receipt if hash was published (validation and payment confirmed)
             if receipt:
+                # Commit to blockchain if preferred network specified (chain-agnostic)
+                if preferred_blockchain:
+                    try:
+                        tx_hash = self.receipt_generator.commit_to_blockchain(
+                            receipt=receipt,
+                            preferred_network=preferred_blockchain
+                        )
+                        if tx_hash:
+                            receipt.tx_hash = tx_hash
+                            receipt.status = "committed"
+                    except Exception as e:
+                        # Log error but don't fail compilation
+                        import logging
+                        logging.warning(f"Blockchain commitment failed: {e}")
+                
                 compiled.targeting_package["receipt"] = asdict(receipt)
+                if preferred_blockchain:
+                    compiled.targeting_package["receipt"]["blockchain_network"] = preferred_blockchain
             else:
                 # No hash published - validation or payment failed
                 compiled.targeting_package["receipt"] = {

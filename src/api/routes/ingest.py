@@ -43,6 +43,10 @@ class IngestRequest(BaseModel):
     vendor: str = Field(..., description="Vendor name (Chainalysis, TRM, Chaos, etc.)", min_length=1, max_length=50)
     timestamp: datetime = Field(default_factory=datetime.now, description="Feed timestamp")
     data: List[Dict[str, Any]] = Field(..., description="Array of entity data", min_items=1, max_items=10000)
+    preferred_blockchain: Optional[str] = Field(
+        None,
+        description="Preferred blockchain network for receipt commitment (bitcoin, ethereum, polygon, etc.). Defaults to bitcoin if not specified."
+    )
     
     @validator('vendor')
     def validate_vendor(cls, v):

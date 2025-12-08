@@ -459,41 +459,70 @@ class CryptographicReceiptGenerator:
     def commit_to_blockchain(
         self,
         receipt: IntelligenceReceipt,
-        btc_address: Optional[str] = None
+        preferred_network: Optional[str] = None,
+        chain_config: Optional[Any] = None
     ) -> Optional[str]:
         """
-        Commit receipt to Bitcoin blockchain
+        Commit receipt to blockchain (chain-agnostic)
         
-        SECURITY NOTE: This is currently a PLACEHOLDER implementation.
-        It does NOT actually commit to the Bitcoin blockchain.
-        In production, this must be replaced with actual Bitcoin OP_RETURN transactions
-        or integration with a Bitcoin timestamping service (e.g., OpenTimestamps).
+        Supports multiple blockchain networks (Bitcoin, Ethereum, Polygon, etc.)
+        Vendors and agencies can specify their preferred chain.
         
         Args:
             receipt: IntelligenceReceipt to commit
-            btc_address: Bitcoin address to use (optional)
+            preferred_network: Preferred blockchain network (e.g., "bitcoin", "ethereum")
+                              Defaults to Bitcoin if not specified
+            chain_config: ChainConfig for network-specific settings (optional)
             
         Returns:
-            Bitcoin transaction hash (or None if not implemented)
+            Transaction hash (or None if not implemented)
             
-        Raises:
-            NotImplementedError: Always raises - actual blockchain commitment not implemented
+        Note:
+            In production, this uses the chain-agnostic abstraction layer.
+            Each blockchain adapter handles network-specific requirements.
         """
-        # SECURITY: Do not claim blockchain commitment if not actually implemented
-        raise NotImplementedError(
-            "Blockchain commitment not yet implemented. "
-            "This method is a placeholder. "
-            "To implement: use python-bitcoinlib for OP_RETURN transactions "
-            "or integrate OpenTimestamps for Bitcoin timestamping."
-        )
-        
-        # Placeholder code (never reached):
-        # In production, this would:
-        # 1. Create OP_RETURN transaction with receipt data (max 80 bytes)
-        # 2. Sign transaction with Bitcoin private key
-        # 3. Broadcast to Bitcoin network
-        # 4. Wait for confirmation
-        # 5. Return actual transaction hash
+        try:
+            from .blockchain_abstraction import (
+                BlockchainNetwork,
+                ChainAgnosticReceiptManager,
+                ChainConfig
+            )
+            
+            # Parse network preference
+            if preferred_network:
+                try:
+                    network = BlockchainNetwork(preferred_network.lower())
+                except ValueError:
+                    # Default to Bitcoin if invalid network specified
+                    network = BlockchainNetwork.BITCOIN
+            else:
+                network = BlockchainNetwork.BITCOIN  # Default
+            
+            # Create chain-agnostic manager
+            manager = ChainAgnosticReceiptManager(default_network=network)
+            
+            # Prepare receipt data
+            receipt_data = asdict(receipt)
+            
+            # Commit to blockchain
+            commitment = manager.commit_receipt(
+                receipt_data=receipt_data,
+                preferred_network=network,
+                chain_config=chain_config
+            )
+            
+            # Update receipt with transaction hash
+            receipt.tx_hash = commitment.tx_hash
+            receipt.status = ReceiptStatus.COMMITTED.value
+            
+            return commitment.tx_hash
+            
+        except ImportError:
+            # Fallback if abstraction layer not available
+            raise NotImplementedError(
+                "Blockchain commitment requires chain-agnostic abstraction layer. "
+                "Install required dependencies and ensure adapters are registered."
+            )
     
     def export_receipt_json(self, receipt: IntelligenceReceipt) -> str:
         """Export receipt as JSON string"""
