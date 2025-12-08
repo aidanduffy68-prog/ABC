@@ -477,7 +477,8 @@ class ABCCompilationEngine:
         target_agency: str,
         ai_system_data: Dict[str, Any],
         vulnerability_data: List[Dict[str, Any]],
-        generate_receipt: bool = True
+        generate_receipt: bool = True,
+        preferred_blockchain: Optional[str] = None
     ) -> CompiledIntelligence:
         """
         Specialized compilation for federal AI security intelligence
@@ -518,7 +519,8 @@ class ABCCompilationEngine:
             raw_intelligence=raw_intelligence,
             transaction_data=None,
             network_data=ai_system_data,
-            generate_receipt=generate_receipt
+            generate_receipt=generate_receipt,
+            preferred_blockchain=preferred_blockchain
         )
 
 

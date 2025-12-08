@@ -87,8 +87,12 @@ def format_output(compiled):
     if compiled.targeting_package.get('receipt'):
         receipt = compiled.targeting_package['receipt']
         print(f"\n🔐 Cryptographic Receipt:")
-        print(f"   Hash: {receipt.get('hash', 'N/A')[:16]}...")
+        print(f"   Hash: {receipt.get('intelligence_hash', receipt.get('hash', 'N/A'))[:16]}...")
         print(f"   Timestamp: {receipt.get('timestamp', 'N/A')}")
+        if receipt.get('blockchain_network'):
+            print(f"   Blockchain: {receipt.get('blockchain_network')}")
+        if receipt.get('tx_hash'):
+            print(f"   TX Hash: {receipt.get('tx_hash')[:16]}...")
     
     # Check if this is a Magic Moment (first successful compilation)
     is_magic_moment = compiled.compilation_time_ms < 500 and compiled.confidence_score > 0
@@ -125,17 +129,25 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Compile intelligence for an actor
+  # Compile intelligence for an actor (default: Bitcoin)
   python scripts/compile_intelligence.py \\
     --actor-id "lazarus_001" \\
     --actor-name "Lazarus Group" \\
     --intel-file intelligence.json
 
-  # Compile federal AI intelligence
+  # Compile with Ethereum blockchain
+  python scripts/compile_intelligence.py \\
+    --actor-id "lazarus_001" \\
+    --actor-name "Lazarus Group" \\
+    --intel-file intelligence.json \\
+    --blockchain ethereum
+
+  # Compile federal AI intelligence with Polygon (lower fees)
   python scripts/compile_intelligence.py \\
     --federal-ai \\
     --agency "DoD" \\
-    --vuln-file vulnerabilities.json
+    --vuln-file vulnerabilities.json \\
+    --blockchain polygon
         """
     )
     
@@ -169,6 +181,12 @@ Examples:
     parser.add_argument('--no-receipt', action='store_true',
                        help='Skip cryptographic receipt generation')
     
+    # Blockchain options
+    parser.add_argument('--blockchain', type=str,
+                       choices=['bitcoin', 'ethereum', 'polygon', 'arbitrum', 'base', 'optimism'],
+                       default='bitcoin',
+                       help='Preferred blockchain network for receipt commitment (default: bitcoin)')
+    
     args = parser.parse_args()
     
     # Initialize engine
@@ -194,11 +212,13 @@ Examples:
                     vulnerability_data = [vuln_data]
             
             print(f"🔍 Compiling federal AI intelligence for {args.agency}...")
+            print(f"⛓️  Blockchain: {args.blockchain}")
             compiled = engine.compile_federal_ai_intelligence(
                 target_agency=args.agency,
                 ai_system_data=ai_system_data,
                 vulnerability_data=vulnerability_data,
-                generate_receipt=not args.no_receipt
+                generate_receipt=not args.no_receipt,
+                preferred_blockchain=args.blockchain
             )
         else:
             # Standard actor compilation mode
@@ -232,12 +252,15 @@ Examples:
                 network_data = load_json_file(args.network_file)
             
             print(f"🔍 Compiling intelligence for {args.actor_name}...")
-            compiled = compile_intelligence(
+            print(f"⛓️  Blockchain: {args.blockchain}")
+            compiled = engine.compile_intelligence(
                 actor_id=args.actor_id,
                 actor_name=args.actor_name,
                 raw_intelligence=raw_intelligence,
                 transaction_data=transaction_data,
-                network_data=network_data
+                network_data=network_data,
+                generate_receipt=not args.no_receipt,
+                preferred_blockchain=args.blockchain
             )
         
         # Display results
