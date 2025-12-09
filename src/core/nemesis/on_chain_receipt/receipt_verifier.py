@@ -61,11 +61,16 @@ class ReceiptVerifier:
             "timestamp": datetime.now().isoformat()
         }
         
-        # Check 1: Receipt hash integrity
+        # Check 1: Receipt hash integrity (constant-time comparison)
         if intelligence_package:
+            import secrets
             expected_hash = self.receipt_generator._hash_intelligence_package(intelligence_package)
-            actual_hash = receipt.get("intelligence_hash")
-            verification_result["checks"]["hash_integrity"] = expected_hash == actual_hash
+            actual_hash = receipt.get("intelligence_hash", "")
+            # Use constant-time comparison to prevent timing attacks
+            verification_result["checks"]["hash_integrity"] = secrets.compare_digest(
+                expected_hash.encode() if isinstance(expected_hash, str) else expected_hash,
+                actual_hash.encode() if isinstance(actual_hash, str) else actual_hash
+            )
         else:
             verification_result["checks"]["hash_integrity"] = None  # Cannot verify without package
         
@@ -137,14 +142,21 @@ class ReceiptVerifier:
             Verification result
         """
         # Generate expected hash
+        import secrets
         expected_hash = self.receipt_generator._hash_intelligence_package(intelligence_package)
-        actual_hash = receipt.get("intelligence_hash")
+        actual_hash = receipt.get("intelligence_hash", "")
+        
+        # Use constant-time comparison to prevent timing attacks
+        verified = secrets.compare_digest(
+            expected_hash.encode() if isinstance(expected_hash, str) else expected_hash,
+            actual_hash.encode() if isinstance(actual_hash, str) else actual_hash
+        )
         
         return {
-            "verified": expected_hash == actual_hash,
+            "verified": verified,
             "expected_hash": expected_hash,
             "actual_hash": actual_hash,
-            "match": expected_hash == actual_hash,
+            "match": verified,
             "timestamp": datetime.now().isoformat()
         }
     

@@ -33,6 +33,30 @@ class ChainConfig:
     gas_price: Optional[int] = None  # For EVM chains
     fee_rate: Optional[float] = None  # For Bitcoin (sat/vB)
     max_data_size: int = 80  # Max bytes for on-chain data (varies by chain)
+    
+    def __post_init__(self):
+        """Validate configuration after initialization"""
+        # Validate RPC URL if provided
+        if self.rpc_url:
+            from src.core.security.rpc_validation import validate_rpc_url
+            import os
+            # Allow localhost in development, not in production
+            allow_local = os.getenv("ENVIRONMENT", "development") == "development"
+            if not validate_rpc_url(self.rpc_url, allow_local=allow_local):
+                raise ValueError(
+                    f"RPC URL not in whitelist: {self.rpc_url}. "
+                    "Only whitelisted RPC endpoints are allowed for security."
+                )
+        
+        # Validate gas price (prevent excessive fees)
+        if self.gas_price is not None:
+            MAX_GAS_PRICE_GWEI = 1000  # 1000 gwei maximum
+            MAX_GAS_PRICE_WEI = MAX_GAS_PRICE_GWEI * 1_000_000_000  # Convert to wei
+            if self.gas_price > MAX_GAS_PRICE_WEI:
+                raise ValueError(
+                    f"Gas price ({self.gas_price} wei) exceeds maximum allowed "
+                    f"({MAX_GAS_PRICE_WEI} wei = {MAX_GAS_PRICE_GWEI} gwei)"
+                )
 
 
 @dataclass
@@ -285,6 +309,14 @@ class ChainAgnosticReceiptManager:
         Returns:
             Formatted bytes for on-chain commitment
         """
+        # Sanitize receipt data before processing
+        from src.core.security.input_sanitization import sanitize_receipt_data, validate_json_depth
+        try:
+            validate_json_depth(receipt_data, max_depth=10)
+            receipt_data = sanitize_receipt_data(receipt_data)
+        except ValueError as e:
+            raise ValueError(f"Receipt data validation failed: {e}")
+        
         # Extract key fields
         receipt_id = receipt_data.get("receipt_id", "")[:32]
         intelligence_hash = receipt_data.get("intelligence_hash", "")[:32]

@@ -128,6 +128,19 @@ class CryptographicReceiptGenerator:
         Returns:
             IntelligenceReceipt with cryptographic proof, or None if validation/payment fails
         """
+        # Sanitize and validate intelligence package
+        from src.core.security.input_sanitization import validate_json_depth, sanitize_metadata
+        
+        try:
+            # Validate JSON nesting depth
+            validate_json_depth(intelligence_package, max_depth=10)
+        except ValueError as e:
+            raise ValueError(f"Intelligence package validation failed: {e}")
+        
+        # Sanitize metadata if present
+        if "metadata" in intelligence_package and isinstance(intelligence_package["metadata"], dict):
+            intelligence_package["metadata"] = sanitize_metadata(intelligence_package["metadata"])
+        
         # Validate intelligence before generating hash
         if validate_before_publish:
             if not self._validate_intelligence(intelligence_package):
@@ -408,7 +421,7 @@ class CryptographicReceiptGenerator:
         """
         Verify that receipt matches intelligence package
         
-        SECURITY FIX: Now uses real cryptographic signature verification.
+        SECURITY FIX: Now uses real cryptographic signature verification and constant-time hash comparison.
         
         Args:
             receipt: IntelligenceReceipt to verify
@@ -417,9 +430,13 @@ class CryptographicReceiptGenerator:
         Returns:
             True if receipt is valid, False otherwise
         """
-        # Verify hash matches
+        # Verify hash matches (constant-time comparison to prevent timing attacks)
+        import secrets
         package_hash = self._hash_intelligence_package(intelligence_package)
-        if package_hash != receipt.intelligence_hash:
+        if not secrets.compare_digest(
+            package_hash.encode() if isinstance(package_hash, str) else package_hash,
+            receipt.intelligence_hash.encode() if isinstance(receipt.intelligence_hash, str) else receipt.intelligence_hash
+        ):
             return False
         
         # Verify signature using real cryptographic verification

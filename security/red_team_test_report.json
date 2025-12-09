@@ -1,0 +1,128 @@
+{
+  "test_summary": {
+    "total_tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "pass_rate": "100.0%"
+  },
+  "findings": {
+    "critical": 0,
+    "high": 0,
+    "medium": 4,
+    "low": 1
+  },
+  "critical_findings": [],
+  "high_findings": [],
+  "medium_findings": [
+    {
+      "test": "1.3",
+      "issue": "XSS payload in metadata not sanitized",
+      "severity": "MEDIUM",
+      "details": "Metadata should be sanitized before JSON serialization"
+    },
+    {
+      "test": "4.3",
+      "issue": "Deeply nested JSON may cause stack overflow",
+      "severity": "MEDIUM",
+      "details": "Should limit nesting depth"
+    },
+    {
+      "test": "8.1",
+      "issue": "RPC URL not validated",
+      "severity": "MEDIUM",
+      "details": "Should whitelist allowed RPC endpoints"
+    },
+    {
+      "test": "10.1",
+      "issue": "Hash comparison may be vulnerable to timing attacks",
+      "severity": "MEDIUM",
+      "details": "Should use constant-time comparison (secrets.compare_digest)"
+    }
+  ],
+  "low_findings": [
+    {
+      "test": "8.2",
+      "issue": "Gas price not limited",
+      "severity": "LOW",
+      "details": "Should cap gas price to prevent excessive fees"
+    }
+  ],
+  "test_results": [
+    {
+      "test": "1.1",
+      "status": "PASS",
+      "message": "Invalid network properly rejected"
+    },
+    {
+      "test": "1.2",
+      "status": "PASS",
+      "message": "SQL injection attempt properly handled"
+    },
+    {
+      "test": "2.1",
+      "status": "PASS",
+      "message": "Path traversal attempt handled"
+    },
+    {
+      "test": "2.2",
+      "status": "PASS",
+      "message": "Invalid timestamp properly rejected"
+    },
+    {
+      "test": "3.1",
+      "status": "PASS",
+      "message": "Network enumeration is expected behavior"
+    },
+    {
+      "test": "3.2",
+      "status": "PASS",
+      "message": "Unregistered network properly rejected"
+    },
+    {
+      "test": "4.1",
+      "status": "PASS",
+      "message": "Large receipt data properly handled"
+    },
+    {
+      "test": "4.2",
+      "status": "PASS",
+      "message": "Rapid receipt generation handled"
+    },
+    {
+      "test": "5.1",
+      "status": "PASS",
+      "message": "Error messages properly sanitized"
+    },
+    {
+      "test": "6.1",
+      "status": "PASS",
+      "message": "Authentication module exists and properly structured"
+    },
+    {
+      "test": "6.2",
+      "status": "PASS",
+      "message": "JWT validation module exists"
+    },
+    {
+      "test": "7.1",
+      "status": "PASS",
+      "message": "Pydantic validation working"
+    },
+    {
+      "test": "7.2",
+      "status": "PASS",
+      "message": "Type validation working"
+    },
+    {
+      "test": "9.1",
+      "status": "PASS",
+      "message": "Receipt tampering properly detected"
+    },
+    {
+      "test": "9.2",
+      "status": "PASS",
+      "message": "Receipt IDs are unique"
+    }
+  ],
+  "timestamp": "2025-12-09T13:47:30.148318"
+}
