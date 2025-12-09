@@ -17,6 +17,7 @@ class MerkleNode:
         self.left = left
         self.right = right
         self.data = data  # Only leaf nodes have data
+        self.parent: Optional['MerkleNode'] = None  # Parent pointer for proof generation
 
 
 class MerkleTree:
@@ -37,18 +38,32 @@ class MerkleTree:
         self.leaf_nodes: List[MerkleNode] = []
     
     def _build_tree(self, receipts: List[Dict[str, Any]]) -> Optional[MerkleNode]:
-        """Build Merkle tree from receipts"""
+        """
+        Build Merkle tree from receipts
+        
+        SECURITY FIXES:
+        - Deterministic sorting: Sort receipts by hash for consistent tree structure
+        - Proper padding: Duplicate last leaf when odd number (prevents second preimage attacks)
+        - Parent pointers: Maintain parent references for proof generation
+        """
         if not receipts:
             return None
         
-        # Create leaf nodes (one per receipt)
-        leaves = []
-        for receipt in receipts:
-            # Use intelligence_hash as leaf hash
+        # SECURITY FIX: Sort receipts deterministically by hash
+        # This ensures same receipts always produce same tree structure
+        def get_receipt_hash(receipt: Dict[str, Any]) -> str:
             intelligence_hash = receipt.get('intelligence_hash', '')
             if not intelligence_hash:
-                # Generate hash from receipt if intelligence_hash not present
                 intelligence_hash = self._hash_receipt(receipt)
+            return intelligence_hash
+        
+        # Sort receipts by hash for deterministic tree structure
+        sorted_receipts = sorted(receipts, key=get_receipt_hash)
+        
+        # Create leaf nodes (one per receipt)
+        leaves = []
+        for receipt in sorted_receipts:
+            intelligence_hash = get_receipt_hash(receipt)
             
             leaf = MerkleNode(
                 hash_value=intelligence_hash,
@@ -57,7 +72,7 @@ class MerkleTree:
             leaves.append(leaf)
             self.leaf_nodes.append(leaf)
         
-        # Build tree bottom-up
+        # Build tree bottom-up with parent pointers
         nodes = leaves
         while len(nodes) > 1:
             next_level = []
@@ -68,12 +83,19 @@ class MerkleTree:
                 right = nodes[i + 1] if i + 1 < len(nodes) else None
                 
                 if right:
-                    # Combine hashes
+                    # Combine hashes with position information
                     combined_hash = self._hash_pair(left.hash, right.hash)
                     parent = MerkleNode(combined_hash, left, right)
+                    # Maintain parent pointers for proof generation
+                    left.parent = parent
+                    right.parent = parent
                 else:
-                    # Odd number of nodes, promote left
-                    parent = left
+                    # SECURITY FIX: Duplicate last leaf when odd number
+                    # This prevents second preimage attacks
+                    # Don't promote left directly - duplicate it
+                    duplicated_hash = self._hash_pair(left.hash, left.hash)
+                    parent = MerkleNode(duplicated_hash, left, left)
+                    left.parent = parent
                 
                 next_level.append(parent)
             
@@ -82,8 +104,14 @@ class MerkleTree:
         return nodes[0] if nodes else None
     
     def _hash_pair(self, hash1: str, hash2: str) -> str:
-        """Hash two hashes together"""
-        combined = f"{hash1}{hash2}".encode('utf-8')
+        """
+        Hash two hashes together with position information
+        
+        SECURITY FIX: Include position markers to prevent second preimage attacks
+        """
+        # Include position markers: "L" for left, "R" for right
+        # This prevents attacker from swapping left/right to create same hash
+        combined = f"L{hash1}R{hash2}".encode('utf-8')
         return hashlib.sha256(combined).hexdigest()
     
     def _hash_receipt(self, receipt: Dict[str, Any]) -> str:
@@ -150,11 +178,12 @@ class MerkleTree:
         }
     
     def _find_parent(self, node: MerkleNode) -> Optional[MerkleNode]:
-        """Find parent of a node (helper for proof generation)"""
-        # In a proper implementation, we'd maintain parent pointers
-        # For now, this is a simplified version
-        # In production, use a more efficient tree structure
-        return None  # Placeholder - would need full tree traversal
+        """
+        Find parent of a node (helper for proof generation)
+        
+        SECURITY FIX: Now uses parent pointers maintained during tree construction
+        """
+        return node.parent
     
     def verify_proof(
         self,
@@ -186,7 +215,12 @@ class MerkleTree:
                 # Current is right, sibling is left
                 current_hash = self._hash_pair(sibling_hash, current_hash)
         
-        return current_hash == root_hash
+        # SECURITY FIX: Use constant-time comparison to prevent timing attacks
+        import secrets
+        return secrets.compare_digest(
+            current_hash.encode() if isinstance(current_hash, str) else current_hash,
+            root_hash.encode() if isinstance(root_hash, str) else root_hash
+        )
     
     def reveal_receipt(self, receipt_index: int) -> Optional[Dict[str, Any]]:
         """

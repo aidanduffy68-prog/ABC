@@ -19,6 +19,14 @@ from .rpc_validation import (
     add_allowed_rpc_domain
 )
 
+from .key_derivation import (
+    derive_key_pbkdf2,
+    derive_key_argon2,
+    generate_key_from_password,
+    verify_key_derivation,
+    generate_salt
+)
+
 __all__ = [
     "sanitize_metadata",
     "validate_json_depth",
@@ -28,5 +36,10 @@ __all__ = [
     "validate_rpc_url_strict",
     "get_allowed_rpc_domains",
     "add_allowed_rpc_domain",
+    "derive_key_pbkdf2",
+    "derive_key_argon2",
+    "generate_key_from_password",
+    "verify_key_derivation",
+    "generate_salt",
 ]
 
