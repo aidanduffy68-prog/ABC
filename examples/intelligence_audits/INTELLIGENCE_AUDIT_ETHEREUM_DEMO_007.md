@@ -296,9 +296,7 @@ Confidence scores represent ABC's algorithmic assessment based on:
   </a>
   <br/>
   <em>📊 <strong><a href="ethereum_risks_interactive.html">View Interactive Bubble Map</a></strong> | 
-  <a href="https://v2.bubblemaps.io/" target="_blank">Upload to Bubblemaps.io</a> | 
-  <a href="ethereum_risks_bubblemaps.json">Download JSON data</a> | 
-  <a href="BUBBLEMAPS_INSTRUCTIONS.md">Setup instructions</a></em>
+  <a href="ethereum_risks_bubblemaps.json">Download JSON data</a></em>
 </div>
 
 | Capability | Assessment | Key Driver |
