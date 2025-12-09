@@ -65,7 +65,12 @@ class CryptographicReceiptGenerator:
     receive intelligence from GH Systems—creating a bidirectional intelligence flow.
     """
     
-    def __init__(self, private_key_pem: Optional[str] = None, licensee_id: Optional[str] = None):
+    def __init__(
+        self,
+        private_key_pem: Optional[str] = None,
+        licensee_id: Optional[str] = None,
+        use_blake2_hashing: bool = False
+    ):
         """
         Initialize receipt generator
         
@@ -74,6 +79,8 @@ class CryptographicReceiptGenerator:
                            If None, will use mock signing (NOT SECURE - for development only).
                            In production, MUST provide real private key from secure key management.
             licensee_id: Licensee identifier (if generating receipts for licensee contributions)
+            use_blake2_hashing: If True, use BLAKE2b for hashing (faster, more secure).
+                              If False, use SHA-256 (default for compatibility).
         """
         self.private_key_pem = private_key_pem
         self.private_key_obj = None
@@ -81,6 +88,7 @@ class CryptographicReceiptGenerator:
         self.licensee_id = licensee_id
         self.receipt_version = "1.0.0"
         self.use_real_cryptography = False
+        self.use_blake2_hashing = use_blake2_hashing
         
         # Load private key if provided
         if private_key_pem and CRYPTOGRAPHY_AVAILABLE:
@@ -153,7 +161,10 @@ class CryptographicReceiptGenerator:
         
         # Only generate hash after validation and payment are confirmed
         # Generate hash of full intelligence package
-        intelligence_hash = self._hash_intelligence_package(intelligence_package)
+        intelligence_hash = self._hash_intelligence_package(
+            intelligence_package,
+            use_blake2=self.use_blake2_hashing
+        )
         
         # Generate receipt ID
         receipt_id = self._generate_receipt_id(intelligence_hash)
@@ -253,15 +264,22 @@ class CryptographicReceiptGenerator:
         # In production, this would return False to require explicit payment
         return True  # Allow for testing, but in production should check actual settlement
     
-    def _hash_intelligence_package(self, package: Dict[str, Any]) -> str:
+    def _hash_intelligence_package(self, package: Dict[str, Any], use_blake2: bool = False) -> str:
         """
-        Generate SHA-256 hash of intelligence package using canonical JSON
+        Generate hash of intelligence package using canonical JSON
         
         CRITICAL: Uses canonical JSON representation to ensure hash consistency
         - sort_keys=True: Deterministic key ordering
         - ensure_ascii=False: Preserve Unicode
         - separators=(',', ':'): No extra whitespace
         - No formatting changes (whitespace) should affect hash
+        
+        Args:
+            package: Intelligence package dictionary
+            use_blake2: If True, use BLAKE2b (faster, more secure). If False, use SHA-256 (default for compatibility)
+            
+        Returns:
+            Hexadecimal hash string (64 characters)
         """
         # Canonical JSON: sort keys, no extra whitespace, consistent encoding
         # Handle non-serializable types (datetime, enums, etc.)
@@ -307,7 +325,15 @@ class CryptographicReceiptGenerator:
             separators=(',', ':'),  # No extra whitespace
             default=json_serializer
         )
-        return hashlib.sha256(package_json.encode('utf-8')).hexdigest()
+        
+        package_bytes = package_json.encode('utf-8')
+        
+        # Use BLAKE2b if requested (faster, more secure)
+        if use_blake2:
+            return hashlib.blake2b(package_bytes, digest_size=32).hexdigest()
+        else:
+            # Default to SHA-256 for compatibility
+            return hashlib.sha256(package_bytes).hexdigest()
     
     def _generate_receipt_id(self, intelligence_hash: str) -> str:
         """
@@ -363,7 +389,12 @@ class CryptographicReceiptGenerator:
                 # Return base64-encoded signature
                 return base64.b64encode(signature).decode('utf-8')
             except Exception as e:
-                raise ValueError(f"Failed to generate cryptographic signature: {e}")
+                # Generic error message to prevent information leakage
+                # Log detailed error internally, but don't expose to caller
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Failed to generate cryptographic signature: {e}", exc_info=True)
+                raise ValueError("Failed to generate cryptographic signature")
         else:
             # MOCK signature for development/testing (NOT SECURE)
             # WARNING: This is NOT a real signature and can be forged!
@@ -414,7 +445,12 @@ class CryptographicReceiptGenerator:
                 hashes.SHA256()
             )
             return True
-        except Exception:
+        except Exception as e:
+            # Generic error handling - don't reveal why verification failed
+            # This prevents information leakage about key existence, signature format, etc.
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.debug(f"Signature verification failed: {e}")
             return False
     
     def verify_receipt(self, receipt: IntelligenceReceipt, intelligence_package: Dict[str, Any]) -> bool:
@@ -432,7 +468,10 @@ class CryptographicReceiptGenerator:
         """
         # Verify hash matches (constant-time comparison to prevent timing attacks)
         import secrets
-        package_hash = self._hash_intelligence_package(intelligence_package)
+        package_hash = self._hash_intelligence_package(
+            intelligence_package,
+            use_blake2=self.use_blake2_hashing
+        )
         if not secrets.compare_digest(
             package_hash.encode() if isinstance(package_hash, str) else package_hash,
             receipt.intelligence_hash.encode() if isinstance(receipt.intelligence_hash, str) else receipt.intelligence_hash
