@@ -290,6 +290,17 @@ Confidence scores represent ABC's algorithmic assessment based on:
 
 **Overall Capability:** 92% | **Confidence:** HIGH | **Strategic Value:** HIGH
 
+<div align="center">
+  <a href="ethereum_risks_interactive.html" target="_blank">
+    <img src="ethereum_risk_bubblemap.png" alt="Top 3 Risk Capabilities - Interactive Bubble Map" width="800"/>
+  </a>
+  <br/>
+  <em>📊 <strong><a href="ethereum_risks_interactive.html">View Interactive Bubble Map</a></strong> | 
+  <a href="https://v2.bubblemaps.io/" target="_blank">Upload to Bubblemaps.io</a> | 
+  <a href="ethereum_risks_bubblemaps.json">Download JSON data</a> | 
+  <a href="BUBBLEMAPS_INSTRUCTIONS.md">Setup instructions</a></em>
+</div>
+
 | Capability | Assessment | Key Driver |
 |------------|------------|------------|
 | Market Expansion | 92% | Chain-agnostic removes objections |
