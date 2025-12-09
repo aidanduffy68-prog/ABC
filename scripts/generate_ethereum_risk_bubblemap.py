@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate Bubble Map/Web Visualization for Top 3 Risks
+Generate Bubble Map/Web Visualization for Top 3 Capabilities
 Ethereum Chain-Agnostic Architecture Demonstration
 
 Copyright (c) 2025 GH Systems. All rights reserved.
@@ -18,8 +18,10 @@ fig, ax = plt.subplots(figsize=(14, 10))
 ax.set_facecolor('#000000')
 fig.patch.set_facecolor('#000000')
 
-# Risk data - Top 3 risks from Ethereum audit
-risks = [
+# Capability data - Top 3 capabilities from Ethereum audit
+# IMPORTANT: These are ABC's capabilities/opportunities, NOT risks of blockchain implementations
+# We are demonstrating what ABC CAN DO, not assessing risks of Ethereum/Bitcoin/etc.
+capabilities = [
     {
         'id': 'P0',
         'title': 'Chain-Agnostic Architecture\nEnables Market Expansion',
@@ -52,7 +54,7 @@ risks = [
     }
 ]
 
-# Create connections between risks (showing relationships)
+# Create connections between capabilities (showing relationships)
 connections = [
     ('P0', 'P1', 0.9),  # Strong connection
     ('P0', 'P2', 0.8),  # Strong connection
@@ -61,34 +63,34 @@ connections = [
 
 # Draw connections first (behind bubbles)
 for conn in connections:
-    risk1_id, risk2_id, strength = conn
-    risk1 = next(r for r in risks if r['id'] == risk1_id)
-    risk2 = next(r for r in risks if r['id'] == risk2_id)
+    cap1_id, cap2_id, strength = conn
+    cap1 = next(c for c in capabilities if c['id'] == cap1_id)
+    cap2 = next(c for c in capabilities if c['id'] == cap2_id)
     
-    x1, y1 = risk1['position']
-    x2, y2 = risk2['position']
+    x1, y1 = cap1['position']
+    x2, y2 = cap2['position']
     
     # Connection line with alpha based on strength
     line = ConnectionPatch(
         (x1, y1), (x2, y2),
         "data", "data",
         arrowstyle="-",
-        shrinkA=risk1['size']/100,
-        shrinkB=risk2['size']/100,
+        shrinkA=cap1['size']/100,
+        shrinkB=cap2['size']/100,
         mutation_scale=20,
-        fc=risk1['color'],
-        ec=risk1['color'],
+        fc=cap1['color'],
+        ec=cap1['color'],
         alpha=strength * 0.6,
         linewidth=2 * strength,
         zorder=1
     )
     ax.add_patch(line)
 
-# Draw bubbles (risks)
-for risk in risks:
-    x, y = risk['position']
-    size = risk['size'] * 8  # Scale for visibility
-    color = risk['color']
+# Draw bubbles (capabilities)
+for cap in capabilities:
+    x, y = cap['position']
+    size = cap['size'] * 8  # Scale for visibility
+    color = cap['color']
     
     # Main bubble
     circle = plt.Circle(
@@ -115,7 +117,7 @@ for risk in risks:
     # Title
     ax.text(
         x, y + size/100 + 0.15,
-        risk['title'],
+        cap['title'],
         ha='center',
         va='bottom',
         fontsize=11,
@@ -127,7 +129,7 @@ for risk in risks:
     # Capability score
     ax.text(
         x, y,
-        f"{risk['capability']}%",
+        f"{cap['capability']}%",
         ha='center',
         va='center',
         fontsize=24,
@@ -139,7 +141,7 @@ for risk in risks:
     # Priority label
     ax.text(
         x, y - size/100 - 0.15,
-        f"{risk['priority']} | {risk['confidence']}% Confidence",
+        f"{cap['priority']} | {cap['confidence']}% Confidence",
         ha='center',
         va='top',
         fontsize=9,
@@ -150,7 +152,7 @@ for risk in risks:
 # Title
 ax.text(
     0, 2.5,
-    'Top 3 Risk Capabilities\nEthereum Chain-Agnostic Architecture',
+    'Top 3 Capabilities\nEthereum Chain-Agnostic Architecture',
     ha='center',
     va='top',
     fontsize=16,

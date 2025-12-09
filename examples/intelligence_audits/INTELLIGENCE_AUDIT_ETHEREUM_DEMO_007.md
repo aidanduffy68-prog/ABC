@@ -19,8 +19,8 @@ GH Systems' ABC Sovereign Oracle demonstrates **chain-agnostic intelligence comp
 **Key Insights:**
 - Chain-agnostic architecture enables agency flexibility (confidence: 92%)
 - Ethereum blockchain commitment demonstrated (event log-based verification)
-- 4 threat pattern matches: Network coordination, behavioral signatures, risk assessment, predictive forecasting
-- 3 primary indicators tied to multi-chain intelligence operations
+- 4 capability indicators: Network coordination, behavioral signatures, pattern detection, predictive forecasting
+- 3 primary capabilities tied to multi-chain intelligence operations
 - **Strategic Value:** Demonstrates ABC works with Ethereum infrastructure, enabling agencies to use existing blockchain infrastructure
 
 **Capability Assessment:** 92% | **Confidence:** HIGH
@@ -83,18 +83,18 @@ GH Systems' ABC Sovereign Oracle demonstrates **chain-agnostic intelligence comp
 **Intelligence Collection:** Automated intake, fusion, behavioral analysis
 
 **Analysis Frameworks:**
-- **HADES:** Profiling/risk scoring for multi-chain operations
+- **HADES:** Profiling and pattern detection for multi-chain operations
 - **ECHO:** Network detection for cross-chain coordination
-- **NEMESIS:** Forecasting for chain-agnostic threat assessment
+- **NEMESIS:** Forecasting for chain-agnostic intelligence assessment
 
 **Compilation Timeline:**
 - **Start:** 2025-12-08T14:30:00Z
 - **Data Aggregation:** <500ms (automated)
 - **Pattern Analysis:** <2 seconds (ML-based)
-- **Risk Scoring:** <1 second (algorithmic)
+- **Capability Assessment:** <1 second (algorithmic)
 - **Total Automated Processing:** <5 seconds
 
-**Note:** Automated compilation provides rapid pattern detection and risk scoring. Human analyst review recommended for strategic decisions. Traditional manual analysis (14+ days) provides contextual judgment that complements automated compilation.
+**Note:** Automated compilation provides rapid pattern detection and capability assessment. Human analyst review recommended for strategic decisions. Traditional manual analysis (14+ days) provides contextual judgment that complements automated compilation.
 
 **Data Sources:**
 - Public blockchain intelligence
@@ -142,16 +142,16 @@ Confidence scores represent ABC's algorithmic assessment based on:
 
 ---
 
-## Threat Landscape Analysis
+## Capability Landscape Analysis
 
-**Behavioral Signatures (Confidence: 85% | Level: HIGH):**
+**Behavioral Pattern Detection (Confidence: 85% | Level: HIGH):**
 - **Metrics:** 4 analyzed
-- **Matches:** Network coordination; behavioral signatures; risk assessment; predictive forecasting
+- **Capabilities:** Network coordination; behavioral signatures; pattern detection; predictive forecasting
 
-**Network Coordination (Score: 82% | Size: Multi-Chain):**
-- **Chains:** Ethereum, Polygon, Arbitrum, Base, Optimism
+**Multi-Chain Coordination (Score: 82% | Size: Multi-Chain):**
+- **Supported Chains:** Ethereum, Polygon, Arbitrum, Base, Optimism
 - **Evidence:** Multi-chain intelligence compilation; cross-chain verification patterns
-- **Coordination:** Chain-agnostic architecture enables seamless multi-chain operations
+- **Capability:** Chain-agnostic architecture enables seamless multi-chain operations
 
 ### 1. Chain-Agnostic Architecture Capabilities
 
@@ -292,7 +292,7 @@ Confidence scores represent ABC's algorithmic assessment based on:
 
 <div align="center">
   <a href="ethereum_risks_interactive.html" target="_blank">
-    <img src="ethereum_risk_bubblemap.png" alt="Top 3 Risk Capabilities - Interactive Bubble Map" width="800"/>
+    <img src="ethereum_risk_bubblemap.png" alt="Top 3 Capabilities - Interactive Bubble Map" width="800"/>
   </a>
   <br/>
   <em>📊 <strong><a href="ethereum_risks_interactive.html">View Interactive Bubble Map</a></strong> | 
@@ -322,7 +322,7 @@ Confidence scores represent ABC's algorithmic assessment based on:
 
 **Behavioral (P2):** Signature analysis; prediction.
 
-**Strategic:** Designed for continuous monitoring (pending deployment); verifiable updates; automated risk scoring.
+**Strategic:** Designed for continuous monitoring (pending deployment); verifiable updates; automated capability assessment.
 
 **Chain-Agnostic:** Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain.
 
@@ -349,9 +349,9 @@ Confidence scores represent ABC's algorithmic assessment based on:
 **Frequency:** Designed for continuous monitoring (pending deployment)
 **Current Status:** Weekly (demonstration mode)
 
-**Thresholds:** Critical (90%), High (70%), Medium (50%)
+**Capability Thresholds:** High (90%+), Medium (70-89%), Low (50-69%)
 
-**Escalation:** P0 → Immediate; P1 → Daily; P2-P3 → Weekly
+**Monitoring Frequency:** P0 → Continuous; P1 → Daily; P2-P3 → Weekly
 
 ---
 

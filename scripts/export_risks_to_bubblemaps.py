@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
-Export Risk Data to Bubblemaps.io Format
+Export Capability Data to Bubblemaps.io Format
 Creates data files compatible with bubblemaps.io platform
+
+NOTE: These are ABC's capabilities, NOT risks of blockchain implementations
 
 Copyright (c) 2025 GH Systems. All rights reserved.
 """
@@ -10,8 +12,9 @@ import json
 import csv
 from typing import List, Dict, Any
 
-# Top 3 risks from Ethereum audit
-risks_data = [
+# Top 3 capabilities from Ethereum audit
+# These represent ABC's capabilities, not risks of blockchain implementations
+capabilities_data = [
     {
         'id': 'P0',
         'label': 'Chain-Agnostic Architecture Enables Market Expansion',
@@ -80,17 +83,17 @@ def export_to_bubblemaps_json():
         'links': []
     }
     
-    # Add nodes (risks)
-    for risk in risks_data:
+    # Add nodes (capabilities)
+    for cap in capabilities_data:
         node = {
-            'id': risk['id'],
-            'label': risk['label'],
-            'value': risk['value'],
-            'size': risk['size'],
-            'category': risk['category'],
-            'confidence': risk['confidence'],
-            'description': risk['description'],
-            'color': risk['color']
+            'id': cap['id'],
+            'label': cap['label'],
+            'value': cap['value'],
+            'size': cap['size'],
+            'category': cap['category'],
+            'confidence': cap['confidence'],
+            'description': cap['description'],
+            'color': cap['color']
         }
         output['nodes'].append(node)
     
@@ -113,15 +116,15 @@ def export_to_csv():
     """
     # Nodes CSV
     nodes_csv = []
-    for risk in risks_data:
+    for cap in capabilities_data:
         nodes_csv.append({
-            'id': risk['id'],
-            'label': risk['label'],
-            'value': risk['value'],
-            'size': risk['size'],
-            'category': risk['category'],
-            'confidence': risk['confidence'],
-            'color': risk['color']
+            'id': cap['id'],
+            'label': cap['label'],
+            'value': cap['value'],
+            'size': cap['size'],
+            'category': cap['category'],
+            'confidence': cap['confidence'],
+            'color': cap['color']
         })
     
     # Links CSV
@@ -145,7 +148,7 @@ def main():
     
     # Export JSON format
     json_data = export_to_bubblemaps_json()
-    json_path = os.path.join(output_dir, 'ethereum_risks_bubblemaps.json')
+    json_path = os.path.join(output_dir, 'ethereum_capabilities_bubblemaps.json')
     with open(json_path, 'w') as f:
         json.dump(json_data, f, indent=2)
     print(f"✅ JSON export saved to: {json_path}")
@@ -153,7 +156,7 @@ def main():
     # Export CSV format
     nodes_csv, links_csv = export_to_csv()
     
-    nodes_path = os.path.join(output_dir, 'ethereum_risks_nodes.csv')
+    nodes_path = os.path.join(output_dir, 'ethereum_capabilities_nodes.csv')
     with open(nodes_path, 'w', newline='') as f:
         if nodes_csv:
             writer = csv.DictWriter(f, fieldnames=nodes_csv[0].keys())
@@ -161,7 +164,7 @@ def main():
             writer.writerows(nodes_csv)
     print(f"✅ Nodes CSV saved to: {nodes_path}")
     
-    links_path = os.path.join(output_dir, 'ethereum_risks_links.csv')
+    links_path = os.path.join(output_dir, 'ethereum_capabilities_links.csv')
     with open(links_path, 'w', newline='') as f:
         if links_csv:
             writer = csv.DictWriter(f, fieldnames=links_csv[0].keys())
@@ -169,52 +172,10 @@ def main():
             writer.writerows(links_csv)
     print(f"✅ Links CSV saved to: {links_path}")
     
-    # Create instructions file
-    instructions = f"""# Using Ethereum Risk Data with Bubblemaps.io
-
-## Quick Start
-
-1. Go to https://v2.bubblemaps.io/
-2. Upload the data files:
-   - **Nodes:** `ethereum_risks_nodes.csv`
-   - **Links:** `ethereum_risks_links.csv`
-   - OR use the JSON file: `ethereum_risks_bubblemaps.json`
-
-## Data Structure
-
-### Nodes (Risks)
-- **P0:** Chain-Agnostic Architecture (92% - Critical)
-- **P1:** Ethereum Integration (88% - High)
-- **P2:** Multi-Agency Deployment (75% - Medium)
-
-### Links (Relationships)
-- P0 ↔ P1: EVM Support Enables Market Expansion
-- P0 ↔ P2: Multi-Agency Enables Market Expansion
-- P1 ↔ P2: EVM Support Enables Multi-Agency
-
-## Customization
-
-In bubblemaps.io, you can:
-- Adjust bubble sizes based on 'value' or 'size' field
-- Color-code by 'category' (Critical/High/Medium)
-- Show/hide connection lines
-- Add labels and descriptions
-
-## Files Generated
-
-- `ethereum_risks_bubblemaps.json` - Complete data in JSON format
-- `ethereum_risks_nodes.csv` - Node data (risks)
-- `ethereum_risks_links.csv` - Link data (connections)
-"""
-    
-    instructions_path = os.path.join(output_dir, 'BUBBLEMAPS_INSTRUCTIONS.md')
-    with open(instructions_path, 'w') as f:
-        f.write(instructions)
-    print(f"✅ Instructions saved to: {instructions_path}")
-    
     print("\n📊 Data ready for bubblemaps.io!")
     print("   Visit: https://v2.bubblemaps.io/")
     print("   Upload the JSON or CSV files to create interactive visualization")
+    print("\n⚠️  NOTE: These represent ABC's capabilities, NOT risks of blockchain implementations")
 
 
 if __name__ == "__main__":
