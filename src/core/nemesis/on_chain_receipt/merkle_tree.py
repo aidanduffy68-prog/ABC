@@ -34,8 +34,8 @@ class MerkleTree:
             receipts: List of receipt dictionaries (must have 'intelligence_hash' field)
         """
         self.receipts = receipts
+        self.leaf_nodes: List[MerkleNode] = []  # Initialize before _build_tree
         self.root = self._build_tree(receipts)
-        self.leaf_nodes: List[MerkleNode] = []
     
     def _build_tree(self, receipts: List[Dict[str, Any]]) -> Optional[MerkleNode]:
         """
