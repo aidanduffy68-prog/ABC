@@ -1,5 +1,5 @@
-# GH Systems ABC: The Sovereign Oracle
-**Cryptographically Verifiable Intelligence in <500ms**
+# GH Systems ABC: Chain-Agnostic Oracle for Intelligence Verification
+**Cryptographically Verifiable Intelligence in <500ms — Works with Bitcoin, Ethereum, Polygon, Arbitrum, or Your Preferred Blockchain**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
 ![Palantir Foundry](https://img.shields.io/badge/Palantir-Foundry-red?style=flat-square)
@@ -14,15 +14,15 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 ---
 
-## ⚖️ Truth Verification for Post-AGI Intelligence
+## ⚖️ Chain-Agnostic Oracle for Post-AGI Intelligence
 
-**GH Systems ABC is the oracle that verifies truth when AGI generates threat assessments.**
+**GH Systems ABC is the chain-agnostic oracle that verifies truth when AGI generates threat assessments.**
 
 When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes verification impossible, **ABC provides cryptographically verifiable assessments in <500ms** — the objective truth layer for post-AGI intelligence operations.
 
-**Built on Palantir Foundry** — Intelligence verification layer integrating with Foundry datasets for real-time analytics and cryptographically verifiable assessments.
+**Chain-Agnostic Architecture** — ABC works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. **We focus on verification, not blockchain infrastructure.** Agencies choose their preferred chain; we provide the oracle.
 
-> **⚠️ Important: We're NOT building a "government chain"** — ABC is **chain-agnostic**. Agencies choose Bitcoin, Ethereum, Polygon, or any supported blockchain. We focus on the oracle (verification), not blockchain infrastructure.
+**Built on Palantir Foundry** — Intelligence verification layer integrating with Foundry datasets for real-time analytics and cryptographically verifiable assessments.
 
 **Aligned with National Security Strategy 2025** — Supports AI dominance (Genesis Mission), economic security, cybersecurity, and sovereignty priorities.
 
@@ -73,7 +73,7 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 - **`schemas/`** - Strict Pydantic definitions for Threat Actors and Events
 - **`api/routes/`** - FastAPI endpoints for the intelligence dashboard
 - **`graph/`** - NetworkX graph manipulation and relationship inference
-- **`settlements/`** - Fiat-to-BTC bridge for FAR-compliant government payments
+- **`settlements/`** - Multi-chain payment settlement (Bitcoin, Ethereum, Polygon, etc.)
 
 **Additional:**
 - **`nemesis/intelligence_audit/`** - Intelligence audit generator (for security researchers transitioning to intel)

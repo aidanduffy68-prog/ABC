@@ -1,5 +1,5 @@
-# GH Systems: Truth Verification for Post-AGI Intelligence
-**The UMA Oracle for Intelligence Verification**
+# GH Systems: Chain-Agnostic Oracle for Intelligence Verification
+**Truth Verification for Post-AGI Intelligence — Works with Bitcoin, Ethereum, Polygon, Arbitrum, or Your Preferred Blockchain**
 
 ---
 
@@ -11,13 +11,14 @@ Agencies already disagree (CIA: 85%, DHS: 60%). Add AI-generated intelligence an
 
 ## The Solution
 
-**We're building the oracle that resolves that:**
+**We're building the chain-agnostic oracle that resolves that:**
 
 - **Cryptographically verifiable assessments** — Mathematical proof of methodology
 - **Dispute resolution** — Objective truth layer for intelligence conflicts
 - **Instant consensus** — <500ms compilation vs. 14+ days traditional
+- **Chain-agnostic architecture** — Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain
 
-> **Note:** We're NOT building a "government chain." ABC is **chain-agnostic** — agencies can use Bitcoin, Ethereum, Polygon, or any supported blockchain. We focus on the oracle (verification), not blockchain infrastructure.
+> **Key Differentiator:** ABC is **chain-agnostic from day one**. Unlike single-chain oracles, we work with your existing blockchain infrastructure. Agencies choose Bitcoin for maximum security, Ethereum for ecosystem compatibility, Polygon for low fees, or any chain that fits their requirements. **We focus on verification, not blockchain infrastructure.**
 
 ## The Oracle Comparison
 
