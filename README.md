@@ -52,14 +52,6 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 
 ---
 
-## 🏗 System Architecture
-
-<div align="center">
-  <img src="docs/new_ontology.png" alt="ABC System Architecture: Ontology to Target Intelligence" width="800"/>
-</div>
-
----
-
 ## 📂 Repository Map (Where the Code Lives)
 
 **Core Engines (`src/core/`):**
