@@ -186,18 +186,19 @@ def test_agent_hub():
     assert result.is_valid, f"Should accept valid update: {result.reason}"
     print("   ✅ Valid update accepted by hub")
     
-    # Invalid update (out of range)
-    intelligence_data["risk_score"] = 150.0
+    # Invalid update (expired timestamp)
+    old_timestamp = (datetime.now() - timedelta(hours=2)).isoformat()
+    intelligence_data["timestamp"] = old_timestamp
     result = hub.validate_update(
         intelligence_data=intelligence_data,
         update_type="risk_score"
     )
-    assert not result.is_valid, "Should reject invalid update"
-    print("   ✅ Invalid update rejected by hub")
+    assert not result.is_valid, "Should reject expired update"
+    print("   ✅ Expired update rejected by hub")
     
     # Check hub status
     status = hub.get_hub_status()
-    assert status["total_agents"] == 4, "Should have 4 default agents"
+    assert status["total_agents"] == 3, "Should have 3 default agents (expiration, circuit breaker, min delay)"
     print(f"   ✅ Hub status: {status['total_agents']} agents registered")
     
     print("   ✅ Agent hub tests passed\n")

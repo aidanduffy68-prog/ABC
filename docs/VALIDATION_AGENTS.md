@@ -23,8 +23,10 @@ All agents inherit from `BaseValidationAgent` and implement:
 
 ## Available Agents
 
-### 1. RangeValidationAgent
+### 1. RangeValidationAgent (Optional)
 Validates that values are within acceptable ranges.
+
+**Note:** Range validation is typically handled by **Pydantic schemas** at the API/ingestion layer. This agent is available for custom use cases (e.g., validating computed values that bypass Pydantic).
 
 **Example:**
 ```python
@@ -37,9 +39,9 @@ agent = RangeValidationAgent(
 ```
 
 **Use Cases:**
-- Risk score bounds (0-100)
-- Confidence score bounds (0-1)
-- Any numeric field validation
+- Validating computed/derived values (not input values)
+- Custom validation for values that bypass Pydantic schemas
+- Runtime validation for dynamically calculated fields
 
 ### 2. ExpirationWindowAgent
 Validates that intelligence updates are within expiration window.
@@ -118,6 +120,12 @@ if result.is_valid:
 else:
     print(f"❌ Validation failed: {result.reason}")
 ```
+
+**Default Agents:**
+- ✅ `ExpirationWindowAgent` - Rejects stale intelligence (>1 hour old)
+- ✅ `CircuitBreakerAgent` - Blocks extreme risk score changes (>50%)
+- ✅ `MinimumDelayAgent` - Prevents rapid-fire updates (<60s between)
+- ⚠️ `RangeValidationAgent` - **Not included by default** (Pydantic handles input range validation)
 
 ### Custom Agent Hub
 

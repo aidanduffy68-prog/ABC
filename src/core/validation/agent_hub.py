@@ -248,38 +248,36 @@ def create_default_agent_hub() -> ValidationAgentHub:
     Create default agent hub with standard validation agents
     
     Similar to Chaos Agents factory pattern
+    
+    Note: Range validation is handled by Pydantic schemas at the API/ingestion layer.
+    This hub focuses on business logic validation (expiration, circuit breaker, rate limiting).
     """
     hub = ValidationAgentHub()
     
-    # Risk score range validation (0-100)
-    risk_range_agent = RangeValidationAgent(
-        agent_id="risk_score_range",
-        field_name="risk_score",
-        min_value=0.0,
-        max_value=100.0
-    )
-    hub.register_agent(risk_range_agent, update_types=["risk_score", "threat_assessment"], priority=1)
-    
     # Expiration window (1 hour default)
+    # Validates intelligence freshness - rejects stale data
     expiration_agent = ExpirationWindowAgent(
         agent_id="expiration_window",
         max_age_seconds=3600
     )
-    hub.register_agent(expiration_agent, update_types=["risk_score", "threat_assessment"], priority=2)
+    hub.register_agent(expiration_agent, update_types=["risk_score", "threat_assessment"], priority=1)
     
     # Circuit breaker (max 50% change)
+    # Prevents extreme risk score changes - protects against data corruption/attacks
     circuit_breaker_agent = CircuitBreakerAgent(
         agent_id="circuit_breaker",
         max_change_percent=50.0
     )
-    hub.register_agent(circuit_breaker_agent, update_types=["risk_score"], priority=3)
+    hub.register_agent(circuit_breaker_agent, update_types=["risk_score"], priority=2)
     
     # Minimum delay (1 minute between updates)
+    # Per-actor rate limiting - prevents rapid-fire updates
+    # (Different from HTTP rate limiting which is per-IP)
     min_delay_agent = MinimumDelayAgent(
         agent_id="minimum_delay",
         min_delay_seconds=60
     )
-    hub.register_agent(min_delay_agent, update_types=["risk_score", "threat_assessment"], priority=4)
+    hub.register_agent(min_delay_agent, update_types=["risk_score", "threat_assessment"], priority=3)
     
     return hub
 
