@@ -45,6 +45,7 @@ DASHBOARD_HTML = """
 <head>
     <title>ABC Threat Intelligence Dashboard</title>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -106,6 +107,60 @@ DASHBOARD_HTML = """
         }
         .status-online { background: #00ff00; }
         .status-offline { background: #ff0000; }
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .chart-title {
+            color: #0099ff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+        .filter-controls {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-controls label {
+            color: #888;
+            margin-right: 5px;
+        }
+        .filter-controls select, .filter-controls input {
+            background: #0f0f0f;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .filter-controls button {
+            background: #0066cc;
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .filter-controls button:hover {
+            background: #0088ff;
+        }
     </style>
 </head>
 <body>
@@ -132,6 +187,52 @@ DASHBOARD_HTML = """
         <div class="metric-card">
             <div class="metric-value" id="federal-scans">0</div>
             <div class="metric-label">Federal AI Scans</div>
+        </div>
+    </div>
+    
+    <div class="filter-controls">
+        <label>Time Range:</label>
+        <select id="time-range">
+            <option value="24">Last 24 Hours</option>
+            <option value="48">Last 48 Hours</option>
+            <option value="168">Last Week</option>
+            <option value="720">Last Month</option>
+        </select>
+        <label>Interval:</label>
+        <select id="interval">
+            <option value="15">15 Minutes</option>
+            <option value="30">30 Minutes</option>
+            <option value="60" selected>1 Hour</option>
+            <option value="240">4 Hours</option>
+            <option value="1440">1 Day</option>
+        </select>
+        <button onclick="loadHistoricalCharts()">Refresh Charts</button>
+    </div>
+    
+    <div class="charts-container">
+        <div class="chart-card">
+            <div class="chart-title">Compilations Over Time</div>
+            <div class="chart-wrapper">
+                <canvas id="compilations-chart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Average Compilation Time</div>
+            <div class="chart-wrapper">
+                <canvas id="time-chart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Threat Level Distribution</div>
+            <div class="chart-wrapper">
+                <canvas id="threat-levels-chart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Threat Levels Over Time</div>
+            <div class="chart-wrapper">
+                <canvas id="threat-timeline-chart"></canvas>
+            </div>
         </div>
     </div>
     
@@ -197,9 +298,197 @@ DASHBOARD_HTML = """
             }
         }
         
+        // Chart instances
+        let compilationsChart = null;
+        let timeChart = null;
+        let threatLevelsChart = null;
+        let threatTimelineChart = null;
+        
+        // Initialize charts
+        function initCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#888' },
+                        grid: { color: '#333' }
+                    },
+                    y: {
+                        ticks: { color: '#888' },
+                        grid: { color: '#333' }
+                    }
+                }
+            };
+            
+            // Compilations over time
+            const compCtx = document.getElementById('compilations-chart').getContext('2d');
+            compilationsChart = new Chart(compCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Compilations',
+                        data: [],
+                        borderColor: '#0099ff',
+                        backgroundColor: 'rgba(0, 153, 255, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: chartOptions
+            });
+            
+            // Average compilation time
+            const timeCtx = document.getElementById('time-chart').getContext('2d');
+            timeChart = new Chart(timeCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Avg Time (ms)',
+                        data: [],
+                        borderColor: '#00ff00',
+                        backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: chartOptions
+            });
+            
+            // Threat level distribution (pie chart)
+            const threatCtx = document.getElementById('threat-levels-chart').getContext('2d');
+            threatLevelsChart = new Chart(threatCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Critical', 'High', 'Medium', 'Low'],
+                    datasets: [{
+                        data: [0, 0, 0, 0],
+                        backgroundColor: [
+                            '#ff0000',
+                            '#ff4444',
+                            '#ffaa00',
+                            '#00ff00'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' },
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // Threat levels over time
+            const timelineCtx = document.getElementById('threat-timeline-chart').getContext('2d');
+            threatTimelineChart = new Chart(timelineCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Critical',
+                            data: [],
+                            borderColor: '#ff0000',
+                            backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'High',
+                            data: [],
+                            borderColor: '#ff4444',
+                            backgroundColor: 'rgba(255, 68, 68, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Medium',
+                            data: [],
+                            borderColor: '#ffaa00',
+                            backgroundColor: 'rgba(255, 170, 0, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Low',
+                            data: [],
+                            borderColor: '#00ff00',
+                            backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: chartOptions
+            });
+        }
+        
+        // Load historical charts
+        function loadHistoricalCharts() {
+            const hours = parseInt(document.getElementById('time-range').value);
+            const intervalMinutes = parseInt(document.getElementById('interval').value);
+            
+            fetch(`/api/v1/dashboard/historical?hours=${hours}&interval_minutes=${intervalMinutes}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.data || data.data.length === 0) {
+                        console.log('No historical data available');
+                        return;
+                    }
+                    
+                    // Format timestamps
+                    const labels = data.data.map(d => {
+                        const date = new Date(d.time_bucket);
+                        return date.toLocaleString();
+                    });
+                    
+                    // Update compilations chart
+                    compilationsChart.data.labels = labels;
+                    compilationsChart.data.datasets[0].data = data.data.map(d => d.count);
+                    compilationsChart.update();
+                    
+                    // Update time chart
+                    timeChart.data.labels = labels;
+                    timeChart.data.datasets[0].data = data.data.map(d => d.avg_time || 0);
+                    timeChart.update();
+                    
+                    // Update threat timeline chart
+                    threatTimelineChart.data.labels = labels;
+                    threatTimelineChart.data.datasets[0].data = data.data.map(d => d.critical || 0);
+                    threatTimelineChart.data.datasets[1].data = data.data.map(d => d.high || 0);
+                    threatTimelineChart.data.datasets[2].data = data.data.map(d => d.medium || 0);
+                    threatTimelineChart.data.datasets[3].data = data.data.map(d => d.low || 0);
+                    threatTimelineChart.update();
+                    
+                    // Update threat levels pie chart with latest data
+                    const latest = data.data[data.data.length - 1];
+                    if (latest) {
+                        threatLevelsChart.data.datasets[0].data = [
+                            latest.critical || 0,
+                            latest.high || 0,
+                            latest.medium || 0,
+                            latest.low || 0
+                        ];
+                        threatLevelsChart.update();
+                    }
+                })
+                .catch(err => {
+                    console.error('Error loading historical data:', err);
+                });
+        }
+        
         // Initial load
+        initCharts();
         updateMetrics();
+        loadHistoricalCharts();
         setInterval(updateMetrics, 5000);
+        setInterval(loadHistoricalCharts, 60000); // Refresh charts every minute
     </script>
 </body>
 </html>
