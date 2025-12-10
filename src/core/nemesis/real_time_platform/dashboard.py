@@ -5,13 +5,20 @@ Real-time dashboard for monitoring compiled intelligence and threats
 Copyright (c) 2025 GH Systems. All rights reserved.
 """
 
-from flask import Flask, render_template_string, jsonify
+from flask import Flask, render_template_string, jsonify, request
 from flask_socketio import SocketIO, emit
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 from collections import defaultdict
+import uuid
 
 from .api_server import compilation_engine, federal_monitor
+from .database import (
+    create_dashboard_database,
+    CompilationRecord,
+    DashboardDatabase,
+    InMemoryDashboardDatabase
+)
 
 
 import os
@@ -27,18 +34,8 @@ if not allowed_origins or allowed_origins == ['']:
     allowed_origins = []
 socketio = SocketIO(app, cors_allowed_origins=allowed_origins if allowed_origins else None)
 
-# In-memory storage (in production, use database)
-threat_store = {
-    "compilations": [],
-    "federal_ai_scans": [],
-    "alerts": [],
-    "metrics": {
-        "total_compilations": 0,
-        "avg_compilation_time_ms": 0.0,
-        "threats_by_level": defaultdict(int),
-        "compilations_by_agency": defaultdict(int)
-    }
-}
+# Database backend (PostgreSQL if available, otherwise in-memory)
+db = create_dashboard_database()
 
 
 # Dashboard HTML Template
@@ -218,28 +215,23 @@ def dashboard():
 @app.route('/api/v1/dashboard/metrics')
 def get_metrics():
     """Get dashboard metrics"""
-    metrics = threat_store["metrics"]
-    
-    # Calculate critical threats
-    critical_threats = sum(
-        1 for comp in threat_store["compilations"]
-        if comp.get("threat_level") == "critical"
-    )
-    
-    return jsonify({
-        "total_compilations": metrics["total_compilations"],
-        "avg_compilation_time_ms": metrics["avg_compilation_time_ms"],
-        "critical_threats": critical_threats,
-        "federal_scans": len(threat_store["federal_ai_scans"]),
-        "alerts": len(threat_store["alerts"]),
-        "timestamp": datetime.now().isoformat()
-    })
+    metrics = db.get_metrics()
+    return jsonify(metrics)
 
 
 @app.route('/api/v1/dashboard/recent')
 def get_recent_threats():
-    """Get recent threats"""
-    recent = threat_store["compilations"][-20:]  # Last 20
+    """Get recent threats with optional filters"""
+    agency = request.args.get('agency')
+    threat_level = request.args.get('threat_level')
+    limit = int(request.args.get('limit', 50))
+    
+    recent = db.get_recent_compilations(
+        limit=limit,
+        agency=agency,
+        threat_level=threat_level
+    )
+    
     return jsonify({
         "threats": recent,
         "count": len(recent),
@@ -247,30 +239,65 @@ def get_recent_threats():
     })
 
 
+@app.route('/api/v1/dashboard/historical')
+def get_historical_metrics():
+    """Get historical metrics for charts"""
+    hours = int(request.args.get('hours', 24))
+    interval_minutes = int(request.args.get('interval_minutes', 60))
+    
+    historical = db.get_historical_metrics(
+        hours=hours,
+        interval_minutes=interval_minutes
+    )
+    
+    return jsonify({
+        "data": historical,
+        "hours": hours,
+        "interval_minutes": interval_minutes,
+        "timestamp": datetime.now().isoformat()
+    })
+
+
+@app.route('/api/v1/dashboard/search')
+def search_compilations():
+    """Search compilations"""
+    query = request.args.get('q', '').strip()
+    limit = int(request.args.get('limit', 50))
+    
+    if not query:
+        return jsonify({"error": "Query parameter 'q' required"}), 400
+    
+    results = db.search_compilations(query=query, limit=limit)
+    
+    return jsonify({
+        "results": results,
+        "count": len(results),
+        "query": query,
+        "timestamp": datetime.now().isoformat()
+    })
+
+
 def update_threat_store(compilation_data: Dict[str, Any]):
-    """Update threat store with new compilation"""
-    threat_store["compilations"].append(compilation_data)
+    """Update database with new compilation"""
+    compilation_id = compilation_data.get("compilation_id", str(uuid.uuid4()))
     
-    # Update metrics
-    metrics = threat_store["metrics"]
-    metrics["total_compilations"] += 1
+    record = CompilationRecord(
+        compilation_id=compilation_id,
+        actor_id=compilation_data.get("actor_id"),
+        actor_name=compilation_data.get("actor_name"),
+        target_agency=compilation_data.get("target_agency"),
+        threat_level=compilation_data.get("threat_level", "unknown"),
+        confidence_score=compilation_data.get("confidence_score", 0.0),
+        compilation_time_ms=compilation_data.get("compilation_time_ms", 0.0),
+        timestamp=datetime.fromisoformat(compilation_data.get("timestamp", datetime.now().isoformat())),
+        metadata=compilation_data.get("metadata", {}),
+        intelligence_hash=compilation_data.get("intelligence_hash")
+    )
     
-    # Update average compilation time
-    total_time = sum(c.get("compilation_time_ms", 0) for c in threat_store["compilations"])
-    metrics["avg_compilation_time_ms"] = total_time / len(threat_store["compilations"])
+    db.store_compilation(record)
     
-    # Update threat level counts
-    threat_level = compilation_data.get("threat_level", "unknown")
-    metrics["threats_by_level"][threat_level] += 1
-    
-    # Update agency counts
-    agency = compilation_data.get("target_agency")
-    if agency:
-        metrics["compilations_by_agency"][agency] += 1
-    
-    # Keep only last 1000 compilations
-    if len(threat_store["compilations"]) > 1000:
-        threat_store["compilations"] = threat_store["compilations"][-1000:]
+    # Emit WebSocket event
+    socketio.emit('intelligence_compiled', compilation_data)
 
 
 if __name__ == '__main__':

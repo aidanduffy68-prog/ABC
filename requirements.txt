@@ -42,3 +42,6 @@ pytest-asyncio>=0.21.0
 # faiss-cpu>=1.7.4  # For FAISS backend (development)
 # sentence-transformers>=2.2.0  # For embeddings
 
+# Database (optional - for dashboard persistence)
+# psycopg2-binary>=2.9.0  # PostgreSQL adapter for dashboard
+
