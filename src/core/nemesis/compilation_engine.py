@@ -21,6 +21,7 @@ from src.core.nemesis.ai_ontology.predictive_modeling import PredictiveThreatMod
 from src.core.nemesis.ai_ontology.threat_dossier_generator import ThreatDossierGenerator, ThreatDossier
 from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator, IntelligenceReceipt
 from src.core.nemesis.model_monitoring import get_drift_detector, ModelPerformanceMetrics
+from src.core.validation.agent_hub import ValidationAgentHub, create_default_agent_hub
 
 
 @dataclass
@@ -78,6 +79,9 @@ class ABCCompilationEngine:
         
         # Model drift detection
         self.drift_detector = get_drift_detector()
+        
+        # Validation agent hub (inspired by Chaos Agents)
+        self.validation_hub = create_default_agent_hub()
         
         self.engine_version = "1.0.0"
     
@@ -159,6 +163,31 @@ class ABCCompilationEngine:
         """
         start_time = time.time()
         compilation_id = f"abc_{actor_id}_{int(time.time())}"
+        
+        # Step 0: Validation (inspired by Chaos Agents pattern)
+        # Validate intelligence update before compilation
+        if validate_before_compile:
+            # Prepare intelligence data for validation
+            intelligence_data = {
+                "actor_id": actor_id,
+                "timestamp": datetime.now().isoformat(),
+                "risk_score": None,  # Will be set after compilation
+                "update_type": "threat_assessment",
+                "raw_intelligence_count": len(raw_intelligence)
+            }
+            
+            # Validate through agent hub
+            validation_result = self.validation_hub.validate_update(
+                intelligence_data=intelligence_data,
+                update_type="threat_assessment",
+                current_state=current_state
+            )
+            
+            if not validation_result.is_valid:
+                raise ValueError(
+                    f"Intelligence validation failed: {validation_result.reason}. "
+                    f"Warnings: {validation_result.warnings}"
+                )
         
         # Step 1: HADES - Behavioral Profiling
         # Compile raw telemetry into actor signatures & risk posture
