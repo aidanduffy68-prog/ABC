@@ -1,0 +1,82 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+.eggs
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+*.env
+.env.local
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Examples
+examples/
+
+# Security
+security/
+*.pem
+*.key
+
+# Kubernetes (not needed in image)
+kubernetes/
+
+# CI/CD
+.github/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Data
+*.db
+*.sqlite
+data/
+
+# Models (will be mounted as volume)
+models/
+
+# Deal Room (marketing materials)
+Deal Room/
+

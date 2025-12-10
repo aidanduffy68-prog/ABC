@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abc-api
+  namespace: abc-intelligence
+spec:
+  replicas: 3  # High availability
+  selector:
+    matchLabels:
+      app: abc-api
+  template:
+    metadata:
+      labels:
+        app: abc-api
+    spec:
+      containers:
+      - name: api
+        image: gh-systems-abc:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+        - containerPort: 5000
+          name: websocket
+        envFrom:
+        - configMapRef:
+            name: abc-config
+        - secretRef:
+            name: abc-secrets
+        env:
+        - name: POSTGRES_HOST
+          value: "abc-postgres"
+        - name: NEO4J_URI
+          value: "bolt://abc-neo4j:7687"
+        - name: REDIS_HOST
+          value: "abc-redis"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/status/health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /api/v1/status/health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: logs
+          mountPath: /app/logs
+        - name: models
+          mountPath: /app/models
+      volumes:
+      - name: logs
+        emptyDir: {}
+      - name: models
+        emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: abc-api
+  namespace: abc-intelligence
+spec:
+  selector:
+    app: abc-api
+  ports:
+  - port: 8000
+    targetPort: 8000
+    name: http
+  - port: 5000
+    targetPort: 5000
+    name: websocket
+  type: LoadBalancer  # Use ClusterIP for internal, NodePort for testing
+

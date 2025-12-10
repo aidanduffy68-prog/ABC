@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: abc-config
+  namespace: abc-intelligence
+data:
+  API_HOST: "0.0.0.0"
+  API_PORT: "8000"
+  DEBUG: "false"
+  PYTHONPATH: "/app"
+  # Database
+  POSTGRES_HOST: "abc-postgres"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "abc_intelligence"
+  # Neo4j
+  NEO4J_URI: "bolt://abc-neo4j:7687"
+  # Redis
+  REDIS_HOST: "abc-redis"
+  REDIS_PORT: "6379"
+  # Foundry (optional)
+  FOUNDRY_ENABLED: "false"
+
