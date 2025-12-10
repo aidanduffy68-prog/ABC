@@ -1,106 +1,54 @@
-# GH Systems ABC - Scripts
+# Scripts Directory
 
-Utility scripts for GH Systems ABC platform.
+This directory contains utility scripts for GH Systems ABC.
 
-## compile_intelligence.py
+## Structure
 
-Command-line tool to compile threat intelligence using the ABC engine.
+### Core Scripts
+- **compile_intelligence.py** - Main intelligence compilation script
+- **instant_demo.sh** - One-command demo script
+- **generate_sbom.py** - Generate Software Bill of Materials
+- **analyze_atlas_threats.py** - MITRE ATLAS threat analysis
+- **export_to_foundry.py** - Export data to Palantir Foundry
 
-### Installation
+### Tests (`scripts/tests/`)
+- **test_intelligence_verification.py** - Cryptographic receipt verification tests
+- **test_validation_agents.py** - Validation agents test suite
+- **test_vector_integration.py** - Vector database integration tests
 
+### Visualization (`scripts/visualization/`)
+- **generate_ethereum_risk_bubblemap.py** - Ethereum risk bubble map generator
+- **export_risks_to_bubblemaps.py** - Export risks to bubblemaps.io format
+- **create_interactive_bubblemap.html** - Interactive bubble map HTML
+
+### Deployment (`scripts/deployment/`)
+- **run_api_server.py** - Run FastAPI server locally
+
+## Usage
+
+### Quick Demo
 ```bash
-chmod +x scripts/compile_intelligence.py
+bash scripts/instant_demo.sh
 ```
 
-### Usage
-
-#### Standard Actor Compilation
-
+### Compile Intelligence
 ```bash
-python scripts/compile_intelligence.py \
-  --actor-id "lazarus_001" \
-  --actor-name "Lazarus Group" \
-  --intel-file intelligence.json
+python3 scripts/compile_intelligence.py --target "Department of War" --blockchain ethereum
 ```
 
-#### Federal AI Compilation
-
+### Run Tests
 ```bash
-python scripts/compile_intelligence.py \
-  --federal-ai \
-  --agency "DoD" \
-  --vuln-file vulnerabilities.json \
-  --ai-system-file ai_systems.json
+python3 scripts/tests/test_validation_agents.py
+python3 scripts/tests/test_vector_integration.py
+python3 scripts/tests/test_intelligence_verification.py
 ```
 
-#### With Transaction Data
-
+### Generate Visualizations
 ```bash
-python scripts/compile_intelligence.py \
-  --actor-id "threat_actor_001" \
-  --actor-name "Threat Actor" \
-  --intel-file intelligence.json \
-  --transaction-file transactions.json \
-  --network-file network.json
+python3 scripts/visualization/generate_ethereum_risk_bubblemap.py
 ```
 
-#### Save Output
-
+### Run API Server
 ```bash
-python scripts/compile_intelligence.py \
-  --actor-id "lazarus_001" \
-  --actor-name "Lazarus Group" \
-  --intel-file intelligence.json \
-  --output compiled_intelligence.json
+python3 scripts/deployment/run_api_server.py
 ```
-
-### Arguments
-
-**Standard Mode:**
-- `--actor-id` - Actor identifier (required)
-- `--actor-name` - Actor name/designation (required)
-- `--intel-file` - Path to intelligence data JSON (required)
-- `--transaction-file` - Path to transaction data JSON (optional)
-- `--network-file` - Path to network data JSON (optional)
-
-**Federal AI Mode:**
-- `--federal-ai` - Enable federal AI compilation mode
-- `--agency` - Agency name (DoD, DHS, NASA, etc.) (required)
-- `--vuln-file` - Path to vulnerability data JSON (optional)
-- `--ai-system-file` - Path to AI system data JSON (optional)
-
-**Output Options:**
-- `--output` - Save compiled intelligence to JSON file
-- `--no-receipt` - Skip cryptographic receipt generation
-
-### Example Intelligence Data Format
-
-```json
-[
-  {
-    "text": "North Korean hackers coordinating with Russian facilitators",
-    "source": "intel_feed_1",
-    "type": "intelligence_report"
-  },
-  {
-    "text": "Multiple wallets showing synchronized transaction patterns",
-    "source": "blockchain_analysis",
-    "type": "transaction_analysis"
-  }
-]
-```
-
-### Example Transaction Data Format
-
-```json
-[
-  {
-    "tx_hash": "0x123...",
-    "from": "0xabc...",
-    "to": "0xdef...",
-    "value": 1000000,
-    "timestamp": "2025-11-29T10:00:00Z"
-  }
-]
-```
-
