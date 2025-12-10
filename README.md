@@ -9,7 +9,7 @@
 Copyright (c) 2025 GH Systems. All rights reserved.
 
 <div align="left">
-  <img src="Deal%20Room/Assets/gh-systems-logo.png" alt="GH Systems Logo" width="150"/>
+  <img src="assets/images/gh-systems-logo.png" alt="GH Systems Logo" width="150"/>
 </div>
 
 ---
@@ -108,13 +108,13 @@ bash scripts/instant_demo.sh
 ## 📖 Full Documentation
 
 - **[🚀 Getting Started Guide](GETTING_STARTED.md)** - 5-minute quick start
-- **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
+- **[📄 Full Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** - Complete technical spec
 - **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Sales framework
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
 - **[🛡️ AI-OT Security Compliance](docs/AI_OT_SECURITY_COMPLIANCE.md)** - CISA/NSA AI-OT security principles compliance
-- **[🔗 Foundry Integration](docs/FOUNDRY_INTEGRATION.md)** - **Palantir Foundry integration** (real-time feeds, batch exports, data pipeline)
+- **[🔗 Foundry Integration](docs/deployment/FOUNDRY_INTEGRATION.md)** - **Palantir Foundry integration** (real-time feeds, batch exports, data pipeline)
 - **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities
 
 ---
