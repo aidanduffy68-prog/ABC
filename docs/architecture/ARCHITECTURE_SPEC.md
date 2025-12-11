@@ -103,6 +103,36 @@ ABC does not replace forensics vendors—it makes them 10× more valuable to gov
 
 This turns intelligence into **verifiable objects** that can be used everywhere—beyond settlements, into workflows. Intelligence becomes portable, trustworthy, and usable in any system.
 
+### Tiered Security Model for Government Deployments
+
+ABC implements a **three-tier security classification system** for on-chain commitments, ensuring compliance with government security requirements:
+
+**Tier 1: Unclassified**
+- **Blockchains**: Public chains (Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism)
+- **Data Exposure**: Full intelligence hash and metadata committed
+- **Verification**: Public, anyone can verify
+- **Use Case**: Public threat intelligence, unclassified assessments
+
+**Tier 2: SBU (Sensitive But Unclassified)**
+- **Blockchains**: Permissioned chains (Hyperledger, Corda, Quorum, Besu)
+- **Data Exposure**: Controlled access, encrypted metadata
+- **Verification**: Permissioned, authorized parties only
+- **Use Case**: Sensitive but unclassified intelligence
+
+**Tier 3: Classified**
+- **Blockchains**: Any (Bitcoin, Ethereum for hash-only commitments)
+- **Data Exposure**: Zero - only cryptographic hash committed
+- **Verification**: Hash-only verification
+- **Use Case**: Classified intelligence, zero data exposure
+
+**Implementation:**
+- Automatic tier determination from classification strings
+- Blockchain validation ensures compatibility with selected tier
+- Tier-appropriate commitment strategies (hash-only for Tier 3)
+- Integrated into CLI tools, API endpoints, and compilation engine
+
+This tiered approach enables ABC to handle intelligence across all classification levels while maintaining cryptographic verifiability and compliance with government security standards.
+
 ---
 
 ## AI-Powered Threat Ontology
@@ -177,12 +207,17 @@ GH Systems does not compete with existing vendors—it amplifies them.
 - **Fiat bridge**: FAR-compliant settlement system (`settlements/fiat_bridge.py`)
 - **Cryptographic receipts**: Canonical JSON hashing and Merkle trees (`nemesis/on_chain_receipt/`)
 - **AI ontology guardrails**: Data lake, validation layer, review queue, heuristic rules (`nemesis/ai_ontology/`)
+- **Tiered Security Model**: Three-tier security classification system for government deployments (`nemesis/on_chain_receipt/security_tier.py`)
+  - Tier 1 (Unclassified): Public blockchains, full data visibility
+  - Tier 2 (SBU): Permissioned chains, controlled access
+  - Tier 3 (Classified): Hash-only commitments, zero data exposure
+- **Chain-Agnostic Architecture**: Support for Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
+- **Vector Database Integration**: Long-term memory and semantic search (FAISS/Qdrant backends)
+- **Real-Time Dashboard**: PostgreSQL-backed dashboard with historical metrics and Chart.js visualizations
 
 ### In Development 🚧
 - **GNN inference engine**: Graph neural network relationship inference (currently using heuristic rules)
-- **Production deployment**: Full containerization and orchestration
-- **Vector database integration**: Long-term memory and context-aware classification
-- **Real-time dashboard**: WebSocket-based threat monitoring interface
+- **Production deployment**: Full containerization and orchestration (Docker, Kubernetes, CI/CD)
 
 ### Planned 📋
 - **Full GNN implementation**: Replace heuristic rules with trained models

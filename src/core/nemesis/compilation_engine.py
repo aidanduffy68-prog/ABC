@@ -20,6 +20,11 @@ from src.core.nemesis.ai_ontology.relationship_inference import RelationshipInfe
 from src.core.nemesis.ai_ontology.predictive_modeling import PredictiveThreatModel, ThreatForecast
 from src.core.nemesis.ai_ontology.threat_dossier_generator import ThreatDossierGenerator, ThreatDossier
 from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator, IntelligenceReceipt
+from src.core.nemesis.on_chain_receipt.security_tier import (
+    SecurityTier,
+    TieredSecurityManager,
+    tiered_security_manager
+)
 from src.core.nemesis.model_monitoring import get_drift_detector, ModelPerformanceMetrics
 from src.core.validation.agent_hub import ValidationAgentHub, create_default_agent_hub
 
@@ -93,7 +98,9 @@ class ABCCompilationEngine:
         transaction_data: Optional[List[Dict[str, Any]]] = None,
         network_data: Optional[Dict[str, Any]] = None,
         generate_receipt: bool = True,
-        preferred_blockchain: Optional[str] = None
+        preferred_blockchain: Optional[str] = None,
+        security_tier: Optional[SecurityTier] = None,
+        classification: Optional[str] = None
     ) -> CompiledIntelligence:
         """
         Compile intelligence through Hades → Echo → Nemesis pipeline.
@@ -164,30 +171,45 @@ class ABCCompilationEngine:
         start_time = time.time()
         compilation_id = f"abc_{actor_id}_{int(time.time())}"
         
-        # Step 0: Validation (inspired by Chaos Agents pattern)
-        # Validate intelligence update before compilation
-        if validate_before_compile:
-            # Prepare intelligence data for validation
-            intelligence_data = {
-                "actor_id": actor_id,
-                "timestamp": datetime.now().isoformat(),
-                "risk_score": None,  # Will be set after compilation
-                "update_type": "threat_assessment",
-                "raw_intelligence_count": len(raw_intelligence)
-            }
-            
-            # Validate through agent hub
-            validation_result = self.validation_hub.validate_update(
-                intelligence_data=intelligence_data,
-                update_type="threat_assessment",
-                current_state=current_state
+        # Determine security tier
+        if security_tier is None:
+            if classification:
+                security_tier = tiered_security_manager.determine_tier_from_classification(classification)
+            else:
+                # Default to Tier 1 (Unclassified) if not specified
+                security_tier = SecurityTier.TIER_1_UNCLASSIFIED
+        
+        # Validate blockchain for security tier
+        if preferred_blockchain:
+            is_valid, error = tiered_security_manager.validate_blockchain_for_tier(
+                security_tier,
+                preferred_blockchain
             )
-            
-            if not validation_result.is_valid:
-                raise ValueError(
-                    f"Intelligence validation failed: {validation_result.reason}. "
-                    f"Warnings: {validation_result.warnings}"
-                )
+            if not is_valid:
+                raise ValueError(f"Blockchain validation failed: {error}")
+        
+        # Get commitment strategy (for metadata)
+        commitment_strategy = None
+        if preferred_blockchain:
+            commitment_strategy = tiered_security_manager.get_commitment_strategy(
+                security_tier,
+                preferred_blockchain
+            )
+        
+        # Pre-compilation validation (Chaos Labs-inspired)
+        validation_result = self.validation_hub.validate_intelligence_update(
+            intelligence_data={
+                "actor_id": actor_id,
+                "actor_name": actor_name,
+                "raw_intelligence_count": len(raw_intelligence),
+                "security_tier": security_tier.value
+            },
+            update_type="intelligence_compilation",
+            actor_id=actor_id
+        )
+        
+        if not validation_result.is_valid:
+            raise ValueError(f"Validation failed: {validation_result.reason}")
         
         # Step 1: HADES - Behavioral Profiling
         # Compile raw telemetry into actor signatures & risk posture
@@ -507,7 +529,9 @@ class ABCCompilationEngine:
         ai_system_data: Dict[str, Any],
         vulnerability_data: List[Dict[str, Any]],
         generate_receipt: bool = True,
-        preferred_blockchain: Optional[str] = None
+        preferred_blockchain: Optional[str] = None,
+        security_tier: Optional[SecurityTier] = None,
+        classification: Optional[str] = None
     ) -> CompiledIntelligence:
         """
         Specialized compilation for federal AI security intelligence
@@ -549,7 +573,9 @@ class ABCCompilationEngine:
             transaction_data=None,
             network_data=ai_system_data,
             generate_receipt=generate_receipt,
-            preferred_blockchain=preferred_blockchain
+            preferred_blockchain=preferred_blockchain,
+            security_tier=security_tier,
+            classification=classification
         )
 
 

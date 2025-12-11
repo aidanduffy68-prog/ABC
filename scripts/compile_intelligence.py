@@ -21,6 +21,8 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.core.nemesis.compilation_engine import ABCCompilationEngine, compile_intelligence
+from src.core.nemesis.on_chain_receipt.security_tier import SecurityTier, tiered_security_manager
+from src.core.nemesis.on_chain_receipt.security_tier import SecurityTier, tiered_security_manager
 
 
 def load_json_file(file_path: str) -> dict:
@@ -255,6 +257,14 @@ Examples:
                        default='bitcoin',
                        help='Preferred blockchain network for receipt commitment (default: bitcoin)')
     
+    # Security tier options
+    parser.add_argument('--security-tier', type=str,
+                       choices=['unclassified', 'sbu', 'classified'],
+                       help='Security tier: unclassified (Tier 1), sbu (Tier 2), classified (Tier 3)')
+    parser.add_argument('--classification', type=str,
+                       help='Classification string (e.g., "UNCLASSIFIED", "SBU", "CLASSIFIED"). '
+                            'Used to determine security tier if --security-tier not specified')
+    
     args = parser.parse_args()
     
     # Initialize engine
@@ -319,8 +329,24 @@ Examples:
             if args.network_file:
                 network_data = load_json_file(args.network_file)
             
+            # Determine security tier
+            security_tier = None
+            if args.security_tier:
+                tier_map = {
+                    'unclassified': SecurityTier.TIER_1_UNCLASSIFIED,
+                    'sbu': SecurityTier.TIER_2_SBU,
+                    'classified': SecurityTier.TIER_3_CLASSIFIED
+                }
+                security_tier = tier_map[args.security_tier]
+            
             print(f"🔍 Compiling intelligence for {args.actor_name}...")
             print(f"⛓️  Blockchain: {args.blockchain}")
+            if security_tier:
+                tier_config = tiered_security_manager.get_tier_config(security_tier)
+                print(f"🔒 Security Tier: {tier_config.name} ({security_tier.value})")
+            elif args.classification:
+                print(f"🔒 Classification: {args.classification} (tier will be determined automatically)")
+            
             compiled = engine.compile_intelligence(
                 actor_id=args.actor_id,
                 actor_name=args.actor_name,
@@ -328,7 +354,9 @@ Examples:
                 transaction_data=transaction_data,
                 network_data=network_data,
                 generate_receipt=not args.no_receipt,
-                preferred_blockchain=args.blockchain
+                preferred_blockchain=args.blockchain,
+                security_tier=security_tier,
+                classification=args.classification
             )
         
         # Display results

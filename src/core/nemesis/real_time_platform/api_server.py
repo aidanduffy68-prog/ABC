@@ -107,6 +107,22 @@ def compile_intelligence():
         user_id = getattr(g, 'user_id', 'anonymous')
         ip_address = request.remote_addr or request.environ.get('HTTP_X_FORWARDED_FOR', 'unknown')
         
+        # Extract security tier parameters
+        security_tier = None
+        classification = data.get('classification')
+        security_tier_str = data.get('security_tier')
+        
+        if security_tier_str:
+            from src.core.nemesis.on_chain_receipt.security_tier import SecurityTier
+            tier_map = {
+                'unclassified': SecurityTier.TIER_1_UNCLASSIFIED,
+                'sbu': SecurityTier.TIER_2_SBU,
+                'classified': SecurityTier.TIER_3_CLASSIFIED
+            }
+            security_tier = tier_map.get(security_tier_str.lower())
+        
+        preferred_blockchain = data.get('preferred_blockchain', 'bitcoin')
+        
         # Compile intelligence
         compiled = compilation_engine.compile_intelligence(
             actor_id=actor_id,
@@ -114,7 +130,10 @@ def compile_intelligence():
             raw_intelligence=raw_intelligence,
             transaction_data=transaction_data,
             network_data=network_data,
-            generate_receipt=True
+            generate_receipt=True,
+            preferred_blockchain=preferred_blockchain,
+            security_tier=security_tier,
+            classification=classification
         )
         
         # Evaluate for alerts
@@ -409,12 +428,31 @@ def compile_federal_ai_intelligence():
         if len(target_agency) > 100:
             return jsonify({"error": "target_agency too long (max 100 characters)"}), 400
         
+        # Extract security tier parameters
+        security_tier = None
+        classification = data.get('classification')
+        security_tier_str = data.get('security_tier')
+        
+        if security_tier_str:
+            from src.core.nemesis.on_chain_receipt.security_tier import SecurityTier
+            tier_map = {
+                'unclassified': SecurityTier.TIER_1_UNCLASSIFIED,
+                'sbu': SecurityTier.TIER_2_SBU,
+                'classified': SecurityTier.TIER_3_CLASSIFIED
+            }
+            security_tier = tier_map.get(security_tier_str.lower())
+        
+        preferred_blockchain = data.get('preferred_blockchain', 'bitcoin')
+        
         # Compile federal AI intelligence
         compiled = compilation_engine.compile_federal_ai_intelligence(
             target_agency=target_agency,
             ai_system_data=ai_system_data,
             vulnerability_data=vulnerability_data,
-            generate_receipt=True
+            generate_receipt=True,
+            preferred_blockchain=preferred_blockchain,
+            security_tier=security_tier,
+            classification=classification
         )
         
         # Emit real-time update

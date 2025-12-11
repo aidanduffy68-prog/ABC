@@ -102,6 +102,22 @@ python3 scripts/compile_intelligence.py \
   --actor-id "demo_001" \
   --actor-name "Demo Threat Actor" \
   --intel-file sample_intel.json
+
+# Compile with security tier (for government deployments)
+python3 scripts/compile_intelligence.py \
+  --actor-id "demo_001" \
+  --actor-name "Demo Threat Actor" \
+  --intel-file sample_intel.json \
+  --security-tier unclassified \
+  --blockchain ethereum
+
+# Or use classification string (auto-determines tier)
+python3 scripts/compile_intelligence.py \
+  --actor-id "demo_001" \
+  --actor-name "Demo Threat Actor" \
+  --intel-file sample_intel.json \
+  --classification "SBU" \
+  --blockchain polygon
 ```
 
 **You've reached your Magic Moment when you see:**
@@ -126,6 +142,88 @@ python3 scripts/compile_intelligence.py \
 **This is what government agencies need for the Genesis Mission** - the infrastructure that resolves intelligence disputes when AGI makes verification impossible.
 
 ---
+
+## 🔒 Security Tiers
+
+ABC supports three security tiers for government deployments:
+
+### Tier 1: Unclassified
+- **Blockchains**: Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
+- **Data Exposure**: Full intelligence hash and metadata committed
+- **Verification**: Public, anyone can verify
+- **Use Case**: Public threat intelligence, unclassified assessments
+
+### Tier 2: SBU (Sensitive But Unclassified)
+- **Blockchains**: Permissioned chains (Hyperledger, Corda, Quorum, Besu)
+- **Data Exposure**: Controlled access, encrypted metadata
+- **Verification**: Permissioned, authorized parties only
+- **Use Case**: Sensitive but unclassified intelligence
+
+### Tier 3: Classified
+- **Blockchains**: Any (Bitcoin, Ethereum for hash-only)
+- **Data Exposure**: Zero - only cryptographic hash committed
+- **Verification**: Hash-only verification
+- **Use Case**: Classified intelligence, zero data exposure
+
+**Example:**
+```bash
+# Tier 1 (Unclassified) - Public blockchain
+python3 scripts/compile_intelligence.py \
+  --actor-id "threat_001" \
+  --actor-name "Threat Actor" \
+  --intel-file sample_intel.json \
+  --security-tier unclassified \
+  --blockchain ethereum
+
+# Tier 3 (Classified) - Hash-only commitment
+python3 scripts/compile_intelligence.py \
+  --actor-id "threat_001" \
+  --actor-name "Threat Actor" \
+  --intel-file sample_intel.json \
+  --security-tier classified \
+  --blockchain bitcoin
+```
+
+## 🔒 Security Tiers
+
+ABC supports three security tiers for government deployments:
+
+### Tier 1: Unclassified
+- **Blockchains**: Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
+- **Data Exposure**: Full intelligence hash and metadata committed
+- **Verification**: Public, anyone can verify
+- **Use Case**: Public threat intelligence, unclassified assessments
+
+### Tier 2: SBU (Sensitive But Unclassified)
+- **Blockchains**: Permissioned chains (Hyperledger, Corda, Quorum, Besu)
+- **Data Exposure**: Controlled access, encrypted metadata
+- **Verification**: Permissioned, authorized parties only
+- **Use Case**: Sensitive but unclassified intelligence
+
+### Tier 3: Classified
+- **Blockchains**: Any (Bitcoin, Ethereum for hash-only)
+- **Data Exposure**: Zero - only cryptographic hash committed
+- **Verification**: Hash-only verification
+- **Use Case**: Classified intelligence, zero data exposure
+
+**Example:**
+```bash
+# Tier 1 (Unclassified) - Public blockchain
+python3 scripts/compile_intelligence.py \
+  --actor-id "threat_001" \
+  --actor-name "Threat Actor" \
+  --intel-file sample_intel.json \
+  --security-tier unclassified \
+  --blockchain ethereum
+
+# Tier 3 (Classified) - Hash-only commitment
+python3 scripts/compile_intelligence.py \
+  --actor-id "threat_001" \
+  --actor-name "Threat Actor" \
+  --intel-file sample_intel.json \
+  --security-tier classified \
+  --blockchain bitcoin
+```
 
 ## 📚 Next Steps After Your Magic Moment
 
