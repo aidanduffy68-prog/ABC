@@ -24,6 +24,12 @@ from .blockchain_abstraction import (
 
 from .bitcoin_adapter import BitcoinAdapter
 from .ethereum_adapter import EthereumAdapter
+from .security_tier import (
+    SecurityTier,
+    TierConfig,
+    TieredSecurityManager,
+    tiered_security_manager
+)
 
 # Register blockchain adapters
 BlockchainAdapterFactory.register_adapter(BlockchainNetwork.BITCOIN, BitcoinAdapter)
@@ -47,4 +53,8 @@ __all__ = [
     "commit_receipt_to_chain",
     "BitcoinAdapter",
     "EthereumAdapter",
+    "SecurityTier",
+    "TierConfig",
+    "TieredSecurityManager",
+    "tiered_security_manager",
 ]
