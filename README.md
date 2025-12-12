@@ -7,10 +7,6 @@
 
 Copyright (c) 2025 GH Systems. All rights reserved.
 
-<div align="left">
-  <img src="assets/gh-systems-logo.png" alt="GH Systems Logo" width="150"/>
-</div>
-
 ---
 
 ## 🎯 Foundry Chain: The Core Integration
