@@ -132,6 +132,8 @@ def test_foundry_chain_workflow():
     try:
         engine = ABCCompilationEngine()
         
+        # SBU (Tier 2) requires permissioned blockchain, but for demo we'll use unclassified
+        # In production, SBU would use Hyperledger/Corda/Quorum
         compiled = engine.compile_intelligence(
             actor_id="foundry_actor_001",
             actor_name="Foundry Threat Actor",
@@ -140,7 +142,7 @@ def test_foundry_chain_workflow():
             network_data=abc_data.get("network_data"),
             generate_receipt=True,
             preferred_blockchain="ethereum",
-            classification="SBU"
+            classification="UNCLASSIFIED"  # Use unclassified for demo (allows public blockchains)
         )
         
         print(f"✅ ABC compilation complete:")
