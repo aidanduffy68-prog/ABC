@@ -89,7 +89,7 @@ bash scripts/instant_demo.sh
 
 ## 📖 Documentation
 
-- **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** — Complete Foundry Chain architecture
+- **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** — Complete Foundry Chain architecture (core integration)
 - **[📄 Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** — Full technical spec
 - **[🔒 Security Documentation](security/README.md)** — Security audit and configuration
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** — Operational assessments
