@@ -1,6 +1,6 @@
-# Getting Started: Reach Your Magic Moment in 60 Seconds
+# Getting Started: Foundry Chain Integration
 
-**The Magic Moment:** Successfully compile intelligence in <500ms and see the cryptographic proof. This is when you understand the value and are unlikely to churn.
+**Foundry Chain** transforms Palantir Foundry into blockchain-verified intelligence. ABC provides cryptographic proof that all agencies analyzed the same source data, enabling transparent conflict resolution.
 
 ---
 
