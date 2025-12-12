@@ -22,7 +22,7 @@ When agencies disagree (CIA: 85%, DHS: 60%) and AI-generated intelligence makes 
 
 **Chain-Agnostic Architecture** — ABC works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. **We focus on verification, not blockchain infrastructure.** Agencies choose their preferred chain; we provide the oracle.
 
-**Built on Palantir Foundry** — Intelligence verification layer integrating with Foundry datasets for real-time analytics and cryptographically verifiable assessments.
+**Built on Palantir Foundry** — Intelligence verification layer integrating with Foundry datasets for real-time analytics and cryptographically verifiable assessments. **[🔗 Foundry Chain Integration](docs/architecture/FOUNDRY_CHAIN_SPEC.md)** — ABC as cryptographic verification layer for Foundry, enabling blockchain-verified intelligence with mathematical proof for conflict resolution.
 
 **Aligned with National Security Strategy 2025** — Supports AI dominance (Genesis Mission), economic security, cybersecurity, and sovereignty priorities.
 
@@ -70,6 +70,8 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 **Additional:**
 - **`nemesis/intelligence_audit/`** - Intelligence audit generator (for security researchers transitioning to intel)
 - **`nemesis/on_chain_receipt/`** - Cryptographic receipt system with Merkle trees
+- **`nemesis/foundry_integration/`** - Foundry Chain integration (ABC as cryptographic verification layer for Palantir Foundry)
+- **`integrations/agency/`** - Agency integration framework (consensus engine, assessment validation)
 - **`docs/`** - Full Whitepaper and Defense-Grade Specifications
 - **`examples/`** - Intelligence audit examples and demonstrations
 
@@ -106,6 +108,7 @@ bash scripts/instant_demo.sh
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
 - **[🛡️ AI-OT Security Compliance](docs/AI_OT_SECURITY_COMPLIANCE.md)** - CISA/NSA AI-OT security principles compliance
+- **[🔗 Foundry Chain Integration](docs/architecture/FOUNDRY_CHAIN_SPEC.md)** - **ABC as cryptographic verification layer for Palantir Foundry** (blockchain-verified intelligence, conflict resolution, consensus dashboard)
 - **[🔗 Foundry Integration](docs/deployment/FOUNDRY_INTEGRATION.md)** - **Palantir Foundry integration** (real-time feeds, batch exports, data pipeline)
 - **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities
 
