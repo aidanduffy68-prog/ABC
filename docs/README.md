@@ -27,7 +27,8 @@ This directory contains all documentation for GH Systems ABC.
 
 ### Deployment (`docs/deployment/`)
 - **DEVELOPMENT_STATUS.md** - Current development status
-- **FOUNDRY_INTEGRATION.md** - Palantir Foundry integration
+- **FOUNDRY_DATA_EXPORT.md** - Export ABC data to Palantir Foundry
+- **FOUNDRY_CHAIN_SPEC.md** - Foundry Chain (cryptographic verification layer)
 - **VECTOR_DATABASE_INTEGRATION.md** - Vector database integration
 - **VALIDATION_AGENTS.md** - Validation agents documentation
 

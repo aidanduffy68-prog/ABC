@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException, status, Query, Depends
 from datetime import datetime, timedelta
 import json
 
-from src.integrations.foundry.connector import FoundryConnector
+from src.integrations.foundry.connector import FoundryDataExportConnector
 from src.integrations.foundry.export import FoundryDataExporter
 from src.core.middleware.auth import require_auth
 from src.core.middleware.rate_limit import rate_limit
@@ -19,7 +19,7 @@ from src.core.middleware.rate_limit import rate_limit
 router = APIRouter(prefix="/api/v1/foundry", tags=["foundry"])
 
 # Initialize connector
-foundry_connector = FoundryConnector()
+foundry_connector = FoundryDataExportConnector()
 
 
 @router.get("/schema", status_code=status.HTTP_200_OK)

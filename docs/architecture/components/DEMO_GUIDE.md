@@ -1,6 +1,8 @@
-# ABC Federal AI Security - Demo Guide
+# ABC Demo Guide
 
-**Quick Start:** Run live NASA compilation demo
+**Quick Start:** Run live compilation demos
+
+**Note:** This is a legacy demo guide. For current demos, see [Getting Started Guide](../../../GETTING_STARTED.md).
 
 ---
 

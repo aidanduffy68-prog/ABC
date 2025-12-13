@@ -1,8 +1,10 @@
-# Palantir Foundry Integration Guide
+# Palantir Foundry Data Export Guide
 
-**GH Systems ABC - Foundry Integration Documentation**
+**GH Systems ABC - Foundry Data Export Documentation**
 
-This guide explains how to integrate GH Systems ABC with Palantir Foundry for data pipeline integration, analytics, and visualization.
+This guide explains how to export ABC compilation data to Palantir Foundry for data pipeline integration, analytics, and visualization.
+
+**Note:** This is for exporting ABC data TO Foundry. For Foundry Chain (ingesting FROM Foundry and adding cryptographic verification), see [Foundry Chain Specification](FOUNDRY_CHAIN_SPEC.md).
 
 ---
 
