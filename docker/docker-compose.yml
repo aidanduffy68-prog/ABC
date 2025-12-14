@@ -4,8 +4,8 @@ services:
   # Main FastAPI service
   api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     image: gh-systems-abc:latest
     container_name: abc-api
     ports:

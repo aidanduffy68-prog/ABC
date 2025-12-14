@@ -79,7 +79,7 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 ```bash
 git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 bash scripts/instant_demo.sh
 ```
 

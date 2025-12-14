@@ -14,7 +14,7 @@ git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
 
 # Step 2: Install dependencies (one-time setup)
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 
 # Step 3: Run the instant demo
 bash scripts/instant_demo.sh
@@ -64,7 +64,7 @@ git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
 
 # Install Python dependencies
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 pip install -r security/requirements-security.txt
 ```
 
@@ -322,7 +322,7 @@ export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
 ```bash
 # Install all dependencies
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 pip install -r security/requirements-security.txt
 ```
 

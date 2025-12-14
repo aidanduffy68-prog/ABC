@@ -47,10 +47,17 @@ USD_FRY/
 │
 ├── tests/                     # Test suite
 │
-├── Dockerfile                 # Main API container
-├── docker-compose.yml         # Local development
-├── requirements.txt           # Python dependencies
-├── requirements-vector.txt   # Vector DB dependencies
+├── docker/                    # Docker configuration
+│   ├── Dockerfile             # Main API container
+│   ├── docker-compose.yml     # Local development
+│   ├── Dockerfile.ai-ontology # AI Ontology container
+│   └── docker-compose.ai-ontology.yml
+├── requirements/              # Python dependencies
+│   ├── requirements.txt       # Core dependencies
+│   ├── requirements-security.txt # Security dependencies
+│   ├── requirements-vector.txt # Vector DB dependencies
+│   ├── requirements-ai-ontology.txt # AI Ontology dependencies
+│   └── requirements-real-time-platform.txt
 ├── README.md                  # Main README
 └── GETTING_STARTED.md         # Quick start guide
 ```
