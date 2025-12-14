@@ -20,10 +20,7 @@ This directory contains all documentation for GH Systems ABC.
 - **AI_INCIDENT_RESPONSE.md** - AI incident response procedures
 
 ### Sales & Strategy (`docs/sales/`)
-- **GOVERNMENT_SALES_STRATEGY.md** - Government sales strategy
-- **ECONOMIC_SECURITY_STRATEGY.md** - Economic security strategy
-- **PUBLIC_PRIVATE_PARTNERSHIPS_NATIONAL_DEBT.md** - Public-private partnerships
-- **ORACLE_POSITIONING_FRAMEWORK.md** - Oracle positioning framework
+- **SALES_AND_STRATEGY.md** - Complete sales framework, government strategy, and market positioning
 
 ### Deployment (`docs/deployment/`)
 - **DEVELOPMENT_STATUS.md** - Current development status
@@ -42,5 +39,5 @@ This directory contains all documentation for GH Systems ABC.
 - [Architecture Overview](architecture/ARCHITECTURE_SPEC.md)
 - [Security Documentation](security/)
 - [Deployment Guide](deployment/DEVELOPMENT_STATUS.md)
-- [Sales Strategy](sales/GOVERNMENT_SALES_STRATEGY.md)
+- [Sales & Strategy Guide](sales/SALES_AND_STRATEGY.md)
 

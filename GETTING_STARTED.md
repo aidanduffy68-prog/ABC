@@ -258,7 +258,7 @@ python3 scripts/compile_intelligence.py \
    - [Treasury Assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_TREASURY_003.md) - 85% risk, <500ms
 
 2. **Understand the Oracle**
-   - Read [Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)
+   - Read [Sales & Strategy Guide](docs/sales/SALES_AND_STRATEGY.md)
    - Review [architecture specification](docs/ARCHITECTURE_SPEC.md)
 
 ### For Security Researchers
@@ -346,7 +346,7 @@ If compilation takes >500ms or fails:
 ## 📖 Full Documentation
 
 - **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
-- **[⚖️ Oracle Positioning Framework](docs/ORACLE_POSITIONING_FRAMEWORK.md)** - Sales framework
+- **[⚖️ Sales & Strategy Guide](docs/sales/SALES_AND_STRATEGY.md)** - Complete sales framework and strategy
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
