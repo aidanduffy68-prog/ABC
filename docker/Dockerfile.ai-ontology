@@ -9,12 +9,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
-COPY nemesis/ai_ontology/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements/requirements-ai-ontology.txt ./requirements/
+RUN pip install --no-cache-dir -r requirements/requirements-ai-ontology.txt
 
 # Copy application code
-COPY nemesis/ai_ontology/ ./ai_ontology/
-COPY nemesis/ai_ontology/api_endpoints.py .
+COPY src/core/nemesis/ai_ontology/ ./ai_ontology/
+COPY src/core/nemesis/ai_ontology/api_endpoints.py .
 
 # Create non-root user
 RUN useradd -m -u 1000 abc && chown -R abc:abc /app
