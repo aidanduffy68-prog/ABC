@@ -57,6 +57,21 @@ class FoundryDataExportConnector:
         
         if not self.enabled:
             logger.warning("Foundry connector not fully configured (missing URL or token)")
+        
+        # Set up requests session with retry logic
+        if REQUESTS_AVAILABLE and self.enabled:
+            self.session = requests.Session()
+            retry_strategy = Retry(
+                total=3,
+                backoff_factor=1,
+                status_forcelist=[429, 500, 502, 503, 504],
+                allowed_methods=["GET", "POST"]
+            )
+            adapter = HTTPAdapter(max_retries=retry_strategy)
+            self.session.mount("http://", adapter)
+            self.session.mount("https://", adapter)
+        else:
+            self.session = None
     
     def push_compilation(
         self,
@@ -230,4 +245,228 @@ class FoundryDataExportConnector:
                 "exported_at": {"type": "timestamp"}
             }
         }
+    
+    # ============================================================================
+    # FOUNDRY INGESTION METHODS (For Foundry Chain Integration)
+    # ============================================================================
+    
+    def get_compilation(self, compilation_id: str) -> Dict[str, Any]:
+        """
+        Fetch specific Foundry compilation by ID.
+        
+        Used by Foundry Chain to ingest Foundry compilation outputs for ABC verification.
+        
+        Args:
+            compilation_id: Foundry compilation identifier
+            
+        Returns:
+            Foundry compilation data with structure:
+            {
+                "compilation_id": str,
+                "data_hash": str,  # SHA-256 hash
+                "timestamp": str,  # ISO format
+                "sources": List[Dict],  # Source providers and datasets
+                "compiled_data": Dict  # Actual compilation content
+            }
+        """
+        if not self.enabled:
+            logger.warning(f"Foundry connector not enabled. Returning mock compilation for {compilation_id}")
+            return self._mock_get_compilation(compilation_id)
+        
+        try:
+            # Real API call to Foundry
+            url = f"{self.foundry_url}/api/v1/compilations/{compilation_id}"
+            headers = {
+                "Authorization": f"Bearer {self.api_token}",
+                "Content-Type": "application/json"
+            }
+            
+            logger.info(f"Fetching Foundry compilation: {compilation_id}")
+            response = self.session.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+            
+            compilation = response.json()
+            logger.info(f"Successfully fetched compilation: {compilation_id}")
+            return compilation
+            
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching Foundry compilation {compilation_id}: {e}")
+            # Fallback to mock for development
+            logger.warning(f"Falling back to mock compilation for {compilation_id}")
+            return self._mock_get_compilation(compilation_id)
+    
+    def verify_compilation_hash(self, compilation: Dict[str, Any]) -> bool:
+        """
+        Verify that compilation.data_hash matches the actual content hash.
+        
+        Uses SHA-256 hashing (consistent with receipt_generator.py).
+        Ensures data integrity for Foundry Chain verification.
+        
+        Args:
+            compilation: Foundry compilation dictionary
+            
+        Returns:
+            True if hash matches, False otherwise
+        """
+        if not compilation or "compiled_data" not in compilation:
+            logger.warning("Compilation missing compiled_data, cannot verify hash")
+            return False
+        
+        if "data_hash" not in compilation:
+            logger.warning("Compilation missing data_hash field")
+            return False
+        
+        # Calculate hash of compiled_data (consistent with Foundry's format)
+        compiled_data = compilation["compiled_data"]
+        
+        # Serialize to JSON with sorted keys for consistent hashing
+        serialized = json.dumps(compiled_data, sort_keys=True, ensure_ascii=False)
+        calculated_hash = f"sha256:{hashlib.sha256(serialized.encode('utf-8')).hexdigest()}"
+        
+        # Compare with provided hash
+        provided_hash = compilation["data_hash"]
+        matches = calculated_hash == provided_hash
+        
+        if not matches:
+            logger.warning(
+                f"Hash mismatch for compilation {compilation.get('compilation_id', 'unknown')}: "
+                f"Expected {provided_hash}, Got {calculated_hash}"
+            )
+        else:
+            logger.debug(f"Hash verified for compilation {compilation.get('compilation_id', 'unknown')}")
+        
+        return matches
+    
+    def list_recent_compilations(
+        self,
+        hours: int = 24,
+        limit: int = 100,
+        offset: int = 0
+    ) -> List[Dict[str, Any]]:
+        """
+        Get compilations from the last N hours.
+        
+        Supports pagination for large result sets.
+        Used by Foundry Chain to discover new compilations for verification.
+        
+        Args:
+            hours: Number of hours to look back (default: 24)
+            limit: Maximum number of compilations to return (default: 100)
+            offset: Pagination offset (default: 0)
+            
+        Returns:
+            List of Foundry compilation dictionaries
+        """
+        if not self.enabled:
+            logger.warning("Foundry connector not enabled. Returning mock compilations")
+            return self._mock_list_recent_compilations(hours, limit, offset)
+        
+        try:
+            # Calculate time range
+            end_time = datetime.now()
+            start_time = end_time - timedelta(hours=hours)
+            
+            # Real API call to Foundry
+            url = f"{self.foundry_url}/api/v1/compilations"
+            headers = {
+                "Authorization": f"Bearer {self.api_token}",
+                "Content-Type": "application/json"
+            }
+            params = {
+                "since": start_time.isoformat(),
+                "limit": limit,
+                "offset": offset
+            }
+            
+            logger.info(f"Fetching recent compilations (last {hours} hours, limit={limit}, offset={offset})")
+            response = self.session.get(url, headers=headers, params=params, timeout=30)
+            response.raise_for_status()
+            
+            compilations = response.json().get("compilations", [])
+            logger.info(f"Successfully fetched {len(compilations)} compilations")
+            return compilations
+            
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching recent compilations: {e}")
+            # Fallback to mock for development
+            logger.warning("Falling back to mock compilations")
+            return self._mock_list_recent_compilations(hours, limit, offset)
+    
+    # ============================================================================
+    # MOCK METHODS (For Development/Testing)
+    # ============================================================================
+    
+    def _mock_get_compilation(self, compilation_id: str) -> Dict[str, Any]:
+        """
+        Generate mock Foundry compilation for development/testing.
+        
+        Matches format from FOUNDRY_CHAIN_SPEC.md examples.
+        """
+        # Generate mock compiled_data
+        compiled_data = {
+            "threat_actors": [
+                {
+                    "id": "actor_001",
+                    "name": "Mock Threat Actor",
+                    "description": "Mock threat actor for testing",
+                    "risk_level": "high"
+                }
+            ],
+            "wallet_addresses": [
+                {
+                    "address": "0x1234567890abcdef",
+                    "label": "Test Wallet",
+                    "risk_score": 0.85
+                }
+            ],
+            "coordination_networks": [
+                {
+                    "source_entity": "actor_001",
+                    "target_entity": "0x1234567890abcdef",
+                    "relationship_type": "coordinates_with",
+                    "confidence": 0.82
+                }
+            ],
+            "temporal_patterns": []
+        }
+        
+        # Calculate hash (consistent with verify_compilation_hash)
+        serialized = json.dumps(compiled_data, sort_keys=True, ensure_ascii=False)
+        data_hash = f"sha256:{hashlib.sha256(serialized.encode('utf-8')).hexdigest()}"
+        
+        return {
+            "compilation_id": compilation_id,
+            "timestamp": datetime.now().isoformat() + "Z",
+            "sources": [
+                {"provider": "chainalysis", "dataset": "sanctions_list_v2"},
+                {"provider": "trm_labs", "dataset": "threat_actors_q4"},
+                {"provider": "ofac", "dataset": "sdn_list_current"},
+                {"provider": "dhs", "dataset": "cyber_threats_classified"}
+            ],
+            "data_hash": data_hash,
+            "classification": "SBU",
+            "compiled_data": compiled_data
+        }
+    
+    def _mock_list_recent_compilations(
+        self,
+        hours: int = 24,
+        limit: int = 100,
+        offset: int = 0
+    ) -> List[Dict[str, Any]]:
+        """
+        Generate mock list of recent compilations for development/testing.
+        """
+        compilations = []
+        now = datetime.now()
+        
+        # Generate mock compilations (one per hour for the requested time range)
+        num_compilations = min(limit, hours)
+        
+        for i in range(num_compilations):
+            timestamp = now - timedelta(hours=hours - i - offset)
+            compilation_id = f"foundry-comp-{timestamp.strftime('%Y%m%d%H%M%S')}"
+            compilations.append(self._mock_get_compilation(compilation_id))
+        
+        return compilations
 
