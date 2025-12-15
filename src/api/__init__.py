@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import logging
 
-from src.api.routes import ingest, status, monitoring, foundry
+from src.api.routes import ingest, status, monitoring, foundry, agency
 from src.core.middleware.request_logger import RequestLoggerMiddleware
 
 # Configure logging
@@ -65,6 +65,7 @@ app.include_router(ingest.router)
 app.include_router(status.router)
 app.include_router(monitoring.router)
 app.include_router(foundry.router)
+app.include_router(agency.router)
 
 
 @app.get("/")
