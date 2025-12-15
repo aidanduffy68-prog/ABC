@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="assets/ghsystems_logo.png" alt="GH Systems Logo" width="200"/>
-</div>
-
 # GH Systems ABC: Foundry Chain
 **Cryptographic Verification Layer for Palantir Foundry — Blockchain-Verified Intelligence with Mathematical Proof**
 
@@ -10,6 +6,8 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-High_Performance-green?style=flat-square)
 
 Copyright (c) 2025 GH Systems. All rights reserved.
+
+<img src="assets/ghsystems_logo.png" alt="GH Systems Logo" width="120"/>
 
 ---
 
