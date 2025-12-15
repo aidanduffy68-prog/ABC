@@ -49,6 +49,10 @@ class IntelligenceReceipt:
     tx_hash: Optional[str] = None  # Bitcoin transaction hash (when committed)
     status: str = ReceiptStatus.PENDING.value
     metadata: Dict[str, Any] = None  # Minimal metadata (no proprietary info)
+    # Foundry Chain integration fields
+    foundry_compilation_id: Optional[str] = None  # Foundry compilation ID
+    foundry_hash: Optional[str] = None  # Foundry data hash
+    foundry_timestamp: Optional[str] = None  # When Foundry compiled
     
     def __post_init__(self):
         if self.metadata is None:
@@ -116,7 +120,10 @@ class CryptographicReceiptGenerator:
         package_type: Optional[str] = None,
         additional_metadata: Optional[Dict[str, Any]] = None,
         validate_before_publish: bool = True,
-        require_payment_settlement: bool = True
+        require_payment_settlement: bool = True,
+        foundry_compilation_id: Optional[str] = None,
+        foundry_hash: Optional[str] = None,
+        foundry_timestamp: Optional[str] = None
     ) -> Optional[IntelligenceReceipt]:
         """
         Generate cryptographic receipt for intelligence package
@@ -132,6 +139,9 @@ class CryptographicReceiptGenerator:
             additional_metadata: Additional minimal metadata
             validate_before_publish: Whether to validate intelligence before publishing hash
             require_payment_settlement: Whether to require payment settlement before publishing hash
+            foundry_compilation_id: Optional Foundry compilation ID for Foundry Chain integration
+            foundry_hash: Optional Foundry data hash for verification
+            foundry_timestamp: Optional Foundry compilation timestamp
             
         Returns:
             IntelligenceReceipt with cryptographic proof, or None if validation/payment fails
@@ -203,7 +213,10 @@ class CryptographicReceiptGenerator:
             package_type=package_type,
             gh_systems_signature=signature,
             status=ReceiptStatus.PENDING.value,
-            metadata=metadata
+            metadata=metadata,
+            foundry_compilation_id=foundry_compilation_id,
+            foundry_hash=foundry_hash,
+            foundry_timestamp=foundry_timestamp
         )
         
         return receipt

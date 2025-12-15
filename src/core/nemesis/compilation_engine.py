@@ -13,6 +13,21 @@ if TYPE_CHECKING:
 from datetime import datetime
 from dataclasses import dataclass, field, asdict
 
+# Prometheus metrics (optional - graceful degradation if not available)
+try:
+    from prometheus_client import Histogram, Counter
+    PROMETHEUS_AVAILABLE = True
+except ImportError:
+    PROMETHEUS_AVAILABLE = False
+    # Create no-op context managers if Prometheus not available
+    class DummyContext:
+        def __enter__(self):
+            return self
+        def __exit__(self, *args):
+            pass
+        def time(self):
+            return DummyContext()
+
 # Import AI ontology components
 from src.core.nemesis.ai_ontology.integration_layer import ABCIntegrationLayer
 from src.core.nemesis.ai_ontology.behavioral_signature import AIHadesProfiler, BehavioralSignature
@@ -55,6 +70,39 @@ class CompiledIntelligence:
     
     # Drift detection
     drift_alerts: List['DriftAlert'] = field(default_factory=list)
+
+
+# Prometheus metrics
+if PROMETHEUS_AVAILABLE:
+    COMPILATION_TIME = Histogram(
+        'abc_compilation_duration_seconds',
+        'Time to compile intelligence',
+        buckets=[0.1, 0.25, 0.5, 0.75, 1.0, 2.5, 5.0]
+    )
+    
+    FOUNDRY_VERIFICATION_TIME = Histogram(
+        'abc_foundry_verification_duration_seconds',
+        'Time to verify Foundry compilation',
+        buckets=[0.05, 0.1, 0.25, 0.5, 1.0]
+    )
+    
+    BLOCKCHAIN_COMMIT_TIME = Histogram(
+        'abc_blockchain_commit_duration_seconds',
+        'Time to commit to blockchain',
+        buckets=[0.5, 1.0, 2.0, 5.0, 10.0]
+    )
+    
+    COMPILATION_ERRORS = Counter(
+        'abc_compilation_errors_total',
+        'Total compilation errors',
+        ['error_type']
+    )
+else:
+    # Create dummy metrics if Prometheus not available
+    COMPILATION_TIME = DummyContext()
+    FOUNDRY_VERIFICATION_TIME = DummyContext()
+    BLOCKCHAIN_COMMIT_TIME = DummyContext()
+    COMPILATION_ERRORS = type('Counter', (), {'inc': lambda *args, **kwargs: None})()
 
 
 class ABCCompilationEngine:
@@ -171,6 +219,44 @@ class ABCCompilationEngine:
         start_time = time.time()
         compilation_id = f"abc_{actor_id}_{int(time.time())}"
         
+        try:
+            with COMPILATION_TIME.time():
+                return self._compile_intelligence_impl(
+                    actor_id=actor_id,
+                    actor_name=actor_name,
+                    raw_intelligence=raw_intelligence,
+                    transaction_data=transaction_data,
+                    network_data=network_data,
+                    generate_receipt=generate_receipt,
+                    preferred_blockchain=preferred_blockchain,
+                    security_tier=security_tier,
+                    classification=classification,
+                    start_time=start_time,
+                    compilation_id=compilation_id
+                )
+        except Exception as e:
+            if PROMETHEUS_AVAILABLE:
+                error_type = type(e).__name__
+                COMPILATION_ERRORS.labels(error_type=error_type).inc()
+            raise
+    
+    def _compile_intelligence_impl(
+        self,
+        actor_id: str,
+        actor_name: str,
+        raw_intelligence: List[Dict[str, Any]],
+        transaction_data: Optional[List[Dict[str, Any]]],
+        network_data: Optional[Dict[str, Any]],
+        generate_receipt: bool,
+        preferred_blockchain: Optional[str],
+        security_tier: Optional[SecurityTier],
+        classification: Optional[str],
+        start_time: float,
+        compilation_id: str
+    ) -> CompiledIntelligence:
+        """
+        Internal implementation of compile_intelligence (called within metrics context)
+        """
         # Determine security tier
         if security_tier is None:
             if classification:
@@ -344,10 +430,11 @@ class ABCCompilationEngine:
                 # Commit to blockchain if preferred network specified (chain-agnostic)
                 if preferred_blockchain:
                     try:
-                        tx_hash = self.receipt_generator.commit_to_blockchain(
-                            receipt=receipt,
-                            preferred_network=preferred_blockchain
-                        )
+                        with BLOCKCHAIN_COMMIT_TIME.time():
+                            tx_hash = self.receipt_generator.commit_to_blockchain(
+                                receipt=receipt,
+                                preferred_network=preferred_blockchain
+                            )
                         if tx_hash:
                             receipt.tx_hash = tx_hash
                             receipt.status = "committed"

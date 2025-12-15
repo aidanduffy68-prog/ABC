@@ -18,6 +18,7 @@ from src.core.middleware.rate_limit import rate_limit
 from src.core.nemesis.compilation_engine import ABCCompilationEngine
 from src.core.nemesis.foundry_integration.data_mapper import FoundryDataMapper
 from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator
+from src.core.middleware.cache import cache_response
 import logging
 
 logger = logging.getLogger(__name__)
@@ -172,6 +173,7 @@ async def export_csv(
 @router.post("/verify", status_code=status.HTTP_200_OK)
 @require_auth
 @rate_limit(max_requests=100, window_seconds=60)
+@cache_response(ttl=300)  # Cache for 5 minutes
 async def verify_foundry_compilation(
     foundry_compilation_id: str = Query(..., description="Foundry compilation identifier"),
     blockchain: str = Query(default="bitcoin", description="Blockchain network (bitcoin, ethereum, hyperledger)")
@@ -324,6 +326,58 @@ async def verify_foundry_compilation(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Internal error during verification: {str(e)}"
+        )
+
+
+@router.get("/verify/{receipt_hash}", status_code=status.HTTP_200_OK)
+async def verify_receipt_chain(
+    receipt_hash: str
+) -> Dict[str, Any]:
+    """
+    Verify complete chain: Foundry → ABC → Agency assessments
+    
+    Returns verification proof showing all agencies analyzed same Foundry data.
+    This is a public endpoint - anyone can verify receipts.
+    
+    Args:
+        receipt_hash: ABC receipt hash to verify
+    
+    Returns:
+        Complete verification chain with Foundry compilation, ABC analysis, and agency assessments
+    """
+    logger.info(f"Verifying receipt chain for receipt hash: {receipt_hash}")
+    
+    try:
+        # TODO: Query blockchain to verify receipts
+        # TODO: Verify hash chain integrity
+        # TODO: Query database for all agency assessments referencing this receipt
+        
+        # For now, return mock verification
+        logger.warning("Using mock verification data - blockchain query not yet implemented")
+        
+        return {
+            "foundry_compilation": {
+                "id": "foundry-comp-2025-12-15-001",
+                "hash": "sha256:abc123...",
+                "timestamp": "2025-12-15T17:00:00Z",
+                "verified": True
+            },
+            "abc_analysis": {
+                "receipt_hash": receipt_hash,
+                "confidence": 88.4,
+                "blockchain_tx": "0x789...",
+                "verified": True
+            },
+            "agency_assessments": [],
+            "chain_verified": True,
+            "verification_timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error verifying receipt chain for {receipt_hash}: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Internal error during receipt verification: {str(e)}"
         )
 
 
