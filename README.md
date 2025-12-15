@@ -23,6 +23,11 @@ When government AI systems generate conflicting assessments (CIA: 85%, DHS: 60%)
 
 **Chain-Agnostic Architecture** — Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
 
+<div align="center">
+  <img src="assets/verification_structure.png" alt="Foundry Chain Verification Structure" width="800"/>
+  <p><em>Foundry Chain: ABC as Cryptographic Verification Layer for Palantir Foundry</em></p>
+</div>
+
 **[📖 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** | **[🚀 Get Started](GETTING_STARTED.md)**
 
 ---
