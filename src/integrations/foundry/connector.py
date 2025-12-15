@@ -2,13 +2,27 @@
 Palantir Foundry Connector
 Handles authentication, data pipeline integration, and real-time feeds
 
+Supports both:
+- Pushing ABC data TO Foundry (export)
+- Ingesting Foundry compilations FROM Foundry (for Foundry Chain verification)
+
 Copyright (c) 2025 GH Systems. All rights reserved.
 """
 
 import logging
 from typing import Dict, List, Optional, Any
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
+import hashlib
+import time
+
+try:
+    import requests
+    from requests.adapters import HTTPAdapter
+    from urllib3.util.retry import Retry
+    REQUESTS_AVAILABLE = True
+except ImportError:
+    REQUESTS_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
