@@ -2,6 +2,8 @@
 
 **GH Systems ABC - Architecture Specifications and Component Documentation**
 
+> **📚 [Complete Architecture Index](ARCHITECTURE_INDEX.md)** - Navigation guide to all architecture documentation
+
 ---
 
 ## Main Specifications
