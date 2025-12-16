@@ -55,7 +55,7 @@
 **Found:** 13 README files across the codebase
 
 **Recommendation:** Keep component READMEs only if they add value:
-- ✅ Keep: `README.md` (root), `scripts/README.md`, `security/README.md`
+- ✅ Keep: `README.md` (root), `docs/security/README.md`
 - ⚠️ Review: Component READMEs in `src/core/*/README.md` - consolidate into main docs if redundant
 - ❌ Remove: Outdated or duplicate READMEs
 

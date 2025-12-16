@@ -465,7 +465,7 @@ Confidence scores represent ABC's algorithmic assessment based on:
 - Proper key management configuration
 - Public key publication for verification
 
-**Verification Note:** This compilation demonstrates cryptographic verification architecture. Production deployment requires proper key management configuration. See `security/SECURITY_AUDIT_RESPONSE.md` for full implementation details.
+**Verification Note:** This compilation demonstrates cryptographic verification architecture. Production deployment requires proper key management configuration. See `docs/security/SECURITY_AUDIT_RESPONSE.md` for full implementation details.
 
 ---
 

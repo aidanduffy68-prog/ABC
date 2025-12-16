@@ -467,7 +467,7 @@ ABC is designed for seamless integration with Palantir Foundry:
 - Proper key management configuration
 - Public key publication for verification
 
-**Verification Note:** This compilation demonstrates cryptographic verification architecture. Production deployment requires proper key management configuration. Hash shown is example format. See `security/SECURITY_AUDIT_RESPONSE.md` for full implementation details.
+**Verification Note:** This compilation demonstrates cryptographic verification architecture. Production deployment requires proper key management configuration. Hash shown is example format. See `docs/security/SECURITY_AUDIT_RESPONSE.md` for full implementation details.
 
 ---
 

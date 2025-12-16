@@ -11,35 +11,35 @@
 ### 1. Create Namespace
 
 ```bash
-kubectl apply -f kubernetes/namespace.yaml
+kubectl apply -f k8s/namespace.yaml
 ```
 
 ### 2. Create ConfigMap
 
 ```bash
-kubectl apply -f kubernetes/configmap.yaml
+kubectl apply -f k8s/configmap.yaml
 ```
 
 ### 3. Create Secrets
 
 ```bash
 # Copy example and fill in values
-cp kubernetes/secrets.yaml.example kubernetes/secrets.yaml
+cp k8s/secrets.yaml.example k8s/secrets.yaml
 # Edit secrets.yaml with actual values
-kubectl apply -f kubernetes/secrets.yaml
+kubectl apply -f k8s/secrets.yaml
 ```
 
 ### 4. Deploy Dependencies
 
 ```bash
 # PostgreSQL
-kubectl apply -f kubernetes/postgres-deployment.yaml
+kubectl apply -f k8s/postgres-deployment.yaml
 
 # Neo4j
-kubectl apply -f kubernetes/neo4j-deployment.yaml
+kubectl apply -f k8s/neo4j-deployment.yaml
 
 # Redis
-kubectl apply -f kubernetes/redis-deployment.yaml
+kubectl apply -f k8s/redis-deployment.yaml
 ```
 
 ### 5. Build and Push Docker Image
@@ -57,7 +57,7 @@ docker push your-registry/gh-systems-abc:latest
 
 ### 6. Update API Deployment Image
 
-Edit `kubernetes/api-deployment.yaml` and update the image reference:
+Edit `k8s/api-deployment.yaml` and update the image reference:
 
 ```yaml
 image: your-registry/gh-systems-abc:latest
@@ -66,14 +66,14 @@ image: your-registry/gh-systems-abc:latest
 ### 7. Deploy API
 
 ```bash
-kubectl apply -f kubernetes/api-deployment.yaml
+kubectl apply -f k8s/api-deployment.yaml
 ```
 
 ### 8. (Optional) Deploy Ingress
 
 ```bash
 # Update ingress.yaml with your domain
-kubectl apply -f kubernetes/ingress.yaml
+kubectl apply -f k8s/ingress.yaml
 ```
 
 ## Verify Deployment

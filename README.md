@@ -7,7 +7,7 @@
 
 Copyright (c) 2025 GH Systems. All rights reserved.
 
-<img src="assets/ghsystems_logo.png" alt="GH Systems Logo" width="120"/>
+<img src="docs/assets/ghsystems_logo.png" alt="GH Systems Logo" width="120"/>
 
 ---
 
@@ -26,7 +26,7 @@ When government AI systems generate conflicting assessments (CIA: 85%, DHS: 60%)
 **Chain-Agnostic Architecture** — Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
 
 <div align="center">
-  <img src="assets/verification_structure.png" alt="Foundry Chain Verification Structure" width="800"/>
+  <img src="docs/assets/verification_structure.png" alt="Foundry Chain Verification Structure" width="800"/>
   <p><em>Foundry Chain: ABC as Cryptographic Verification Layer for Palantir Foundry</em></p>
 </div>
 
@@ -86,7 +86,7 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 ```bash
 git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
-pip install -r requirements/requirements.txt
+pip install -r requirements.txt
 bash scripts/instant_demo.sh
 ```
 
@@ -98,7 +98,7 @@ bash scripts/instant_demo.sh
 
 - **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** — Complete Foundry Chain architecture (core integration)
 - **[📄 Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** — Full technical spec
-- **[🔒 Security Documentation](security/README.md)** — Security audit and configuration
+- **[🔒 Security Documentation](docs/security/README.md)** — Security audit and configuration
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** — Operational assessments
 
 ---

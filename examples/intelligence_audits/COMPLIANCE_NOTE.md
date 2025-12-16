@@ -25,7 +25,7 @@ References to "cryptographically verifiable" intelligence assessments refer to:
 - Proper key management configuration
 - JWT_SECRET_KEY environment variable configuration
 
-See `security/SECURITY_AUDIT_RESPONSE.md` for full security implementation details.
+See `docs/security/SECURITY_AUDIT_RESPONSE.md` for full security implementation details.
 
 ## Legal Disclaimer
 

@@ -373,7 +373,7 @@ Confidence scores represent ABC's algorithmic assessment based on:
 - Public key publication for verification
 - Ethereum RPC configuration for mainnet/testnet
 
-**Verification Note:** This compilation demonstrates cryptographic verification architecture on Ethereum. Production deployment requires proper key management configuration and Ethereum network access. See `security/SECURITY_AUDIT_RESPONSE.md` for full implementation details.
+**Verification Note:** This compilation demonstrates cryptographic verification architecture on Ethereum. Production deployment requires proper key management configuration and Ethereum network access. See `docs/security/SECURITY_AUDIT_RESPONSE.md` for full implementation details.
 
 **Ethereum-Specific Details:**
 - **Transaction Type:** Event log (gas-optimized)

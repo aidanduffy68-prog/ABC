@@ -256,7 +256,7 @@ volumes:
 
 ### Kubernetes Deployment
 
-Add to `kubernetes/qdrant-deployment.yaml`:
+Add to `k8s/qdrant-deployment.yaml`:
 
 ```yaml
 apiVersion: apps/v1

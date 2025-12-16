@@ -6,26 +6,20 @@ Simplified structure emphasizing **Foundry Chain** as the core integration.
 
 ```
 USD_FRY/
-├── assets/                    # Static assets (logo only)
-│   └── gh-systems-logo.png
-│
 ├── docs/                      # Documentation
+│   ├── assets/               # Static assets (logos, images)
 │   ├── architecture/         # Architecture specifications
 │   ├── integrations/         # Integration specs (Foundry Chain)
-│   ├── security/             # Security documentation
+│   ├── security/             # Security documentation and tests
 │   └── sales/                # Sales and strategy docs
 │
 ├── examples/                  # Examples and demos
 │   └── intelligence_audits/  # Threat intelligence compilations
 │
-├── kubernetes/                # Kubernetes manifests
+├── k8s/                       # Kubernetes manifests (standard convention)
 │
-├── scripts/                   # Utility scripts
-│   ├── tests/                # Test scripts
-│   ├── deployment/           # Deployment scripts
-│   └── compile_intelligence.py
-│
-├── security/                 # Security documentation and tests
+├── scripts/                   # Utility scripts (visualization, demos)
+│   └── visualization/        # Visualization generation scripts
 │
 ├── src/                       # Source code
 │   ├── api/                  # FastAPI application
@@ -47,17 +41,9 @@ USD_FRY/
 │
 ├── tests/                     # Test suite
 │
-├── docker/                    # Docker configuration
-│   ├── Dockerfile             # Main API container
-│   ├── docker-compose.yml     # Local development
-│   ├── Dockerfile.ai-ontology # AI Ontology container
-│   └── docker-compose.ai-ontology.yml
-├── requirements/              # Python dependencies
-│   ├── requirements.txt       # Core dependencies
-│   ├── requirements-security.txt # Security dependencies
-│   ├── requirements-vector.txt # Vector DB dependencies
-│   ├── requirements-ai-ontology.txt # AI Ontology dependencies
-│   └── requirements-real-time-platform.txt
+├── Dockerfile                 # Consolidated Dockerfile
+├── docker-compose.yml         # Consolidated docker-compose
+├── requirements.txt           # Consolidated requirements (core + optional extras)
 ├── README.md                  # Main README
 └── GETTING_STARTED.md         # Quick start guide
 ```

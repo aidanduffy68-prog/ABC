@@ -93,15 +93,15 @@
 - ✅ Production-ready `run_api_server.py` script
 
 **Kubernetes Components:**
-- ✅ `kubernetes/namespace.yaml` - Namespace isolation
-- ✅ `kubernetes/configmap.yaml` - Configuration management
-- ✅ `kubernetes/secrets.yaml.example` - Secrets template
-- ✅ `kubernetes/postgres-deployment.yaml` - PostgreSQL StatefulSet
-- ✅ `kubernetes/neo4j-deployment.yaml` - Neo4j StatefulSet
-- ✅ `kubernetes/redis-deployment.yaml` - Redis Deployment
-- ✅ `kubernetes/api-deployment.yaml` - API Deployment (3 replicas, HA)
-- ✅ `kubernetes/ingress.yaml` - Ingress with TLS
-- ✅ `kubernetes/README.md` - Complete deployment guide
+- ✅ `k8s/namespace.yaml` - Namespace isolation
+- ✅ `k8s/configmap.yaml` - Configuration management
+- ✅ `k8s/secrets.yaml.example` - Secrets template
+- ✅ `k8s/postgres-deployment.yaml` - PostgreSQL StatefulSet
+- ✅ `k8s/neo4j-deployment.yaml` - Neo4j StatefulSet
+- ✅ `k8s/redis-deployment.yaml` - Redis Deployment
+- ✅ `k8s/api-deployment.yaml` - API Deployment (3 replicas, HA)
+- ✅ `k8s/ingress.yaml` - Ingress with TLS
+- ✅ `k8s/README.md` - Complete deployment guide
 
 **CI/CD Pipeline:**
 - ✅ `.github/workflows/ci-cd.yml` - Automated testing, building, deployment
@@ -118,7 +118,7 @@
 **Code Location:**
 - `Dockerfile` (root)
 - `docker-compose.yml` (root)
-- `kubernetes/` (all manifests)
+- `k8s/` (all manifests)
 - `.github/workflows/ci-cd.yml`
 
 **Status:** ✅ **Production-ready** - Can deploy to Kubernetes now

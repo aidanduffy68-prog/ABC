@@ -14,7 +14,7 @@ git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
 
 # Step 2: Install dependencies (one-time setup)
-pip install -r requirements/requirements.txt
+pip install -r requirements.txt
 
 # Step 3: Run the instant demo
 bash scripts/instant_demo.sh
@@ -64,7 +64,7 @@ git clone https://github.com/aidanduffy68-prog/ABC.git
 cd ABC
 
 # Install Python dependencies
-pip install -r requirements/requirements.txt
+pip install -r requirements.txt
 pip install -r security/requirements-security.txt
 ```
 
@@ -72,10 +72,10 @@ pip install -r security/requirements-security.txt
 
 ```bash
 # Generate environment variables (required for production)
-./security/setup_security.sh
+./docs/security/setup_security.sh
 
 # Verify setup
-python3 security/test_security_setup.py
+python3 docs/security/test_security_setup.py
 ```
 
 ### Step 3: Your First Compilation
@@ -322,7 +322,7 @@ export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
 ```bash
 # Install all dependencies
-pip install -r requirements/requirements.txt
+pip install -r requirements.txt
 pip install -r security/requirements-security.txt
 ```
 
@@ -349,7 +349,7 @@ If compilation takes >500ms or fails:
 - **[⚖️ Sales & Strategy Guide](docs/sales/SALES_AND_STRATEGY.md)** - Complete sales framework and strategy
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
-- **[🔒 Security Documentation](security/README.md)** - Security audit, configuration, and deployment guide
+- **[🔒 Security Documentation](docs/security/README.md)** - Security audit, configuration, and deployment guide
 - **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities
 
 ---
