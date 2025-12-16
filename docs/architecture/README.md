@@ -18,7 +18,6 @@
 ## Component Documentation
 
 - **[components/COMPILATION_ENGINE.md](components/COMPILATION_ENGINE.md)** - Compilation engine (Hades → Echo → Nemesis)
-- **[components/DEMO_GUIDE.md](components/DEMO_GUIDE.md)** - Demo execution guide (legacy)
 
 ---
 

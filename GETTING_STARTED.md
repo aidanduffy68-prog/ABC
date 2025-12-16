@@ -257,9 +257,9 @@ python3 scripts/compile_intelligence.py \
    - [Department of War & DHS Assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md) - 88% risk, <500ms
    - [Treasury Assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_TREASURY_003.md) - 85% risk, <500ms
 
-2. **Understand the Oracle**
-   - Read [Sales & Strategy Guide](docs/sales/SALES_AND_STRATEGY.md)
-   - Review [architecture specification](docs/ARCHITECTURE_SPEC.md)
+2. **Understand the Architecture**
+   - Review [architecture specification](docs/architecture/ARCHITECTURE_SPEC.md)
+   - Read [Foundry Chain specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)
 
 ### For Security Researchers
 
@@ -345,9 +345,9 @@ If compilation takes >500ms or fails:
 
 ## 📖 Full Documentation
 
-- **[📄 Full Architecture Specification](docs/ARCHITECTURE_SPEC.md)** - Complete technical spec
-- **[⚖️ Sales & Strategy Guide](docs/sales/SALES_AND_STRATEGY.md)** - Complete sales framework and strategy
+- **[📄 Full Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** - Complete technical spec
 - **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
+- **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** - Foundry integration guide
 - **[🧠 Ontology Specification](Deal%20Room/GH_ONTOLOGY_SPEC.md)** - Behavioral Intelligence Graph schema
 - **[🔒 Security Documentation](docs/security/README.md)** - Security audit, configuration, and deployment guide
 - **[🔧 CLI Tools](scripts/README.md)** - Command-line utilities

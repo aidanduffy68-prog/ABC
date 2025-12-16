@@ -19,8 +19,6 @@ This directory contains all documentation for GH Systems ABC.
 - **AI_OT_SECURITY_COMPLIANCE.md** - AI/OT security compliance
 - **AI_INCIDENT_RESPONSE.md** - AI incident response procedures
 
-### Sales & Strategy (`docs/sales/`)
-- **SALES_AND_STRATEGY.md** - Complete sales framework, government strategy, and market positioning
 
 ### Deployment (`docs/deployment/`)
 - **DEVELOPMENT_STATUS.md** - Current development status
@@ -39,5 +37,5 @@ This directory contains all documentation for GH Systems ABC.
 - [Architecture Overview](architecture/ARCHITECTURE_SPEC.md)
 - [Security Documentation](security/)
 - [Deployment Guide](deployment/DEVELOPMENT_STATUS.md)
-- [Sales & Strategy Guide](sales/SALES_AND_STRATEGY.md)
+- [Foundry Chain Specification](integrations/FOUNDRY_CHAIN_SPEC.md)
 

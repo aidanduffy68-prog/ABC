@@ -74,7 +74,7 @@
 
 1. Read: [ARCHITECTURE_SPEC.md](ARCHITECTURE_SPEC.md) (focus on "Foundry's Chainlink" section)
 2. Read: [../integrations/FOUNDRY_CHAIN_SPEC.md](../integrations/FOUNDRY_CHAIN_SPEC.md)
-3. Review: [../sales/SALES_AND_STRATEGY.md](../sales/SALES_AND_STRATEGY.md)
+3. Review: Integration examples in `examples/intelligence_audits/`
 
 ### "I need to evaluate ABC's technical capabilities"
 
@@ -108,20 +108,10 @@
 
 ---
 
-## 📊 Strategy & Sales
-
-| Document | Purpose |
-|----------|---------|
-| [../sales/SALES_AND_STRATEGY.md](../sales/SALES_AND_STRATEGY.md) | Government sales approach and strategy |
-
----
-
 ## 🎬 Demos & Guides
 
 | Document | Purpose |
 |----------|---------|
-| [components/DEMO_GUIDE.md](components/DEMO_GUIDE.md) | Demo execution guide (legacy) |
-| [../../examples/QUICK_DEMO.md](../../examples/QUICK_DEMO.md) | Quick demo guide |
 | [../../scripts/instant_demo.sh](../../scripts/instant_demo.sh) | Quick demo script |
 
 ---
@@ -145,9 +135,6 @@ ABC/
 │   │   ├── FOUNDRY_CHAIN_SPEC.md          ← Foundry Chain spec
 │   │   ├── FOUNDRY_CHAIN_VISUAL.md        ← Visual diagrams
 │   │   └── FOUNDRY_CONNECTION_GUIDE.md    ← API connection guide
-│   │
-│   ├── sales/
-│   │   └── SALES_AND_STRATEGY.md          ← Sales strategy
 │   │
 │   └── security/                          ← Security docs
 │
