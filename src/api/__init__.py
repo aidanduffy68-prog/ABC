@@ -22,8 +22,32 @@ logging.basicConfig(
 # Create FastAPI app
 app = FastAPI(
     title="GH Systems ABC API",
-    description="Truth verification for post-AGI intelligence",
-    version="1.0.0",
+    description="""
+    **ABC (Adversarial Behavior Compiler) - Foundry's Chainlink**
+    
+    ABC is the cryptographic verification layer for Palantir Foundry—the Chainlink for government intelligence.
+    
+    ## Features
+    
+    * **Foundry Verification**: Verify Foundry compilations and commit to blockchain
+    * **Agency Assessments**: Submit AI assessments and calculate multi-agency consensus
+    * **Cryptographic Receipts**: Generate blockchain receipts for intelligence outputs
+    * **Consensus Engine**: Detect outliers and generate recommendations across agency assessments
+    
+    ## Authentication
+    
+    Most endpoints require authentication via `Authorization: Bearer <token>` header.
+    
+    ## Foundry Chain Workflow
+    
+    1. **Foundry Compilation** → Palantir Foundry generates intelligence compilation
+    2. **ABC Verification** → `/api/v1/foundry/verify` verifies and commits to blockchain
+    3. **Agency Assessment** → Agencies submit assessments via `/api/v1/agency/assessment`
+    4. **Consensus** → Retrieve multi-agency consensus via `/api/v1/agency/consensus/{compilation_id}`
+    
+    See [Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md) for details.
+    """,
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
@@ -35,6 +59,18 @@ app = FastAPI(
         {
             "name": "status",
             "description": "Health, readiness, and version information endpoints",
+        },
+        {
+            "name": "foundry",
+            "description": "Palantir Foundry integration endpoints. Verify Foundry compilations and commit to blockchain.",
+        },
+        {
+            "name": "agency",
+            "description": "Agency AI assessment submission and multi-agency consensus endpoints. Submit assessments and retrieve consensus calculations.",
+        },
+        {
+            "name": "monitoring",
+            "description": "System monitoring and metrics endpoints",
         },
     ],
     contact={
