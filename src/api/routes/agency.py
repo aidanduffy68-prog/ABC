@@ -18,6 +18,8 @@ from src.core.middleware.rate_limit import rate_limit
 from src.core.nemesis.on_chain_receipt.receipt_generator import CryptographicReceiptGenerator
 from src.core.storage.agency_store import get_agency_store
 from src.core.nemesis.compilation_engine import ABCCompilationEngine
+from src.integrations.foundry.connector import FoundryDataExportConnector
+from src.core.nemesis.foundry_integration.data_mapper import FoundryDataMapper
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +31,8 @@ consensus_engine = ConsensusEngine()
 receipt_gen = CryptographicReceiptGenerator()
 compilation_engine = ABCCompilationEngine()
 agency_store = get_agency_store()
+foundry_connector = FoundryDataExportConnector()
+data_mapper = FoundryDataMapper()
 
 
 @router.post("/assessment", status_code=status.HTTP_201_CREATED)
@@ -205,10 +209,68 @@ async def get_consensus(
                 detail=f"No agency assessments found for compilation {foundry_compilation_id}"
             )
         
-        # Try to get ABC baseline confidence from compilation engine
-        # For now, we'll use a default or calculate from assessments
-        # TODO: Query ABC receipt to get baseline confidence
-        abc_baseline_confidence = 85.0  # Default
+        # Get ABC baseline confidence from stored data or calculate smart default
+        abc_baseline_confidence = None
+        
+        # Strategy 1: Check if baseline stored in assessment metadata
+        for assessment in agency_assessments:
+            if assessment.metadata and "abc_baseline_confidence" in assessment.metadata:
+                abc_baseline_confidence = float(assessment.metadata["abc_baseline_confidence"])
+                logger.debug(f"Found ABC baseline in assessment metadata: {abc_baseline_confidence:.2f}")
+                break
+        
+        # Strategy 2: Query Foundry compilation to get real ABC baseline (if available)
+        if abc_baseline_confidence is None:
+            try:
+                foundry_compilation = foundry_connector.get_compilation(foundry_compilation_id)
+                if foundry_compilation and foundry_connector.enabled:
+                    logger.debug(f"Querying Foundry compilation for ABC baseline")
+                    # Map Foundry data to ABC format
+                    abc_data = data_mapper.map_to_abc_format(foundry_compilation)
+                    
+                    # Extract actor info
+                    compiled_data = foundry_compilation.get("compiled_data", {})
+                    threat_actors = compiled_data.get("threat_actors", [])
+                    if threat_actors:
+                        actor_id = threat_actors[0].get("id", foundry_compilation_id)
+                        actor_name = threat_actors[0].get("name", f"Foundry {foundry_compilation_id}")
+                    else:
+                        actor_id = f"foundry_{foundry_compilation_id}"
+                        actor_name = f"Foundry Compilation {foundry_compilation_id}"
+                    
+                    # Run ABC compilation to get baseline confidence
+                    compiled_intelligence = compilation_engine.compile_intelligence(
+                        actor_id=actor_id,
+                        actor_name=actor_name,
+                        raw_intelligence=abc_data.get("raw_intelligence", []),
+                        transaction_data=abc_data.get("transaction_data"),
+                        network_data=abc_data.get("network_data"),
+                        generate_receipt=False,
+                        classification=foundry_compilation.get("classification")
+                    )
+                    
+                    abc_baseline_confidence = compiled_intelligence.confidence_score * 100
+                    logger.info(
+                        f"Retrieved ABC baseline from Foundry compilation: {abc_baseline_confidence:.2f}%"
+                    )
+            except Exception as e:
+                logger.debug(f"Could not query ABC baseline from Foundry: {e}")
+        
+        # Strategy 3: Calculate smart default from assessment scores (median is more robust)
+        if abc_baseline_confidence is None:
+            import statistics
+            confidence_scores = [a.confidence_score for a in agency_assessments]
+            if len(confidence_scores) > 0:
+                # Use median as baseline estimate (less affected by outliers than mean)
+                abc_baseline_confidence = statistics.median(confidence_scores)
+                logger.info(
+                    f"Calculated ABC baseline from assessment median: {abc_baseline_confidence:.2f}% "
+                    f"(fallback - real baseline not available)"
+                )
+            else:
+                # Final fallback
+                abc_baseline_confidence = 85.0
+                logger.warning("Using default ABC baseline (85.0%) - no assessments or compilation data available")
         
         # Calculate consensus
         consensus_result = consensus_engine.calculate_consensus(
