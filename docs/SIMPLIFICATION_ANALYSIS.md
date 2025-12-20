@@ -8,15 +8,15 @@
 
 ### 1. Broken Import References
 
-**Problem:** `src/api/routes/foundry.py` and `src/core/nemesis/foundry_integration/foundry/__init__.py` reference `src.integrations.foundry.connector` which **does not exist**.
+**Status:** ✅ **FIXED**
 
-**Files affected:**
-- `src/api/routes/foundry.py` (line 13)
-- `src/core/nemesis/foundry_integration/foundry/__init__.py` (line 8)
+**Problem:** `src/core/nemesis/foundry_integration/foundry/__init__.py` was trying to import `FoundryConnector` directly from `connector.py`, but it's actually an alias defined in `src/integrations/foundry/__init__.py`.
 
-**Fix:** Either:
-- Create `src/integrations/foundry/` directory with connector, OR
-- Update imports to use existing `src/core/nemesis/foundry_integration/foundry/connector.py`
+**Fix Applied:** Updated deprecated module to import `FoundryConnector` from the package `__init__.py` where the alias is defined.
+
+**Files affected (now fixed):**
+- `src/core/nemesis/foundry_integration/foundry/__init__.py` ✅
+- `src/api/routes/foundry.py` ✅ (was already correct)
 
 ---
 
