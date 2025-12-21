@@ -32,6 +32,9 @@ class AgencyAssessmentStore:
         # Store assessments by receipt hash (for idempotency)
         self._assessments_by_receipt: Dict[str, Dict[str, Any]] = {}
         
+        # Store assessments by ABC receipt hash (for receipt verification queries)
+        self._assessments_by_abc_receipt: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+        
         # Store assessments by agency + compilation (for quick lookups)
         self._assessments_by_agency: Dict[str, Dict[str, Dict[str, Any]]] = defaultdict(dict)
         
@@ -107,6 +110,10 @@ class AgencyAssessmentStore:
         
         if idempotency_key:
             self._assessments_by_receipt[idempotency_key] = record
+        
+        # Index by ABC receipt hash for receipt verification queries
+        if assessment.abc_receipt_hash:
+            self._assessments_by_abc_receipt[assessment.abc_receipt_hash].append(record)
         
         self._assessments_by_agency[assessment.agency][assessment.foundry_compilation_id] = record
         
@@ -184,6 +191,35 @@ class AgencyAssessmentStore:
             logger.error(f"Error deserializing assessment: {e}")
             return None
     
+    def get_assessments_by_abc_receipt_hash(
+        self,
+        abc_receipt_hash: str
+    ) -> List[AgencyAssessment]:
+        """
+        Get all agency assessments that reference a specific ABC receipt hash
+        
+        Args:
+            abc_receipt_hash: ABC receipt hash to query
+        
+        Returns:
+            List of AgencyAssessment objects that reference this ABC receipt
+        """
+        records = self._assessments_by_abc_receipt.get(abc_receipt_hash, [])
+        assessments = []
+        
+        for record in records:
+            try:
+                assessment = AgencyAssessment(**record['assessment'])
+                assessments.append(assessment)
+            except Exception as e:
+                logger.error(f"Error deserializing assessment {record.get('storage_id')}: {e}")
+        
+        logger.debug(
+            f"Retrieved {len(assessments)} assessments for ABC receipt hash {abc_receipt_hash[:16]}..."
+        )
+        
+        return assessments
+    
     def get_all_assessments(self) -> List[Dict[str, Any]]:
         """
         Get all stored assessments (for debugging/admin)
@@ -230,6 +266,14 @@ class AgencyAssessmentStore:
         # Remove from receipt index
         if record.get('idempotency_key'):
             self._assessments_by_receipt.pop(record['idempotency_key'], None)
+        
+        # Remove from ABC receipt hash index
+        abc_receipt_hash = assessment_data.get('abc_receipt_hash')
+        if abc_receipt_hash and abc_receipt_hash in self._assessments_by_abc_receipt:
+            self._assessments_by_abc_receipt[abc_receipt_hash] = [
+                r for r in self._assessments_by_abc_receipt[abc_receipt_hash]
+                if r['storage_id'] != storage_id
+            ]
         
         # Remove from agency index
         agency = assessment_data['agency']
