@@ -342,16 +342,70 @@ async def verify_receipt_chain(
     This is a public endpoint - anyone can verify receipts.
     
     Args:
-        receipt_hash: ABC receipt hash to verify
+        receipt_hash: ABC receipt hash to verify (should be SHA256 hash, optionally prefixed with "sha256:")
     
     Returns:
         Complete verification chain with Foundry compilation, ABC analysis, and agency assessments
+    
+    Raises:
+        HTTPException: 400 if receipt_hash format is invalid
+        HTTPException: 404 if no assessments found for receipt hash
+        HTTPException: 500 for internal errors
     """
     logger.info(f"Verifying receipt chain for receipt hash: {receipt_hash}")
     
+    # Validate receipt_hash format
+    receipt_hash_clean = receipt_hash.strip()
+    if not receipt_hash_clean:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="receipt_hash cannot be empty"
+        )
+    
+    # Remove "sha256:" prefix if present for validation
+    hash_value = receipt_hash_clean
+    if receipt_hash_clean.startswith("sha256:"):
+        hash_value = receipt_hash_clean[7:]
+    
+    # Validate hex format (SHA256 should be 64 hex characters)
+    if len(hash_value) != 64:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid receipt_hash format. Expected SHA256 hash (64 hex characters), got {len(hash_value)} characters"
+        )
+    
+    # Validate hex characters only
     try:
+        int(hash_value, 16)
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid receipt_hash format. Must be hexadecimal (0-9, a-f, A-F)"
+        )
+    
+    try:
+        # Normalize receipt hash (remove prefix for lookup)
+        receipt_hash_normalized = hash_value  # Use cleaned hash without prefix
+        
         # Query agency assessments referencing this ABC receipt
-        agency_assessments_data = agency_store.get_assessments_by_abc_receipt_hash(receipt_hash)
+        # Try with both prefixed and non-prefixed versions
+        agency_assessments_data = agency_store.get_assessments_by_abc_receipt_hash(receipt_hash_normalized)
+        
+        # If no results with normalized hash, try with original (in case stored with prefix)
+        if not agency_assessments_data and receipt_hash_clean != receipt_hash_normalized:
+            agency_assessments_data = agency_store.get_assessments_by_abc_receipt_hash(receipt_hash_clean)
+        
+        # If still no results, try with sha256: prefix
+        if not agency_assessments_data and not receipt_hash_normalized.startswith("sha256:"):
+            agency_assessments_data = agency_store.get_assessments_by_abc_receipt_hash(f"sha256:{receipt_hash_normalized}")
+        
+        # Return 404 if no assessments found
+        if not agency_assessments_data:
+            logger.info(f"No agency assessments found for receipt hash: {receipt_hash_clean[:16]}...")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"No agency assessments found for receipt hash: {receipt_hash_clean[:16]}...{receipt_hash_clean[-8:]}"
+            )
         
         # Build agency assessments response
         agency_assessments_response = []
@@ -367,8 +421,8 @@ async def verify_receipt_chain(
         
         # TODO: Query blockchain to verify receipts on-chain
         # TODO: Verify hash chain integrity (Foundry hash → ABC receipt hash → Agency assessment hashes)
-        logger.debug(
-            f"Found {len(agency_assessments_data)} agency assessments for receipt hash {receipt_hash[:16]}..."
+        logger.info(
+            f"Found {len(agency_assessments_data)} agency assessments for receipt hash {receipt_hash_clean[:16]}..."
         )
         
         # Extract Foundry compilation ID from first assessment (all should reference same compilation)
@@ -427,7 +481,8 @@ async def verify_receipt_chain(
         return {
             "foundry_compilation": foundry_info,
             "abc_analysis": {
-                "receipt_hash": receipt_hash,
+                "receipt_hash": receipt_hash_clean,
+                "receipt_hash_normalized": receipt_hash_normalized,
                 "verified": True,  # Receipt hash is valid (assessments exist referencing it)
                 "note": "Blockchain on-chain verification pending"
             },
