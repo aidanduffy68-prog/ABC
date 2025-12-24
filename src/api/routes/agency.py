@@ -210,25 +210,38 @@ async def get_consensus(
     Returns:
         ConsensusResult with consensus metrics and recommendations
     
+    Raises:
+        HTTPException: 400 if foundry_compilation_id is invalid
+        HTTPException: 404 if no assessments found
+        HTTPException: 500 for internal errors
+    
     Note:
         Retrieves assessments from in-memory store. If no assessments found,
         returns error. ABC baseline confidence is retrieved from compilation
         engine if available, otherwise defaults to calculated mean.
     """
+    # Validate foundry_compilation_id
+    foundry_compilation_id_clean = foundry_compilation_id.strip() if foundry_compilation_id else ""
+    if not foundry_compilation_id_clean:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="foundry_compilation_id cannot be empty"
+        )
+    
     logger.info(
-        f"Calculating consensus for Foundry compilation: {foundry_compilation_id}"
+        f"Calculating consensus for Foundry compilation: {foundry_compilation_id_clean}"
     )
     
     try:
         # Get all assessments for this compilation
         agency_assessments = agency_store.get_assessments_by_compilation(
-            foundry_compilation_id
+            foundry_compilation_id_clean
         )
         
         if not agency_assessments:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No agency assessments found for compilation {foundry_compilation_id}"
+                detail=f"No agency assessments found for compilation {foundry_compilation_id_clean}"
             )
         
         # Get ABC baseline confidence from stored data or calculate smart default
@@ -244,7 +257,7 @@ async def get_consensus(
         # Strategy 2: Query Foundry compilation to get real ABC baseline (if available)
         if abc_baseline_confidence is None:
             try:
-                foundry_compilation = foundry_connector.get_compilation(foundry_compilation_id)
+                foundry_compilation = foundry_connector.get_compilation(foundry_compilation_id_clean)
                 if foundry_compilation and foundry_connector.enabled:
                     logger.debug(f"Querying Foundry compilation for ABC baseline")
                     # Map Foundry data to ABC format
@@ -254,11 +267,11 @@ async def get_consensus(
                     compiled_data = foundry_compilation.get("compiled_data", {})
                     threat_actors = compiled_data.get("threat_actors", [])
                     if threat_actors:
-                        actor_id = threat_actors[0].get("id", foundry_compilation_id)
-                        actor_name = threat_actors[0].get("name", f"Foundry {foundry_compilation_id}")
+                        actor_id = threat_actors[0].get("id", foundry_compilation_id_clean)
+                        actor_name = threat_actors[0].get("name", f"Foundry {foundry_compilation_id_clean}")
                     else:
-                        actor_id = f"foundry_{foundry_compilation_id}"
-                        actor_name = f"Foundry Compilation {foundry_compilation_id}"
+                        actor_id = f"foundry_{foundry_compilation_id_clean}"
+                        actor_name = f"Foundry Compilation {foundry_compilation_id_clean}"
                     
                     # Run ABC compilation to get baseline confidence
                     compiled_intelligence = compilation_engine.compile_intelligence(
@@ -296,13 +309,13 @@ async def get_consensus(
         
         # Calculate consensus
         consensus_result = consensus_engine.calculate_consensus(
-            foundry_compilation_id=foundry_compilation_id,
+            foundry_compilation_id=foundry_compilation_id_clean,
             abc_baseline_confidence=abc_baseline_confidence,
             agency_assessments=agency_assessments
         )
         
         logger.info(
-            f"Consensus calculated for {foundry_compilation_id}. "
+            f"Consensus calculated for {foundry_compilation_id_clean}. "
             f"Assessments: {len(agency_assessments)}, "
             f"Mean confidence: {consensus_result.consensus_metrics.get('mean_confidence', 0):.2f}"
         )
@@ -313,7 +326,7 @@ async def get_consensus(
         raise
     except Exception as e:
         logger.error(
-            f"Error calculating consensus for {foundry_compilation_id}: {e}",
+            f"Error calculating consensus for {foundry_compilation_id_clean}: {e}",
             exc_info=True
         )
         raise HTTPException(

@@ -196,32 +196,54 @@ async def verify_foundry_compilation(
     
     Returns:
         Verification result with blockchain transaction hash
+    
+    Raises:
+        HTTPException: 400 if parameters are invalid
+        HTTPException: 404 if compilation not found
+        HTTPException: 500 for internal errors
     """
+    # Validate foundry_compilation_id
+    foundry_compilation_id_clean = foundry_compilation_id.strip() if foundry_compilation_id else ""
+    if not foundry_compilation_id_clean:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="foundry_compilation_id cannot be empty"
+        )
+    
+    # Validate blockchain parameter
+    allowed_blockchains = {"bitcoin", "ethereum", "hyperledger"}
+    blockchain_lower = blockchain.strip().lower() if blockchain else "bitcoin"
+    if blockchain_lower not in allowed_blockchains:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid blockchain '{blockchain}'. Must be one of: {', '.join(allowed_blockchains)}"
+        )
+    
     try:
         # Step 1: Fetch Foundry compilation
-        logger.info(f"Fetching Foundry compilation: {foundry_compilation_id}")
-        foundry_compilation = foundry_connector.get_compilation(foundry_compilation_id)
+        logger.info(f"Fetching Foundry compilation: {foundry_compilation_id_clean}")
+        foundry_compilation = foundry_connector.get_compilation(foundry_compilation_id_clean)
         
         if not foundry_compilation:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Foundry compilation not found: {foundry_compilation_id}"
+                detail=f"Foundry compilation not found: {foundry_compilation_id_clean}"
             )
         
         # Step 2: Verify hash matches content
-        logger.info(f"Verifying hash for compilation: {foundry_compilation_id}")
+        logger.info(f"Verifying hash for compilation: {foundry_compilation_id_clean}")
         hash_verified = foundry_connector.verify_compilation_hash(foundry_compilation)
         
         if not hash_verified:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Hash verification failed for compilation: {foundry_compilation_id}"
+                detail=f"Hash verification failed for compilation: {foundry_compilation_id_clean}"
             )
         
         foundry_hash = foundry_compilation.get("data_hash", "")
         
         # Step 3: Map Foundry data to ABC format
-        logger.info(f"Mapping Foundry compilation to ABC format: {foundry_compilation_id}")
+        logger.info(f"Mapping Foundry compilation to ABC format: {foundry_compilation_id_clean}")
         abc_data = data_mapper.map_to_abc_format(foundry_compilation)
         
         # Extract actor information from compilation
@@ -231,11 +253,11 @@ async def verify_foundry_compilation(
         
         if threat_actors and len(threat_actors) > 0:
             first_actor = threat_actors[0]
-            actor_id = first_actor.get("id", foundry_compilation_id)
-            actor_name = first_actor.get("name", f"Foundry Compilation {foundry_compilation_id}")
+            actor_id = first_actor.get("id", foundry_compilation_id_clean)
+            actor_name = first_actor.get("name", f"Foundry Compilation {foundry_compilation_id_clean}")
         else:
-            actor_id = f"foundry_{foundry_compilation_id}"
-            actor_name = f"Foundry Compilation {foundry_compilation_id}"
+            actor_id = f"foundry_{foundry_compilation_id_clean}"
+            actor_name = f"Foundry Compilation {foundry_compilation_id_clean}"
         
         # Step 4: Run ABC compilation
         logger.info(f"Running ABC compilation for actor: {actor_id}")
@@ -257,7 +279,7 @@ async def verify_foundry_compilation(
         }
         
         # Step 5: Generate blockchain receipt
-        logger.info(f"Generating blockchain receipt for compilation: {foundry_compilation_id}")
+        logger.info(f"Generating blockchain receipt for compilation: {foundry_compilation_id_clean}")
         
         # Prepare intelligence package for receipt generation
         # Serialize dataclass objects properly
@@ -266,7 +288,7 @@ async def verify_foundry_compilation(
         
         intelligence_package = {
             "compilation_id": compiled_intelligence.compilation_id,
-            "foundry_compilation_id": foundry_compilation_id,
+            "foundry_compilation_id": foundry_compilation_id_clean,
             "foundry_hash": foundry_hash,
             "actor_id": actor_id,
             "actor_name": actor_name,
@@ -286,9 +308,10 @@ async def verify_foundry_compilation(
             threat_level=abc_analysis["threat_level"],
             package_type="foundry_compilation",
             additional_metadata={
-                "foundry_compilation_id": foundry_compilation_id,
+                "foundry_compilation_id": foundry_compilation_id_clean,
                 "foundry_hash": foundry_hash
-            }
+            },
+            foundry_compilation_id=foundry_compilation_id_clean,
         )
         
         if not receipt:
@@ -298,10 +321,10 @@ async def verify_foundry_compilation(
             )
         
         # Commit receipt to blockchain
-        logger.info(f"Committing receipt to blockchain: {blockchain}")
+        logger.info(f"Committing receipt to blockchain: {blockchain_lower}")
         tx_hash = receipt_generator.commit_to_blockchain(
             receipt=receipt,
-            preferred_network=blockchain
+            preferred_network=blockchain_lower
         )
         
         # Build verification URL (assuming base URL from environment or config)
@@ -309,14 +332,14 @@ async def verify_foundry_compilation(
         
         # Return verification result
         return {
-            "foundry_compilation_id": foundry_compilation_id,
+            "foundry_compilation_id": foundry_compilation_id_clean,
             "foundry_hash": foundry_hash,
             "foundry_verified": hash_verified,
             "abc_analysis": abc_analysis,
             "blockchain_receipt": {
                 "receipt_id": receipt.receipt_id,
                 "tx_hash": tx_hash or receipt.tx_hash,
-                "blockchain": blockchain,
+                "blockchain": blockchain_lower,
                 "verification_url": verification_url
             }
         }
@@ -324,7 +347,7 @@ async def verify_foundry_compilation(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error verifying Foundry compilation {foundry_compilation_id}: {e}", exc_info=True)
+        logger.error(f"Error verifying Foundry compilation {foundry_compilation_id_clean}: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Internal error during verification: {str(e)}"
