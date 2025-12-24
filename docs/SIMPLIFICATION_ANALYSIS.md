@@ -38,15 +38,19 @@
 
 ### 3. Documentation Overlap
 
+**Status:** ✅ **FIXED**
+
 **Current docs:**
-- `docs/integrations/FOUNDRY_INTEGRATION.md` - General integration (data export, API endpoints)
+- `docs/integrations/FOUNDRY_DATA_EXPORT.md` - Data export documentation (data export, API endpoints) ✅
 - `docs/integrations/FOUNDRY_CHAIN_SPEC.md` - Foundry Chain (cryptographic verification layer)
 - `docs/integrations/FOUNDRY_CONNECTION_GUIDE.md` - Connection testing guide
 
-**Status:** Actually serve different purposes, but could be clearer:
-- `FOUNDRY_INTEGRATION.md` → Rename to `FOUNDRY_DATA_EXPORT.md` (clearer purpose)
-- `FOUNDRY_CHAIN_SPEC.md` → Keep as-is (core integration)
-- `FOUNDRY_CONNECTION_GUIDE.md` → Keep as-is (testing guide)
+**Fix Applied:** File has been renamed from `FOUNDRY_INTEGRATION.md` to `FOUNDRY_DATA_EXPORT.md` for clearer purpose.
+
+All documentation now serves distinct purposes:
+- `FOUNDRY_DATA_EXPORT.md` - Exporting ABC data TO Foundry
+- `FOUNDRY_CHAIN_SPEC.md` - Foundry Chain integration (ingesting FROM Foundry)
+- `FOUNDRY_CONNECTION_GUIDE.md` - Connection testing guide
 
 ---
 
@@ -91,9 +95,9 @@
 ### Priority 1 (Critical)
 1. ✅ Fix broken imports (`src.integrations.foundry` references)
 2. ✅ Rename `foundry/connector.py` to clarify purpose
+3. ✅ Rename `FOUNDRY_INTEGRATION.md` → `FOUNDRY_DATA_EXPORT.md`
 
 ### Priority 2 (Important)
-3. ⚠️ Rename `FOUNDRY_INTEGRATION.md` → `FOUNDRY_DATA_EXPORT.md`
 4. ⚠️ Consolidate architecture docs structure
 
 ### Priority 3 (Nice to Have)

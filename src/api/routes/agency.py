@@ -92,11 +92,33 @@ async def submit_agency_assessment(
                 }
             }
         
-        # Verify ABC receipt format (basic validation)
-        if not assessment.abc_receipt_hash or not assessment.abc_receipt_hash.strip():
+        # Validate ABC receipt hash format
+        abc_receipt_hash_clean = assessment.abc_receipt_hash.strip() if assessment.abc_receipt_hash else ""
+        if not abc_receipt_hash_clean:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="abc_receipt_hash is required"
+            )
+        
+        # Remove "sha256:" prefix if present for validation
+        abc_hash_value = abc_receipt_hash_clean
+        if abc_receipt_hash_clean.startswith("sha256:"):
+            abc_hash_value = abc_receipt_hash_clean[7:]
+        
+        # Validate hex format (SHA256 should be 64 hex characters)
+        if len(abc_hash_value) != 64:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid abc_receipt_hash format. Expected SHA256 hash (64 hex characters), got {len(abc_hash_value)} characters"
+            )
+        
+        # Validate hex characters only
+        try:
+            int(abc_hash_value, 16)
+        except ValueError:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid abc_receipt_hash format. Must be hexadecimal (0-9, a-f, A-F)"
             )
         
         # Generate blockchain receipt for agency assessment
@@ -105,7 +127,7 @@ async def submit_agency_assessment(
             intelligence_package={
                 "agency": assessment.agency,
                 "foundry_compilation_id": assessment.foundry_compilation_id,
-                "abc_receipt_hash": assessment.abc_receipt_hash,
+                "abc_receipt_hash": abc_receipt_hash_clean,  # Use validated hash
                 "assessment_hash": assessment.assessment_hash,
                 "confidence_score": assessment.confidence_score,
                 "classification": assessment.classification.value
@@ -115,7 +137,7 @@ async def submit_agency_assessment(
             package_type="agency_assessment",
             additional_metadata={
                 "foundry_compilation_id": assessment.foundry_compilation_id,
-                "abc_receipt_hash": assessment.abc_receipt_hash,
+                "abc_receipt_hash": abc_receipt_hash_clean,  # Use validated hash
                 "agency": assessment.agency
             },
             foundry_compilation_id=assessment.foundry_compilation_id,
