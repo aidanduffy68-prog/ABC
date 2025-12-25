@@ -1,5 +1,5 @@
-# GH Systems ABC: Foundry Chain
-**Cryptographic Verification Layer for Palantir Foundry — Blockchain-Verified Intelligence with Mathematical Proof**
+# ABC: Truth Verification for AI Intelligence
+**When AI systems disagree, ABC proves they analyzed the same data**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
 ![Palantir Foundry](https://img.shields.io/badge/Palantir-Foundry-red?style=flat-square)
@@ -11,19 +11,43 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 ---
 
-## 🎯 Foundry Chain: The Core Integration
+## The Problem
 
-**ABC transforms Palantir Foundry into blockchain-verified intelligence with mathematical proof for conflict resolution.**
+When government AI systems generate conflicting assessments:
 
-When government AI systems generate conflicting assessments (CIA: 85%, DHS: 60%), **Foundry Chain provides cryptographic proof that all agencies analyzed the same source data** — enabling transparent conflict resolution and verifiable consensus.
+- **CIA says 85% confidence**
+- **DHS says 60% confidence**
+- **NSA says 78% confidence**
+
+**Same threat. Three different answers.**
+
+Question: Did they analyze the same data? There's no way to verify.
+
+Result: **14 days to manually reconcile conflicts.**
+
+---
+
+## The Solution
+
+**ABC proves AI systems analyzed the same data.**
+
+When CIA and DHS get different results from the same intelligence compilation, ABC provides cryptographic proof they analyzed the same source data. The disagreement is methodology, not data quality.
+
+**Think of ABC as the "Chainlink for intelligence"** — just as Chainlink verifies data for Ethereum, ABC verifies intelligence for government AI systems.
+
+---
+
+## How It Works
 
 **The Stack:**
 - **Palantir Foundry** — Data integration and compilation (existing)
 - **ABC** — AI analysis + cryptographic verification (new layer)
 - **Agency AI Systems** — Proprietary analysis with blockchain commitment (enhanced)
-- **Genesis Mission Dashboard** — Consensus view and conflict resolution (new)
+- **Consensus Engine** — Conflict detection and resolution (new)
 
 **Chain-Agnostic Architecture** — Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
+
+**For detailed technical architecture, see [Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md).**
 
 <div align="center">
   <img src="docs/assets/verification_structure.png" alt="Foundry Chain Verification Structure" width="800"/>
@@ -66,10 +90,10 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 - **Consensus Engine** — Conflict detection and resolution
 
 **Core Engines (`src/core/`):**
-- **`hades/`** — Behavioral profiling engine
-- **`echo/`** — Coordination detection engine
-- **`nemesis/`** — Pre-emptive targeting engine
-- **`hypnos/`** — Long-term memory system
+- **Behavioral Profiling Engine** — Analyzes threat actor behavior patterns
+- **Coordination Detection Engine** — Identifies network relationships and coordination
+- **Threat Targeting Engine** — Generates executable targeting packages
+- **Long-term Memory System** — Maintains historical intelligence and pattern recognition
 
 **Infrastructure (`src/`):**
 - **`api/routes/`** — FastAPI endpoints
@@ -96,6 +120,10 @@ bash scripts/instant_demo.sh
 
 ## 📖 Documentation
 
+**Getting Started:**
+- **[📘 Beginner Guide](docs/BEGINNER_GUIDE.md)** — Non-technical overview (start here if you're new to ABC)
+
+**Technical Documentation:**
 - **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** — Complete Foundry Chain architecture (core integration)
 - **[📄 Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** — Full technical spec
 - **[🔒 Security Documentation](docs/security/README.md)** — Security audit and configuration
@@ -116,11 +144,13 @@ bash scripts/instant_demo.sh
 
 ## Key Benefits
 
-1. **Single Source of Truth** — All agencies analyze same Foundry compilation
-2. **Transparent Conflicts** — Differences are in methodology, not data
-3. **Audit Trail** — Every assessment traceable to blockchain
-4. **Defense-in-Depth** — Foundry + ABC + Agencies + Blockchain
-5. **Classification Handling** — Supports Unclassified, SBU, and Classified tiers
+**Core Value: Proof AI systems analyzed the same data**
+
+**Supporting Benefits:**
+1. **Resolve conflicts faster** — Hours vs. weeks to reconcile disagreements
+2. **Verifiable intelligence** — Cryptographic proof without revealing proprietary methods
+3. **Faster payments** (optional) — 4-hour settlement vs. 18-month procurement cycles
+4. **Classification support** — Works with Unclassified, SBU, and Classified intelligence tiers
 
 ---
 
