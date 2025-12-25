@@ -35,17 +35,39 @@ bash scripts/instant_demo.sh
 
 **Expected output:**
 ```
-⚡ Compilation Time: 0.82ms (LIGHTNING FAST!)
-📊 Confidence Score: 39.2% (Demo Mode - Limited Sample Data)
-   💡 Note: Real deployments achieve 75-90% confidence with full intelligence feeds
-   📊 See examples: DoW/DHS (88%), Treasury (85%)
-🔐 Cryptographic Hash: Generated (DEMO MODE)
-   ⚠️  Demo Mode: Production deployment includes real RSA-PSS signatures
-   ✅ Architecture ready: Chain-agnostic commitment (Bitcoin, Ethereum, Polygon, etc.)
-⛓️  Blockchain: Chain-Agnostic (Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism)
-✅ Status: VERIFIED
+THE PROBLEM:
 
-🎉 MAGIC MOMENT ACHIEVED! 🎉
+When AI Systems Disagree, Who's Right?
+
+CIA says 78% confidence. NSA says 85%. DHS says 62%.
+
+Same threat. Three different answers.
+
+ABC provides cryptographic proof they analyzed
+identical source data.
+
+📊 Intelligence Input: APT41 Cyber Operations
+
+   - Targeting defense sector supply chains
+   - Suspicious network traffic detected
+   - Malware signatures match previous campaigns
+   - C2 servers activated
+
+🔍 Compiling intelligence...
+
+THE SOLUTION:
+
+✅ ABC compiled threat intelligence
+
+   Confidence Score: 39.7%
+   Compilation Time: 3.03ms
+   Cryptographic Hash: 4ecbdeb7a884f503...
+   Status: VERIFIED ✓
+
+   Different AI systems can now analyze this data.
+   ABC proves they all used identical source intelligence.
+
+🔗 This is how we verify truth in the age of AI.
 ```
 
 **Note:** Demo uses limited sample data, so confidence may be lower (30-50%). Real deployments with full intelligence feeds achieve 75-90% confidence. See our [Department of War & DHS assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md) (88% confidence) and [Treasury assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_TREASURY_003.md) (85% confidence) for production examples.
@@ -81,30 +103,40 @@ python3 docs/security/test_security_setup.py
 ### Step 3: Your First Compilation
 
 ```bash
-# Create sample intelligence file
+# Create sample intelligence file (APT41 scenario)
 cat > sample_intel.json << 'EOF'
 [
   {
-    "text": "North Korean hackers coordinating with Russian facilitators",
+    "text": "APT41 targeting defense sector supply chains",
     "source": "intel_feed_1",
     "type": "intelligence_report"
   },
   {
-    "text": "Multiple wallets showing synchronized transaction patterns",
-    "source": "blockchain_analysis",
-    "type": "transaction_analysis"
+    "text": "Suspicious network traffic detected matching APT41 patterns",
+    "source": "network_monitoring",
+    "type": "threat_detection"
+  },
+  {
+    "text": "Malware signatures match previous APT41 campaigns",
+    "source": "malware_analysis",
+    "type": "threat_intelligence"
+  },
+  {
+    "text": "Command and control servers activated",
+    "source": "network_monitoring",
+    "type": "threat_detection"
   }
 ]
 EOF
 
 # Compile intelligence (this is your Magic Moment!)
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --actor-id "demo_001" \
   --actor-name "Demo Threat Actor" \
   --intel-file sample_intel.json
 
 # Compile with security tier (for government deployments)
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --actor-id "demo_001" \
   --actor-name "Demo Threat Actor" \
   --intel-file sample_intel.json \
@@ -112,7 +144,7 @@ python3 scripts/compile_intelligence.py \
   --blockchain ethereum
 
 # Or use classification string (auto-determines tier)
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --actor-id "demo_001" \
   --actor-name "Demo Threat Actor" \
   --intel-file sample_intel.json \
@@ -121,25 +153,39 @@ python3 scripts/compile_intelligence.py \
 ```
 
 **You've reached your Magic Moment when you see:**
+- ✅ THE SOLUTION section displayed
 - ✅ Compilation time <500ms
 - ✅ Confidence score displayed
-- ✅ Cryptographic receipt generated
-- ✅ "MAGIC MOMENT ACHIEVED!" message
+- ✅ Cryptographic hash generated
+- ✅ Status: VERIFIED ✓
+- ✅ Message: "This is how we verify truth in the age of AI."
 
 ---
 
 ## 🎯 What You Just Experienced
 
-**The Problem:** Genesis Mission = largest AI infrastructure deployment in government history. When AGI generates conflicting threat assessments (CIA: 85%, DHS: 60%), there's no objective truth layer. Agencies disagree. Verification is impossible.
+**THE PROBLEM:**
 
-**The Solution:** GH Systems ABC provides:
+When AI Systems Disagree, Who's Right?
+
+CIA says 78% confidence. NSA says 85%. DHS says 62%.
+
+Same threat. Three different answers.
+
+**THE SOLUTION:**
+
+ABC provides cryptographic proof they analyzed identical source data.
+
+GH Systems ABC enables:
 - ✅ **Cryptographically verifiable intelligence** - SHA-256 hash proof (RSA-PSS in production)
 - ✅ **<500ms compilation** - vs. 14+ days traditional (typically 0.5-2ms in practice)
 - ✅ **Chain-agnostic architecture** - Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
 - ✅ **Objective truth layer** - No political bias, instant consensus
 - ✅ **Mathematical proof** - Verifiable methodology
 
-**This is what government agencies need for the Genesis Mission** - the infrastructure that resolves intelligence disputes when AGI makes verification impossible.
+**Different AI systems can now analyze the same data. ABC proves they all used identical source intelligence.**
+
+**This is how we verify truth in the age of AI.**
 
 ---
 
@@ -168,7 +214,7 @@ ABC supports three security tiers for government deployments:
 **Example:**
 ```bash
 # Tier 1 (Unclassified) - Public blockchain
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --actor-id "threat_001" \
   --actor-name "Threat Actor" \
   --intel-file sample_intel.json \
@@ -176,48 +222,7 @@ python3 scripts/compile_intelligence.py \
   --blockchain ethereum
 
 # Tier 3 (Classified) - Hash-only commitment
-python3 scripts/compile_intelligence.py \
-  --actor-id "threat_001" \
-  --actor-name "Threat Actor" \
-  --intel-file sample_intel.json \
-  --security-tier classified \
-  --blockchain bitcoin
-```
-
-## 🔒 Security Tiers
-
-ABC supports three security tiers for government deployments:
-
-### Tier 1: Unclassified
-- **Blockchains**: Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
-- **Data Exposure**: Full intelligence hash and metadata committed
-- **Verification**: Public, anyone can verify
-- **Use Case**: Public threat intelligence, unclassified assessments
-
-### Tier 2: SBU (Sensitive But Unclassified)
-- **Blockchains**: Permissioned chains (Hyperledger, Corda, Quorum, Besu)
-- **Data Exposure**: Controlled access, encrypted metadata
-- **Verification**: Permissioned, authorized parties only
-- **Use Case**: Sensitive but unclassified intelligence
-
-### Tier 3: Classified
-- **Blockchains**: Any (Bitcoin, Ethereum for hash-only)
-- **Data Exposure**: Zero - only cryptographic hash committed
-- **Verification**: Hash-only verification
-- **Use Case**: Classified intelligence, zero data exposure
-
-**Example:**
-```bash
-# Tier 1 (Unclassified) - Public blockchain
-python3 scripts/compile_intelligence.py \
-  --actor-id "threat_001" \
-  --actor-name "Threat Actor" \
-  --intel-file sample_intel.json \
-  --security-tier unclassified \
-  --blockchain ethereum
-
-# Tier 3 (Classified) - Hash-only commitment
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --actor-id "threat_001" \
   --actor-name "Threat Actor" \
   --intel-file sample_intel.json \
@@ -232,7 +237,7 @@ python3 scripts/compile_intelligence.py \
 1. **Explore the API**
    ```bash
    # Start the FastAPI server
-   python3 scripts/run_api_server.py
+   python3 src/cli/run_api_server.py
    
    # View API docs
    # Swagger UI: http://localhost:8000/docs
@@ -241,7 +246,7 @@ python3 scripts/compile_intelligence.py \
 
 2. **Try Federal AI Compilation**
    ```bash
-   python3 scripts/compile_intelligence.py \
+   python3 src/cli/compile_intelligence.py \
      --federal-ai \
      --agency "DoD" \
      --vuln-file vulnerabilities.json
@@ -274,7 +279,7 @@ python3 scripts/compile_intelligence.py \
 ### Compile Threat Intelligence
 
 ```bash
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --actor-id "threat_actor_001" \
   --actor-name "Threat Actor" \
   --intel-file intelligence.json \
@@ -285,7 +290,7 @@ python3 scripts/compile_intelligence.py \
 ### Compile Federal AI Intelligence
 
 ```bash
-python3 scripts/compile_intelligence.py \
+python3 src/cli/compile_intelligence.py \
   --federal-ai \
   --agency "DoD" \
   --vuln-file vulnerabilities.json \
@@ -296,10 +301,10 @@ python3 scripts/compile_intelligence.py \
 
 ```bash
 # Development mode (auto-reload)
-python3 scripts/run_api_server.py
+python3 src/cli/run_api_server.py
 
 # Production mode
-python3 scripts/run_api_server.py --production --host 0.0.0.0 --port 8080
+python3 src/cli/run_api_server.py --production --host 0.0.0.0 --port 8080
 
 # API docs available at:
 # - Swagger UI: http://localhost:8000/docs
