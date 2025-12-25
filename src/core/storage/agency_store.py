@@ -90,9 +90,12 @@ class AgencyAssessmentStore:
         storage_id = str(uuid.uuid4())
         stored_at = datetime.now()
         
+        # Serialize assessment (use model_dump if available, fallback to dict)
+        assessment_dict = assessment.model_dump() if hasattr(assessment, 'model_dump') else assessment.dict()
+        
         record = {
             'storage_id': storage_id,
-            'assessment': assessment.dict(),
+            'assessment': assessment_dict,
             'receipt_id': receipt_id,
             'blockchain_tx_hash': blockchain_tx_hash,
             'idempotency_key': idempotency_key,
@@ -101,7 +104,7 @@ class AgencyAssessmentStore:
             'foundry_compilation_id': assessment.foundry_compilation_id,
             'abc_receipt_hash': assessment.abc_receipt_hash,
             'confidence_score': assessment.confidence_score,
-            'classification': assessment.classification.value
+            'classification': assessment.classification.value if hasattr(assessment.classification, 'value') else str(assessment.classification)
         }
         
         # Store in all indexes
