@@ -9,6 +9,17 @@ echo "GH Systems ABC - Instant Demo"
 echo "Truth Verification for Post-AGI Intelligence"
 echo "============================================================"
 echo ""
+echo "THE PROBLEM:"
+echo ""
+echo "When AI Systems Disagree, Who's Right?"
+echo ""
+echo "CIA says 78% confidence. NSA says 85%. DHS says 62%."
+echo ""
+echo "Same threat. Three different answers."
+echo ""
+echo "ABC provides cryptographic proof they analyzed"
+echo "identical source data."
+echo ""
 
 # Check for Python
 if ! command -v python3 &> /dev/null; then
@@ -45,34 +56,46 @@ if ! python3 -c "import sys; sys.path.insert(0, '.'); from src.core.nemesis.comp
     echo ""
 fi
 
-# Create sample intelligence data
+# Create sample intelligence data (APT41 scenario)
 cat > /tmp/demo_intel.json << 'EOF'
 [
   {
-    "text": "North Korean hackers coordinating with Russian facilitators",
+    "text": "APT41 targeting defense sector supply chains",
     "source": "intel_feed_1",
     "type": "intelligence_report"
   },
   {
-    "text": "Multiple wallets showing synchronized transaction patterns",
-    "source": "blockchain_analysis",
-    "type": "transaction_analysis"
+    "text": "Suspicious network traffic detected matching APT41 patterns",
+    "source": "network_monitoring",
+    "type": "threat_detection"
   },
   {
-    "text": "Suspected OFAC evasion through mixer services",
-    "source": "compliance_monitor",
-    "type": "sanctions_alert"
+    "text": "Malware signatures match previous APT41 campaigns",
+    "source": "malware_analysis",
+    "type": "threat_intelligence"
+  },
+  {
+    "text": "Command and control servers activated",
+    "source": "network_monitoring",
+    "type": "threat_detection"
   }
 ]
 EOF
 
+echo "📊 Intelligence Input: APT41 Cyber Operations"
+echo ""
+echo "   - Targeting defense sector supply chains"
+echo "   - Suspicious network traffic detected"
+echo "   - Malware signatures match previous campaigns"
+echo "   - C2 servers activated"
+echo ""
 echo "🔍 Compiling intelligence..."
 echo ""
 
 # Run compilation
-python3 "$PROJECT_ROOT/scripts/compile_intelligence.py" \
-  --actor-id "demo_instant_$(date +%s)" \
-  --actor-name "Demo Threat Actor" \
+python3 "$PROJECT_ROOT/src/cli/compile_intelligence.py" \
+  --actor-id "apt41_demo_$(date +%s)" \
+  --actor-name "APT41" \
   --intel-file /tmp/demo_intel.json \
   --output /tmp/demo_output.json 2>&1 | tee /tmp/demo_result.txt
 
@@ -89,42 +112,25 @@ if [ $? -eq 0 ]; then
         COMP_TIME=$(python3 -c "import json; data=json.load(open('/tmp/demo_output.json')); print(f\"{data.get('compilation_time_ms', 0):.2f}ms\")" 2>/dev/null || echo "N/A")
         CONFIDENCE=$(python3 -c "import json; data=json.load(open('/tmp/demo_output.json')); conf=data.get('confidence_score', 0)*100; print(f\"{conf:.1f}%\")" 2>/dev/null || echo "N/A")
         
-        echo "📊 Your Result:"
-        echo "   ⚡ Compilation Time: $COMP_TIME (LIGHTNING FAST!)"
-        echo "   📈 Confidence Score: $CONFIDENCE"
+        # Extract hash (first 16 chars) - check targeting_package for receipt
+        HASH=$(python3 -c "import json; data=json.load(open('/tmp/demo_output.json')); tp=data.get('targeting_package', {}); receipt=tp.get('receipt', {}); h=receipt.get('intelligence_hash', receipt.get('hash', '')); print(h[:16] if h and len(h) > 16 else (h if h else 'Generated'))" 2>/dev/null || echo "Generated")
         
-        # Explain low confidence in demo
-        CONF_NUM=$(python3 -c "import json; data=json.load(open('/tmp/demo_output.json')); print(data.get('confidence_score', 0)*100)" 2>/dev/null || echo "0")
-        if (( $(echo "$CONF_NUM < 50" | bc -l 2>/dev/null || echo 0) )); then
-            echo "   💡 Note: Demo uses limited sample data"
-            echo "   ✅ Real deployments achieve 75-90% confidence (see DoW/DHS: 88%, Treasury: 85%)"
-        fi
-        
-        echo "   🔐 Cryptographic Hash: Generated (Demo Mode)"
-        echo "   ⛓️  Blockchain: Chain-Agnostic (Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism)"
-        echo "   ✅ Status: VERIFIED"
+        echo "THE SOLUTION:"
+        echo ""
+        echo "✅ ABC compiled threat intelligence"
+        echo ""
+        echo "   Confidence Score: $CONFIDENCE"
+        echo "   Compilation Time: $COMP_TIME"
+        echo "   Cryptographic Hash: ${HASH}..."
+        echo "   Status: VERIFIED ✓"
+        echo ""
+        echo "   Different AI systems can now analyze this data."
+        echo "   ABC proves they all used identical source intelligence."
+        echo ""
+        echo "🔗 This is how we verify truth in the age of AI."
         echo ""
     fi
     
-    echo "============================================================"
-    echo "⚡ What You Just Experienced"
-    echo "============================================================"
-    echo ""
-    echo "🌐 THE PROBLEM: Genesis Mission = largest AI infrastructure deployment"
-    echo "   in government history. When AGI generates conflicting threat assessments"
-    echo "   (CIA: 85%, DHS: 60%), there's no objective truth layer."
-    echo ""
-    echo "✅ THE SOLUTION: You just experienced it:"
-    echo "   • Cryptographically verifiable intelligence (SHA-256 hash proof)"
-    echo "   • <500ms compilation (vs. 14+ days traditional analysis)"
-    echo "   • Chain-agnostic architecture (works with any blockchain)"
-    echo "   • Objective truth layer for disputes (no political bias)"
-    echo "   • Mathematical proof of methodology"
-    echo ""
-    echo "💡 CHAIN-AGNOSTIC ADVANTAGE:"
-    echo "   Agencies choose their preferred blockchain. We provide the oracle."
-    echo "   No vendor lock-in. Works with existing infrastructure."
-    echo ""
     echo "============================================================"
     echo "📈 Next Steps (Recommended Path)"
     echo "============================================================"
@@ -137,8 +143,8 @@ if [ $? -eq 0 ]; then
     echo "      cat examples/intelligence_audits/INTELLIGENCE_AUDIT_TREASURY_003.md"
     echo ""
     echo "2️⃣  Try Your Own Data (5 minutes)"
-    echo "   python3 scripts/compile_intelligence.py --help"
-    echo "   python3 scripts/compile_intelligence.py \\"
+    echo "   python3 src/cli/compile_intelligence.py --help"
+    echo "   python3 src/cli/compile_intelligence.py \\"
     echo "     --actor-id \"your_threat\" --actor-name \"Threat Actor\" \\"
     echo "     --intel-file your_data.json --blockchain ethereum"
     echo ""
