@@ -111,17 +111,26 @@ ABC provides cryptographic proof that all agencies analyzed the same source data
    - [Department of War & DHS Assessment](../examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md)
    - [Treasury Assessment](../examples/intelligence_audits/INTELLIGENCE_AUDIT_TREASURY_003.md)
 
+**If you want to understand why ABC matters:**
+
+- **[Why ABC?](WHY_ABC.md)** — Detailed problem, solution, proof, and future vision
+- **[Use Cases](USE_CASES.md)** — Specific scenarios and applications (conflict resolution, audit trails, payments, classified handling)
+
 **If you want technical details:**
 
 - **[Architecture Specification](architecture/ARCHITECTURE_SPEC.md)** — Complete technical specification
 - **[Foundry Chain Specification](integrations/FOUNDRY_CHAIN_SPEC.md)** — Integration with Palantir Foundry
+- **[Foundry Integration Quick Start](integrations/FOUNDRY_INTEGRATION_QUICKSTART.md)** — ABC + Foundry in 3 steps
 - **[Security Documentation](security/README.md)** — Security and compliance information
 
 **If you're making a decision:**
 
+- Review [Why ABC?](WHY_ABC.md) for comprehensive value proposition
+- Check [Use Cases](USE_CASES.md) for specific scenarios relevant to your organization
 - Review the [Architecture Specification](architecture/ARCHITECTURE_SPEC.md) for technical capabilities
 - Check [Security Documentation](security/README.md) for compliance and security features
 - See [Intelligence Audit Examples](../examples/intelligence_audits/) for real-world results
+- Review [Partnership Model](PARTNERSHIP_MODEL.md) if considering integration
 
 ---
 

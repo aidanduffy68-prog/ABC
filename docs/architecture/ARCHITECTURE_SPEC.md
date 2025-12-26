@@ -12,7 +12,11 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 ## Overview
 
-This document provides the complete technical specification for the ABC (Adversarial Behavior Compiler) system. For a quick overview, see the [main README](../../README.md). For a non-technical introduction, see the [Beginner Guide](../BEGINNER_GUIDE.md).
+This document provides the complete technical specification for the ABC (Adversarial Behavior Compiler) system. 
+
+**For business context and use cases, see [Use Cases](../USE_CASES.md).**
+
+For a quick overview, see the [main README](../../README.md). For a non-technical introduction, see the [Beginner Guide](../BEGINNER_GUIDE.md).
 
 ---
 
