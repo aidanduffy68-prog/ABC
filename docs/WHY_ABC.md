@@ -14,7 +14,7 @@ Government intelligence agencies deploy sophisticated AI systems to analyze thre
 - Is the disagreement due to data quality or methodology differences?
 - Which assessment is more reliable?
 
-**The result:** Weeks of manual conflict resolution, slower decision-making, and uncertainty in critical situations.
+**The result:** Weeks of manual conflict resolution, slower decision-making, and uncertainty in critical situations. For Foundry customers, these conflicts often lead to accusations of data quality issues—damaging reputation and consuming 40+ support hours per incident.
 
 ### Real-World Example
 

@@ -125,7 +125,7 @@ When CIA and DHS get different results from the same Foundry compilation, ABC pr
   <p><em>Complete workflow: Palantir Foundry → ABC Verification → Blockchain → Multi-Agency Consensus</em></p>
 </div>
 
-**See also:** [Foundry Chain Visual Documentation](../integrations/FOUNDRY_CHAIN_VISUAL.md) for detailed diagrams and process flows.
+**See also:** [Foundry Chain Specification](../integrations/FOUNDRY_CHAIN_SPEC.md) for complete technical details and architecture diagrams.
 
 ### Step 1: Foundry Compilation
 

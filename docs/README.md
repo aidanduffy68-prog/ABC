@@ -26,7 +26,6 @@ This directory contains all documentation for GH Systems ABC.
 ### Architecture (`docs/architecture/`)
 - **ARCHITECTURE_SPEC.md** - Complete system architecture specification
 - **CHAIN_AGNOSTIC_ARCHITECTURE.md** - Chain-agnostic blockchain architecture
-- **CHAIN_AGNOSTIC_IMPLEMENTATION_SUMMARY.md** - Implementation summary
 - **ARCHITECTURE_REDUNDANCY_ANALYSIS.md** - Redundancy analysis
 - **GH_ONTOLOGY_SPEC.md** - Ontology specification
 - **new_ontology.png** - System ontology diagram

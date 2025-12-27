@@ -28,7 +28,6 @@
 |----------|---------|----------|
 | [ARCHITECTURE_SPEC.md](ARCHITECTURE_SPEC.md) | Complete system architecture | All |
 | [CHAIN_AGNOSTIC_ARCHITECTURE.md](CHAIN_AGNOSTIC_ARCHITECTURE.md) | Multi-blockchain integration | Technical |
-| [CHAIN_AGNOSTIC_IMPLEMENTATION_SUMMARY.md](CHAIN_AGNOSTIC_IMPLEMENTATION_SUMMARY.md) | Implementation status | Developers |
 
 ### Intelligence Ontology
 
@@ -37,14 +36,12 @@
 | [GH_ONTOLOGY_SPEC.md](GH_ONTOLOGY_SPEC.md) | Behavioral Intelligence Graph schema | Technical |
 | [AI_THREAT_ONTOLOGY_SPEC.md](AI_THREAT_ONTOLOGY_SPEC.md) | AI-powered threat classification | Technical |
 | [AI_ONTOLOGY_INTEGRATION.md](AI_ONTOLOGY_INTEGRATION.md) | AI ontology integration guide | Developers |
-| [AI_ONTOLOGY_UPGRADE.md](AI_ONTOLOGY_UPGRADE.md) | AI ontology upgrade details | Developers |
 
 ### Integration Specs
 
 | Document | Purpose | Audience |
 |----------|---------|----------|
 | [../integrations/FOUNDRY_CHAIN_SPEC.md](../integrations/FOUNDRY_CHAIN_SPEC.md) | Foundry Chain technical spec | Technical |
-| [../integrations/FOUNDRY_CHAIN_VISUAL.md](../integrations/FOUNDRY_CHAIN_VISUAL.md) | Foundry Chain visual diagrams | All |
 | [../integrations/FOUNDRY_CONNECTION_GUIDE.md](../integrations/FOUNDRY_CONNECTION_GUIDE.md) | Foundry API connection guide | Developers |
 | [../integrations/FOUNDRY_DATA_EXPORT.md](../integrations/FOUNDRY_DATA_EXPORT.md) | Foundry data export documentation | Developers |
 
@@ -64,7 +61,6 @@
 ### Compilation Pipeline
 
 - [components/COMPILATION_ENGINE.md](components/COMPILATION_ENGINE.md) - Complete pipeline documentation
-- [COMPILATION_ENGINE_IMPLEMENTATION.md](COMPILATION_ENGINE_IMPLEMENTATION.md) - Implementation details
 
 ---
 
@@ -133,7 +129,6 @@ ABC/
 │   │
 │   ├── integrations/
 │   │   ├── FOUNDRY_CHAIN_SPEC.md          ← Foundry Chain spec
-│   │   ├── FOUNDRY_CHAIN_VISUAL.md        ← Visual diagrams
 │   │   └── FOUNDRY_CONNECTION_GUIDE.md    ← API connection guide
 │   │
 │   └── security/                          ← Security docs
