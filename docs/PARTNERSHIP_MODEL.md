@@ -28,6 +28,9 @@ When multiple agencies analyze the same Foundry compilation and get different re
 **ABC Solution:**
 Cryptographic proof that Foundry delivered correct data. When agencies disagree, ABC demonstrates the disagreement is methodology, not data quality—protecting Foundry's reputation and reducing support burden.
 
+**Use Case: Foundry for AML**
+Foundry for AML enables banks to deploy ML models for risk scoring. ABC provides cryptographic verification that all models analyzed identical customer data—critical for regulatory audit and explainability. When different ML models produce conflicting risk scores, ABC proves they analyzed the same customer data, enabling transparent audit trails and regulatory compliance.
+
 ---
 
 ### 2. Seamless Integration: Technical Proof
@@ -104,6 +107,12 @@ When government AI systems generate conflicting assessments from Foundry compila
 
 **ABC Solution:**
 ABC provides cryptographic proof that Foundry delivered correct data. When agencies disagree, ABC demonstrates the disagreement is methodology, not data quality.
+
+**Additional Use Case: Foundry for AML**
+- Banks deploy multiple ML models for customer risk scoring
+- ABC verifies all models analyzed identical customer data
+- Critical for: Regulatory audit compliance, model explainability, risk assessment transparency
+- Protects Foundry reputation: Proof of data integrity, not model disagreements
 
 **Value for Palantir:**
 - "It's not Foundry's fault—agencies analyzed it differently" (proof provided)

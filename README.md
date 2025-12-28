@@ -37,6 +37,9 @@ When CIA and DHS get different results from the same intelligence compilation, A
 
 **ABC makes Foundry unstoppable** — infrastructure that amplifies Foundry's value, not competition. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data. The disagreement is methodology, not data quality.
 
+**Beyond Government: Financial Services**
+Foundry for AML enables banks to deploy ML models for risk scoring. ABC provides cryptographic verification that all models analyzed identical customer data—critical for regulatory audit and explainability.
+
 **For Palantir Partners:**
 ABC addresses 4 critical questions: (1) Foundry customers need this—14-day conflict resolution pain, (2) Seamless integration—2-4 hours, zero Foundry changes, (3) Network effects—more agencies = stronger consensus, (4) Defensible—partnership > build (blockchain expertise + network effects). [Learn more](docs/PARTNERSHIP_MODEL.md#for-palantir-partners-core-value-propositions)
 

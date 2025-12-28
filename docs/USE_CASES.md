@@ -174,8 +174,42 @@ ABC implements a tiered security model that provides cryptographic verification 
 - **Need audit trail?** → Use Case 2 (Audit Trail)
 - **Rapid payments?** → Use Case 3 (Payment Settlement)
 - **Classified intelligence?** → Use Case 4 (Classified Handling)
+- **Financial services AML?** → Use Case 5 (AML Risk Scoring)
 
 **Multiple use cases?** ABC supports all use cases simultaneously—the same verification infrastructure enables conflict resolution, audit trails, payments, and classified handling.
+
+---
+
+## 5. Financial Services: AML Risk Scoring (Regulatory Compliance)
+
+### Problem
+
+Banks deploy multiple ML models for customer risk scoring in AML compliance. When different models produce conflicting risk scores (e.g., Model A: 85% risk, Model B: 60% risk), regulators question:
+- Did all models analyze the same customer data?
+- Are differences due to data quality or model methodology?
+- Can the bank demonstrate explainability for regulatory audits?
+
+**Result:** Regulatory audit challenges, compliance risks, uncertainty in risk assessment.
+
+### Solution
+
+ABC provides cryptographic proof that all ML models analyzed identical customer data. When risk scores conflict, ABC demonstrates the disagreement is model methodology, not data quality.
+
+**The ABC Workflow:**
+1. Foundry for AML compiles customer data from multiple sources
+2. ABC verifies the compilation and generates cryptographic receipt
+3. Multiple ML models analyze the ABC-verified data (risk scoring)
+4. ABC calculates consensus across models, identifying outliers
+5. Regulators see transparent audit trail: "All models analyzed same customer data; differences are methodological"
+
+### Outcome
+
+- **Regulatory compliance:** Cryptographic proof of data integrity for audits
+- **Explainability:** Transparent audit trail showing models analyzed same data
+- **Trust:** Regulators trust Foundry data quality; disagreements are methodological
+- **Risk transparency:** Clear distinction between data quality and model differences
+
+**Example:** Foundry for AML risk scoring—Multiple models score customer risk; ABC provides cryptographic verification for regulatory audit compliance.
 
 ---
 
