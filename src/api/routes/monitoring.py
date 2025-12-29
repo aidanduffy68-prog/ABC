@@ -9,7 +9,7 @@ from typing import Dict, Any
 from fastapi import APIRouter, HTTPException, status
 from datetime import datetime
 
-from src.core.nemesis.model_monitoring import get_drift_detector
+from src.verticals.ai_verification.core.nemesis.model_monitoring import get_drift_detector
 
 # Create router
 router = APIRouter(prefix="/api/v1/monitoring", tags=["monitoring"])

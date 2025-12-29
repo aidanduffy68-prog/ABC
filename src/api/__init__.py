@@ -10,8 +10,20 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import logging
 
-from src.api.routes import ingest, status, monitoring, foundry, agency
-from src.core.middleware.request_logger import RequestLoggerMiddleware
+# Import routes from verticals
+from src.verticals.ai_verification.api import ingest, agency, foundry_verification
+from src.api.routes import status, monitoring
+
+# Conditional import for oracle routes
+try:
+    from src.verticals.aml_oracle.api import oracle, foundry_aml
+    ORACLE_ROUTES_AVAILABLE = True
+except ImportError:
+    ORACLE_ROUTES_AVAILABLE = False
+    oracle = None
+    foundry_aml = None
+
+from src.shared.middleware.request_logger import RequestLoggerMiddleware
 
 # Configure logging
 logging.basicConfig(
@@ -97,11 +109,31 @@ if allowed_origins and allowed_origins != ['']:
     )
 
 # Include routers
+# AI Verification vertical
 app.include_router(ingest.router)
+app.include_router(agency.router)
+app.include_router(foundry_verification.router)
+
+# AML Oracle vertical (if enabled)
+ORACLE_ENABLED = os.getenv("ORACLE_ENABLED", "false").lower() == "true"
+if ORACLE_ROUTES_AVAILABLE and ORACLE_ENABLED:
+    app.include_router(oracle.router)
+    app.include_router(foundry_aml.router)
+    # Add oracle tags to OpenAPI tags
+    app.openapi_tags.extend([
+        {
+            "name": "oracle",
+            "description": "Blockchain oracle endpoints. Ingest blockchain data and provide verified data feeds.",
+        },
+        {
+            "name": "foundry-aml",
+            "description": "Foundry AML integration endpoints. Blockchain data ingestion and ML model verification.",
+        }
+    ])
+
+# Shared routes
 app.include_router(status.router)
 app.include_router(monitoring.router)
-app.include_router(foundry.router)
-app.include_router(agency.router)
 
 
 @app.get("/")

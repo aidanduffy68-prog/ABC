@@ -20,9 +20,8 @@ from datetime import datetime
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.core.nemesis.compilation_engine import ABCCompilationEngine, compile_intelligence
-from src.core.nemesis.on_chain_receipt.security_tier import SecurityTier, tiered_security_manager
-from src.core.nemesis.on_chain_receipt.security_tier import SecurityTier, tiered_security_manager
+from src.verticals.ai_verification.core.nemesis.compilation_engine import ABCCompilationEngine, compile_intelligence
+from src.verticals.ai_verification.core.nemesis.on_chain_receipt.security_tier import SecurityTier, tiered_security_manager
 
 
 def load_json_file(file_path: str) -> dict:

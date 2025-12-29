@@ -1,6 +1,29 @@
 version: '3.8'
 
 services:
+  # Bitcoin Node (for Oracle Layer)
+  bitcoin-node:
+    build:
+      context: ./docker/bitcoin-node
+      dockerfile: Dockerfile
+    container_name: abc-bitcoin-node
+    volumes:
+      - bitcoin-data:/home/bitcoin/.bitcoin
+    ports:
+      - "8332:8332"
+      - "8333:8333"
+    networks:
+      - abc-network
+    restart: unless-stopped
+    environment:
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER:-abc_oracle}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD:-changeme}
+    healthcheck:
+      test: ["CMD", "bitcoin-cli", "getblockcount"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   # Main FastAPI service
   api:
     build:
@@ -36,12 +59,19 @@ services:
       - FOUNDRY_ENABLED=${FOUNDRY_ENABLED:-false}
       - FOUNDRY_URL=${FOUNDRY_URL:-}
       - FOUNDRY_TOKEN=${FOUNDRY_TOKEN:-}
+      # Oracle (optional)
+      - ORACLE_ENABLED=${ORACLE_ENABLED:-false}
+      - BITCOIN_RPC_URL=http://bitcoin-node:8332
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER:-abc_oracle}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD:-changeme}
     depends_on:
       postgres:
         condition: service_healthy
       neo4j:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      bitcoin-node:
         condition: service_healthy
     volumes:
       - ./logs:/app/logs
@@ -142,6 +172,7 @@ volumes:
   neo4j_data:
   neo4j_logs:
   redis_data:
+  bitcoin-data:
 
 networks:
   abc-network:

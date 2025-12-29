@@ -103,7 +103,7 @@ async def readiness_check() -> Dict[str, Any]:
     }
     
     try:
-        from src.core.nemesis.compilation_engine import ABCCompilationEngine
+        from src.verticals.ai_verification.core.nemesis.compilation_engine import ABCCompilationEngine
         engine = ABCCompilationEngine()
         engine_check["details"]["initialized"] = True
         engine_check["details"]["version"] = getattr(engine, 'engine_version', 'unknown')
