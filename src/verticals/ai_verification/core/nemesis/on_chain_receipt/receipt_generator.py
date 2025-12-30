@@ -135,7 +135,12 @@ class CryptographicReceiptGenerator:
         foundry_timestamp: Optional[str] = None
     ) -> Optional[IntelligenceReceipt]:
         """
-        Generate cryptographic receipt for intelligence package
+        Generate cryptographic receipt for intelligence package.
+        
+        **ABC verifies inputs, not outputs.** This receipt provides cryptographic proof
+        that the intelligence package was verified for data integrity. It does NOT validate
+        the correctness of analysis or conclusions - that remains with human analysts.
+        ABC is infrastructure for verification, not decision-making.
         
         IMPORTANT: Hashes are only published after validation and payment settlement.
         If validation or payment fails, no hash is generated (returns None).

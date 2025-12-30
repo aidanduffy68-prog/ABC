@@ -43,7 +43,11 @@ async def submit_agency_assessment(
     idempotency_key: Optional[str] = Header(None, alias="Idempotency-Key", description="Idempotency key to prevent duplicate submissions")
 ) -> Dict[str, Any]:
     """
-    Agency submits AI assessment with ABC receipt reference
+    Agency submits AI assessment with ABC receipt reference.
+    
+    **ABC verifies inputs, not outputs. This endpoint proves the agency's AI analyzed
+    the same data that ABC verified, enabling humans to trust the inputs and focus
+    on evaluating the analysis methodology.**
     
     Flow:
     1. Validate ABC receipt exists and references Foundry compilation
@@ -52,6 +56,9 @@ async def submit_agency_assessment(
     4. Generate blockchain receipt for agency assessment
     5. Store assessment in memory store (temporary until Neo4j integration)
     6. Return blockchain receipt
+    
+    **Note:** ABC provides cryptographic proof that all agencies analyzed identical source data.
+    The disagreement is methodology, not data quality. Human analysts make the final decision.
     
     Args:
         assessment: Agency assessment submission

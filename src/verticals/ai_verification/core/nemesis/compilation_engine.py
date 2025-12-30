@@ -107,9 +107,14 @@ else:
 
 class ABCCompilationEngine:
     """
-    Core compilation engine that orchestrates Hades → Echo → Nemesis
+    Core compilation engine that orchestrates Hades → Echo → Nemesis.
     
-    Compiles intelligence in <500ms from raw telemetry to executable targeting packages
+    **ABC verifies inputs, not outputs. ABC is infrastructure for verification, not
+    decision-making. This engine processes intelligence and generates analysis, but
+    humans (analysts) make final decisions based on the verified data integrity proof.**
+    
+    Compiles intelligence in <500ms from raw telemetry to executable targeting packages.
+    Analysis results are advisory - humans make final decisions.
     """
     
     def __init__(self):

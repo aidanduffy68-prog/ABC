@@ -82,12 +82,13 @@ class ConsensusEngine:
                     f"(confidence={assessment.confidence_score:.2f}, z_score={z_score:.2f})"
                 )
         
-        # Generate recommendation
+        # Generate advisory recommendation (humans make final decision)
+        # ABC provides infrastructure for verification - recommendations are advisory only
         if outliers:
             agencies = [o["agency"] for o in outliers]
-            recommendation = f"Investigate methodology for: {', '.join(agencies)}. These agencies show significant deviation from consensus mean."
+            recommendation = f"Advisory: Investigate methodology for: {', '.join(agencies)}. These agencies show significant deviation from consensus mean. Human analyst makes final decision."
         else:
-            recommendation = "Consensus achieved - no outliers detected. All agencies are within acceptable range."
+            recommendation = "Consensus achieved - no outliers detected. All agencies are within acceptable range. Human analyst reviews for final decision."
         
         # Verify all reference same Foundry compilation
         verified = all(
