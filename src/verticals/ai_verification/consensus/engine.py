@@ -16,9 +16,15 @@ logger = logging.getLogger(__name__)
 
 class ConsensusEngine:
     """
-    Calculate multi-agency consensus on Foundry compilations
+    Calculate multi-agency consensus on Foundry compilations.
     
-    Detects outliers and generates recommendations
+    **ABC is infrastructure for verification, not decision-making.**
+    This engine detects outliers and generates recommendations, but **humans make
+    the final decision** based on the verified data integrity proof.
+    
+    Detects outliers and generates advisory recommendations. When agencies disagree
+    (e.g., CIA 85%, DHS 60%, NSA 78%), ABC proves they analyzed the same data.
+    The disagreement is methodology, not data quality - humans evaluate analysis approaches.
     """
     
     def __init__(self, outlier_threshold_std_devs: float = 2.0):
@@ -37,7 +43,11 @@ class ConsensusEngine:
         agency_assessments: List[AgencyAssessment]
     ) -> ConsensusResult:
         """
-        Calculate consensus across agency assessments
+        Calculate consensus across agency assessments.
+        
+        **ABC verifies inputs, not outputs.** This method provides statistical analysis
+        and advisory recommendations, but humans (analysts, compliance officers) make
+        final decisions. ABC proves all agencies analyzed identical source data.
         
         Args:
             foundry_compilation_id: Foundry compilation identifier
@@ -45,7 +55,8 @@ class ConsensusEngine:
             agency_assessments: List of agency assessment submissions
         
         Returns:
-            ConsensusResult with mean, std dev, outliers, recommendation
+            ConsensusResult with mean, std dev, outliers, and advisory recommendation.
+            Recommendation is advisory only - humans make final decisions.
         """
         if not agency_assessments:
             raise ValueError("agency_assessments cannot be empty")

@@ -158,6 +158,11 @@ class ABCCompilationEngine:
         """
         Compile intelligence through Hades → Echo → Nemesis pipeline.
         
+        **ABC verifies inputs, not outputs.** This method processes intelligence and generates
+        analysis (behavioral signature, coordination network, targeting package), but **humans
+        (analysts) make final decisions** based on the verified data integrity proof.
+        ABC is infrastructure for verification, not decision-making.
+        
         This is the core compilation method that orchestrates the entire intelligence
         processing pipeline. It processes raw intelligence data through behavioral
         profiling, coordination detection, and threat forecasting to produce an

@@ -205,11 +205,19 @@ async def get_consensus(
     foundry_compilation_id: str
 ) -> ConsensusResult:
     """
-    Get multi-agency consensus for Foundry compilation
+    Get multi-agency consensus for Foundry compilation.
+    
+    **ABC provides infrastructure for verification, not decision-making.**
+    This endpoint calculates statistical consensus and detects outliers, but **humans
+    make the final decision** based on the verified data integrity proof.
+    
+    When agencies disagree (e.g., CIA 85%, DHS 60%, NSA 78%), ABC proves they analyzed
+    the same data. The disagreement is methodology, not data quality. Human analysts
+    can trust the inputs and focus on evaluating analysis approaches.
     
     Calculates consensus metrics across all agency assessments for a given
     Foundry compilation, including mean confidence, standard deviation,
-    outlier detection, and recommendations.
+    outlier detection, and advisory recommendations.
     
     Args:
         foundry_compilation_id: Foundry compilation identifier
