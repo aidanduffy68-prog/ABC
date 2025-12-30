@@ -9,6 +9,10 @@ class VerificationEngine:
     """
     Core verification logic for data integrity.
     
+    **ABC verifies inputs, not outputs. ABC is infrastructure for verification, not
+    decision-making. This engine verifies that multiple sources analyzed identical data,
+    enabling humans to trust inputs and focus on evaluating analysis methodology.**
+    
     Provides verification utilities that can be used by both
     the Intelligence layer and the Oracle layer.
     """

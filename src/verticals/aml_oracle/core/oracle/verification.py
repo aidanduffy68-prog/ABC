@@ -14,6 +14,11 @@ logger = logging.getLogger(__name__)
 class MultiSourceVerifier:
     """
     Verify multiple sources (Chainalysis, TRM, Foundry) used ABC-verified data.
+    
+    **ABC verifies inputs, not outputs. For AML compliance, ABC proves Chainalysis, TRM,
+    and Foundry ML models all analyzed the same blockchain data. The compliance officer
+    makes the final call—but with confidence in data integrity. ABC is infrastructure
+    for verification, not decision-making.**
     """
     
     def __init__(self):

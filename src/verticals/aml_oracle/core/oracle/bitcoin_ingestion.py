@@ -25,7 +25,12 @@ class BitcoinOracle:
     """
     Bitcoin blockchain oracle for verified data feeds.
     
-    Ingests Bitcoin blocks, generates cryptographic receipts,
+    **ABC verifies inputs, not outputs. ABC is infrastructure for verification, not
+    decision-making. This oracle ingests blockchain data and generates cryptographic
+    receipts, enabling downstream systems (Foundry, ML models) to prove they analyzed
+    identical data. Humans (compliance officers, analysts) make final decisions.**
+    
+    Ingests Bitcoin blocks, generates cryptographic receipts (proof of data integrity),
     and provides verified data to downstream systems.
     """
     

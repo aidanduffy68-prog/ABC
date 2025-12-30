@@ -80,13 +80,18 @@ async def ingest_bitcoin_block(
     """
     Ingest Bitcoin block and generate cryptographic receipt.
     
+    **ABC provides infrastructure for verification.** This endpoint ingests blockchain data
+    and generates cryptographic receipts, enabling downstream systems (Foundry, ML models)
+    to prove they analyzed identical data. ABC verifies inputs, not outputs - humans make
+    final decisions.
+    
     Args:
         block_height: Block height to ingest
-        generate_receipt: Generate cryptographic receipt
-        anchor_to_blockchain: Anchor receipt to blockchain
+        generate_receipt: Generate cryptographic receipt (proof of data integrity)
+        anchor_to_blockchain: Anchor receipt to blockchain for immutability
         
     Returns:
-        Ingestion result with receipt
+        Ingestion result with receipt (cryptographic proof of data integrity)
     """
     if not bitcoin_oracle:
         raise HTTPException(
@@ -179,13 +184,18 @@ async def verify_external_source(
     """
     Verify external source (Chainalysis, TRM, Foundry) used ABC-verified data.
     
+    **ABC proves all sources analyzed the same data.** For AML compliance, this enables
+    cryptographic proof that Chainalysis, TRM, and Foundry ML models all analyzed identical
+    blockchain data. The compliance officer makes the final call—but with confidence in
+    data integrity. ABC verifies inputs, not outputs.
+    
     Args:
         receipt_id: ABC receipt ID
-        source_name: Name of external source
+        source_name: Name of external source (e.g., "chainalysis", "trm_labs", "foundry")
         source_data_hash: Hash of data used by source
         
     Returns:
-        Verification result
+        Verification result proving source used ABC-verified data
     """
     if not bitcoin_oracle:
         raise HTTPException(

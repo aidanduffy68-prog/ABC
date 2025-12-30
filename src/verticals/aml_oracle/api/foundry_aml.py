@@ -49,8 +49,13 @@ async def foundry_ingest_blockchain(
     """
     Ingest blockchain data for Foundry with ABC verification.
     
-    This endpoint allows Foundry to ingest verified blockchain data
-    with cryptographic receipts for audit trails.
+    **ABC provides cryptographic verification that all ML models analyzed identical customer
+    data - critical for regulatory audit and explainability.** ABC is infrastructure for
+    verification, not decision-making. Humans (compliance officers) make the final call.
+    
+    This endpoint allows Foundry to ingest verified blockchain data with cryptographic
+    receipts for audit trails. When Foundry runs ML models for AML risk scoring, ABC proves
+    all models analyzed the same blockchain data.
     
     Args:
         blockchain: Blockchain to ingest ("bitcoin", "ethereum")
@@ -59,7 +64,7 @@ async def foundry_ingest_blockchain(
         generate_receipts: Generate cryptographic receipts
         
     Returns:
-        Ingestion results with receipts
+        Ingestion results with receipts (proof of data integrity)
     """
     if blockchain.lower() != "bitcoin":
         raise HTTPException(
@@ -112,14 +117,26 @@ async def foundry_verify_ml_models(
     """
     Verify Foundry ML models analyzed ABC-verified data.
     
-    When Foundry runs multiple ML models on blockchain data,
-    this endpoint verifies all models used identical ABC-verified inputs.
+    **ABC verifies inputs, not outputs. For AML compliance, ABC proves Chainalysis, TRM,
+    and Foundry all analyzed the same blockchain data. The compliance officer makes the
+    final call—but with confidence in data integrity.**
+    
+    When Foundry runs multiple ML models on blockchain data, this endpoint verifies all
+    models used identical ABC-verified inputs. This is critical for regulatory audit and
+    explainability - proving that different risk scores stem from model methodology, not
+    data inconsistency.
+    
+    **Example (AML Risk Scoring):**
+    - Foundry ML models flag a transaction for review
+    - ABC proves Chainalysis, TRM, and Foundry all analyzed the same blockchain data
+    - Compliance officer reviews with confidence in data integrity
+    - Final decision remains with compliance officer (human in the loop)
     
     Args:
         request: Verification request with receipt_id and model_results
     
     Returns:
-        Verification result
+        Verification result showing all models used identical ABC-verified inputs
     """
     try:
         from src.verticals.aml_oracle.core.oracle.verification import MultiSourceVerifier
@@ -151,8 +168,14 @@ async def foundry_webhook_data_consumed(
     """
     Webhook for Foundry to report data consumption.
     
-    Foundry calls this when it consumes ABC-verified data,
-    allowing ABC to verify Foundry used the correct data.
+    **ABC verifies Foundry used the correct ABC-verified data.** This enables cryptographic
+    proof that Foundry's ML models analyzed identical blockchain data, critical for regulatory
+    compliance and audit trails. Humans (compliance officers) make final decisions based on
+    verified data integrity.
+    
+    Foundry calls this when it consumes ABC-verified data, allowing ABC to verify Foundry
+    used the correct data. This creates a complete audit trail from blockchain → ABC → Foundry
+    → ML models → human decision.
     
     Args:
         receipt_id: ABC receipt ID
@@ -161,7 +184,7 @@ async def foundry_webhook_data_consumed(
         consumed_at: Timestamp of consumption
         
     Returns:
-        Verification result
+        Verification result proving Foundry consumed correct ABC-verified data
     """
     try:
         from src.verticals.aml_oracle.core.oracle.bitcoin_ingestion import BitcoinOracle

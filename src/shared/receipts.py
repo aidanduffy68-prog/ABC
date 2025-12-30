@@ -24,8 +24,12 @@ class CryptographicReceiptGenerator:
     Adapter for existing receipt generator that provides unified interface
     for both Intelligence and Oracle layers.
     
+    **ABC verifies inputs, not outputs. ABC is infrastructure for verification, not
+    decision-making. Humans stay in the loop where it matters.**
+    
     This wraps the existing receipt generator to maintain backward compatibility
-    while providing a consistent API for oracle layer usage.
+    while providing a consistent API for oracle layer usage. Receipts prove data
+    integrity - they do not validate correctness of analysis or conclusions.
     """
     
     def __init__(self, **kwargs):

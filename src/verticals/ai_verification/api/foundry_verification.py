@@ -184,14 +184,24 @@ async def verify_foundry_compilation(
     blockchain: str = Query(default="bitcoin", description="Blockchain network (bitcoin, ethereum, hyperledger)")
 ) -> Dict[str, Any]:
     """
-    Verify a Foundry compilation and commit to blockchain
+    Verify a Foundry compilation and commit to blockchain.
+    
+    **ABC verifies inputs, not outputs.** This endpoint provides cryptographic proof that
+    a Foundry compilation has been verified, enabling downstream AI systems and human
+    analysts to trust the data integrity. ABC is infrastructure for verification, not
+    decision-making - humans stay in the loop.
     
     Flow:
     1. Fetch Foundry compilation via FoundryConnector.get_compilation()
-    2. Verify hash matches content
+    2. Verify hash matches content (data integrity check)
     3. Run ABC compilation (use existing CompilationEngine)
     4. Generate blockchain receipt (use existing CryptographicReceiptGenerator)
     5. Return verification result with blockchain TX
+    
+    **Security Tiers:**
+    - TS/SCI: Hash-only commitments (zero data exposure)
+    - SBU: Permissioned blockchain (controlled access)
+    - UNCLASSIFIED: Public blockchain (full verification)
     
     Args:
         foundry_compilation_id: Foundry compilation identifier
@@ -357,10 +367,21 @@ async def verify_receipt_chain(
     receipt_hash: str
 ) -> Dict[str, Any]:
     """
-    Verify complete chain: Foundry → ABC → Agency assessments
+    Verify complete chain: Foundry → ABC → Agency assessments.
+    
+    **ABC proves all agencies analyzed the same data.** When CIA says 85%, DHS says 60%,
+    and NSA says 78%, ABC provides cryptographic proof they analyzed identical source data.
+    The disagreement is methodology, not data quality. Human analysts can trust the inputs
+    and focus on evaluating analysis approaches.
     
     Returns verification proof showing all agencies analyzed same Foundry data.
     This is a public endpoint - anyone can verify receipts.
+    
+    **Example (TS/SCI Intelligence):**
+    - Human analyst reviews APT41 assessment at TS/SCI classification
+    - ABC provides cryptographic proof that CIA, NSA, and DHS all analyzed data X
+    - Analyst trusts inputs, focuses on methodology evaluation
+    - Final decision remains with human analyst
     
     Args:
         receipt_hash: ABC receipt hash to verify (should be SHA256 hash, optionally prefixed with "sha256:")

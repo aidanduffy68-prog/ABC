@@ -61,8 +61,17 @@ class IntelligenceReceipt:
 
 class CryptographicReceiptGenerator:
     """
-    Generates cryptographic receipts for intelligence outputs
-    Keeps all proprietary systems off-chain, only puts proof on-chain
+    Generates cryptographic receipts for intelligence outputs.
+    
+    **ABC verifies inputs, not outputs. ABC is infrastructure for verification, not
+    decision-making. Humans stay in the loop where it matters.**
+    
+    This generator creates cryptographic proofs that prove data integrity - enabling
+    downstream AI systems and human analysts to trust that all systems analyzed identical
+    source data. The receipt proves the input was verified, not that a particular output
+    is correct.
+    
+    Keeps all proprietary systems off-chain, only puts proof on-chain.
     
     Enables licensees to contribute intelligence via BTC without revealing proprietary information.
     Licensees can submit intelligence packages and receive cryptographic receipts, just like they
