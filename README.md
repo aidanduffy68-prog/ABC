@@ -33,9 +33,9 @@ Result: **14 days to manually reconcile conflicts.**
 
 When CIA and DHS get different results from the same intelligence compilation, ABC provides cryptographic proof they analyzed the same source data. The disagreement is methodology, not data quality.
 
-**Think of ABC as the "Chainlink for intelligence"** — just as Chainlink verifies data for Ethereum, ABC verifies intelligence for government AI systems.
+**Think of ABC as the "Chainlink for intelligence"** - just as Chainlink verifies data for Ethereum, ABC verifies intelligence for government AI systems.
 
-**ABC makes Foundry unstoppable** — infrastructure that amplifies Foundry's value, not competition. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data. The disagreement is methodology, not data quality.
+**ABC makes Foundry unstoppable** - infrastructure that amplifies Foundry's value, not competition. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data. The disagreement is methodology, not data quality.
 
 ---
 
@@ -75,7 +75,7 @@ Result: Same-day closure, zero risk.
 ```
 
 **For Palantir Partners:**
-ABC addresses 4 critical questions: (1) Foundry customers need this—14-day conflict resolution pain, (2) Seamless integration—2-4 hours, zero Foundry changes, (3) Network effects—more agencies = stronger consensus, (4) Defensible—partnership > build (blockchain expertise + network effects). [Learn more](docs/PARTNERSHIP_MODEL.md#for-palantir-partners-core-value-propositions)
+ABC addresses 4 critical questions: (1) Foundry customers need this-14-day conflict resolution pain, (2) Seamless integration-2-4 hours, zero Foundry changes, (3) Network effects-more agencies = stronger consensus, (4) Defensible-partnership > build (blockchain expertise + network effects). [Learn more](docs/PARTNERSHIP_MODEL.md#for-palantir-partners-core-value-propositions)
 
 ---
 
@@ -83,10 +83,10 @@ ABC addresses 4 critical questions: (1) Foundry customers need this—14-day con
 
 **Battle-tested in production:**
 - ✅ Processing intelligence for DoD, DHS, Treasury
-- ✅ Zero data breaches — Cryptographic verification prevents tampering
-- ✅ **<500ms compilation** — Reliable performance at scale
-- ✅ Security audits — [Security Documentation](docs/security/README.md)
-- ✅ Classification-compliant — Handles SBU and Classified intelligence tiers
+- ✅ Zero data breaches - Cryptographic verification prevents tampering
+- ✅ **<500ms compilation** - Reliable performance at scale
+- ✅ Security audits - [Security Documentation](docs/security/README.md)
+- ✅ Classification-compliant - Handles SBU and Classified intelligence tiers
 
 ---
 
@@ -97,12 +97,12 @@ ABC addresses 4 critical questions: (1) Foundry customers need this—14-day con
 - **AML & Crypto Compliance:** Foundry compiles blockchain data → ABC verifies → ML model verification
 
 **The Stack:**
-- **Palantir Foundry** — Data integration and compilation (existing)
-- **ABC** — Cryptographic verification (new layer)
-- **Agency AI Systems / ML Models** — Proprietary analysis with blockchain commitment (enhanced)
-- **Consensus Engine** — Conflict detection and resolution (new)
+- **Palantir Foundry** - Data integration and compilation (existing)
+- **ABC** - Cryptographic verification (new layer)
+- **Agency AI Systems / ML Models** - Proprietary analysis with blockchain commitment (enhanced)
+- **Consensus Engine** - Conflict detection and resolution (new)
 
-**Chain-Agnostic Architecture** — Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
+**Chain-Agnostic Architecture** - Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
 
 **For detailed technical architecture, see [Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md).**
 
@@ -136,27 +136,27 @@ Multi-bureau coordination patterns (82% confidence), financial integration risks
 ## 📂 Repository Structure
 
 **Core Integration (`src/core/nemesis/foundry_integration/`):**
-- **Foundry Connector** — API integration with Palantir Foundry
-- **Compilation Validator** — Validates data hashes and structure
-- **Data Mapper** — Maps Foundry data to ABC format
-- **Foundry Integration** — End-to-end workflow orchestration
+- **Foundry Connector** - API integration with Palantir Foundry
+- **Compilation Validator** - Validates data hashes and structure
+- **Data Mapper** - Maps Foundry data to ABC format
+- **Foundry Integration** - End-to-end workflow orchestration
 
 **Agency Framework (`src/integrations/agency/`):**
-- **Agency Connector** — Generic framework for agency AI systems
-- **Assessment Validator** — Validates agency assessments
-- **Consensus Engine** — Conflict detection and resolution
+- **Agency Connector** - Generic framework for agency AI systems
+- **Assessment Validator** - Validates agency assessments
+- **Consensus Engine** - Conflict detection and resolution
 
 **Core Engines (`src/core/`):**
-- **Behavioral Profiling Engine** — Analyzes threat actor behavior patterns
-- **Coordination Detection Engine** — Identifies network relationships and coordination
-- **Threat Targeting Engine** — Generates executable targeting packages
-- **Long-term Memory System** — Maintains historical intelligence and pattern recognition
+- **Behavioral Profiling Engine** - Analyzes threat actor behavior patterns
+- **Coordination Detection Engine** - Identifies network relationships and coordination
+- **Threat Targeting Engine** - Generates executable targeting packages
+- **Long-term Memory System** - Maintains historical intelligence and pattern recognition
 
 **Infrastructure (`src/`):**
-- **`api/routes/`** — FastAPI endpoints
-- **`schemas/`** — Pydantic data models
-- **`ingestion/`** — Data normalization
-- **`settlements/`** — Multi-chain payment settlement
+- **`api/routes/`** - FastAPI endpoints
+- **`schemas/`** - Pydantic data models
+- **`ingestion/`** - Data normalization
+- **`settlements/`** - Multi-chain payment settlement
 
 ---
 
@@ -178,30 +178,30 @@ bash scripts/instant_demo.sh
 ## 📖 Documentation
 
 **Getting Started:**
-- **[📘 Beginner Guide](docs/BEGINNER_GUIDE.md)** — Non-technical overview (start here if you're new to ABC)
-- **[❓ Why ABC?](docs/WHY_ABC.md)** — Problem, solution, proof, and future vision
-- **[📋 Use Cases](docs/USE_CASES.md)** — Specific scenarios and applications
+- **[📘 Beginner Guide](docs/BEGINNER_GUIDE.md)** - Non-technical overview (start here if you're new to ABC)
+- **[❓ Why ABC?](docs/WHY_ABC.md)** - Problem, solution, proof, and future vision
+- **[📋 Use Cases](docs/USE_CASES.md)** - Specific scenarios and applications
 
 **Technical Documentation:**
-- **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** — Complete Foundry Chain architecture (core integration)
-- **[⚡ Foundry Integration Quick Start](docs/integrations/FOUNDRY_INTEGRATION_QUICKSTART.md)** — ABC + Foundry in 3 steps
-- **[📄 Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** — Full technical spec
-- **[🔒 Security Documentation](docs/security/README.md)** — Security audit and configuration
-- **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** — Operational assessments
+- **[🔗 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** - Complete Foundry Chain architecture (core integration)
+- **[⚡ Foundry Integration Quick Start](docs/integrations/FOUNDRY_INTEGRATION_QUICKSTART.md)** - ABC + Foundry in 3 steps
+- **[📄 Architecture Specification](docs/architecture/ARCHITECTURE_SPEC.md)** - Full technical spec
+- **[🔒 Security Documentation](docs/security/README.md)** - Security audit and configuration
+- **[📊 Intelligence Audit Examples](examples/intelligence_audits/)** - Operational assessments
 
 **Partnership & Integration:**
-- **[🤝 Partnership Model](docs/PARTNERSHIP_MODEL.md)** — ABC + Foundry partnership structure and revenue model
+- **[🤝 Partnership Model](docs/PARTNERSHIP_MODEL.md)** - ABC + Foundry partnership structure and revenue model
 
 ---
 
 ## 🔧 Tech Stack
 
-- **Python 3.11+** — Core language
-- **FastAPI** — High-performance async API framework
-- **Palantir Foundry** — Data infrastructure (core integration)
-- **Pydantic** — Strict type validation
-- **NetworkX** — Graph data structures
-- **Chain-Agnostic Blockchain** — Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
+- **Python 3.11+** - Core language
+- **FastAPI** - High-performance async API framework
+- **Palantir Foundry** - Data infrastructure (core integration)
+- **Pydantic** - Strict type validation
+- **NetworkX** - Graph data structures
+- **Chain-Agnostic Blockchain** - Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism
 
 ---
 
@@ -210,10 +210,10 @@ bash scripts/instant_demo.sh
 **Core Value: Proof AI systems analyzed the same data**
 
 **Supporting Benefits:**
-1. **Resolve conflicts faster** — Hours vs. weeks to reconcile disagreements
-2. **Verifiable intelligence** — Cryptographic proof without revealing proprietary methods
-3. **Faster payments** (optional) — 4-hour settlement vs. 18-month procurement cycles
-4. **Classification support** — Works with Unclassified, SBU, and Classified intelligence tiers
+1. **Resolve conflicts faster** - Hours vs. weeks to reconcile disagreements
+2. **Verifiable intelligence** - Cryptographic proof without revealing proprietary methods
+3. **Faster payments** (optional) - 4-hour settlement vs. 18-month procurement cycles
+4. **Classification support** - Works with Unclassified, SBU, and Classified intelligence tiers
 
 ### Measurable Impact
 
@@ -224,4 +224,4 @@ bash scripts/instant_demo.sh
 
 ---
 
-**GH Systems** — Compiling behavioral bytecode so lawful actors win the economic battlefield.
+**GH Systems** - Compiling behavioral bytecode so lawful actors win the economic battlefield.
