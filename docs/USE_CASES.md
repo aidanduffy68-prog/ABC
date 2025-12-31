@@ -182,34 +182,52 @@ ABC implements a tiered security model that provides cryptographic verification 
 
 ## 5. Financial Services: AML Risk Scoring (Regulatory Compliance)
 
-### Problem
+### Regulatory Audit Scenario
 
-Banks deploy multiple ML models for customer risk scoring in AML compliance. When different models produce conflicting risk scores (e.g., Model A: 85% risk, Model B: 60% risk), regulators question:
-- Did all models analyze the same customer data?
-- Are differences due to data quality or model methodology?
-- Can the bank demonstrate explainability for regulatory audits?
+Bank deploys Foundry for AML with three ML models. Customer risk scores: Chainalysis 85%, TRM 60%, Foundry ML 72%.
 
-**Result:** Regulatory audit challenges, compliance risks, uncertainty in risk assessment.
+**Regulator:** "Prove all models analyzed identical customer data."
 
-### Solution
+---
 
-ABC provides cryptographic proof that all ML models analyzed identical customer data. When risk scores conflict, ABC demonstrates the disagreement is model methodology, not data quality.
+**Without ABC:**
+```
+Bank Response: "Our logs show all models received the same input files."
 
-**The ABC Workflow:**
-1. Foundry for AML compiles customer data from multiple sources
-2. ABC verifies the compilation and generates cryptographic receipt
-3. Multiple ML models analyze the ABC-verified data (risk scoring)
-4. ABC calculates consensus across models, identifying outliers
-5. Regulators see transparent audit trail: "All models analyzed same customer data; differences are methodological"
+Regulator: "Can you prove this cryptographically?"
+Bank: "We can explain our methodology..."
 
-### Outcome
+Result: 6-week audit, compliance uncertainty
+```
 
-- **Regulatory compliance:** Cryptographic proof of data integrity for audits
-- **Explainability:** Transparent audit trail showing models analyzed same data
-- **Trust:** Regulators trust Foundry data quality; disagreements are methodological
-- **Risk transparency:** Clear distinction between data quality and model differences
+**With ABC:**
+```
+Bank Response: "Blockchain receipt: 0x789abc123def456...
+Verify: abc.ghsystems.io/verify/0x789abc123def456...
+Data hash: sha256:def456789abc123...
+All three models reference same ABC receipt ✅"
 
-**Example:** Foundry for AML risk scoring—Multiple models score customer risk; ABC provides cryptographic verification for regulatory audit compliance.
+Regulator (independent verification):
+- Confirms blockchain transaction exists
+- Verifies all models reference same receipt
+- Confirms data hash matches
+
+Regulator: "Confirmed. All models analyzed identical data.
+25-point spread is methodology, not data quality. Audit closed."
+
+Result: Same-day closure, zero compliance risk
+```
+
+### The Difference
+
+| Question | Without ABC | With ABC |
+|----------|-------------|----------|
+| **"Prove same data used?"** | Internal logs | Blockchain receipt |
+| **"Independent verification?"** | No | Yes—public blockchain |
+| **"Audit duration?"** | 6 weeks | 4 hours |
+| **"Compliance risk?"** | High | Zero |
+
+**Competitive Moat:** Chainalysis, TRM, Elliptic analyze transactions but cannot prove data integrity. ABC provides cryptographic proof.
 
 ---
 

@@ -29,7 +29,30 @@ When multiple agencies analyze the same Foundry compilation and get different re
 Cryptographic proof that Foundry delivered correct data. When agencies disagree, ABC demonstrates the disagreement is methodology, not data quality—protecting Foundry's reputation and reducing support burden.
 
 **Use Case: Foundry for AML**
-Foundry for AML enables banks to deploy ML models for risk scoring. ABC provides cryptographic verification that all models analyzed identical customer data—critical for regulatory audit and explainability. When different ML models produce conflicting risk scores, ABC proves they analyzed the same customer data, enabling transparent audit trails and regulatory compliance.
+
+**Regulatory Audit: Before vs After**
+
+**Before (Foundry alone):**
+```
+Regulator: "Prove all ML models used identical customer data."
+Bank: "Our internal logs show consistent data distribution."
+Regulator: "Can you prove this cryptographically?"
+Bank: "No."
+Result: 6-week audit, compliance uncertainty
+```
+
+**After (Foundry + ABC):**
+```
+Regulator: "Prove all ML models used identical customer data."
+Bank: "Blockchain receipt: 0x789abc123def456...
+Verify independently: abc.ghsystems.io/verify/0x789..."
+Regulator: "Confirmed. All models analyzed same data. Audit closed."
+Result: Same-day closure, zero compliance risk
+```
+
+**Competitive Comparison:**
+- **Chainalysis/TRM/Elliptic:** Analyze transactions, cannot prove data integrity
+- **Foundry + ABC:** Analyzes transactions + **proves data integrity** ✅
 
 ---
 
