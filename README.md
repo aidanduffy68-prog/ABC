@@ -37,6 +37,22 @@ When CIA and DHS get different results from the same intelligence compilation, A
 
 **ABC makes Foundry unstoppable** — infrastructure that amplifies Foundry's value, not competition. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data. The disagreement is methodology, not data quality.
 
+---
+
+## ABC Verticals
+
+**🔍 Investigations & FIUs: Multi-agency intelligence verification**
+- **Target:** Government intelligence agencies (CIA, DHS, NSA, Treasury, DoD, FIUs)
+- **Platform:** Palantir Foundry
+- **Use Case:** When multiple agencies analyze the same Foundry compilation and get conflicting results, ABC provides cryptographic proof they analyzed identical data
+
+**🏦 AML & Crypto Compliance: Blockchain data verification for Foundry**
+- **Target:** Banks and financial institutions
+- **Platform:** Foundry for AML
+- **Use Case:** When multiple ML models produce conflicting risk scores, ABC provides cryptographic proof all models analyzed identical customer data for regulatory audit compliance
+
+---
+
 **Beyond Government: Financial Services**
 
 **Regulatory Audit Scenario:**
@@ -76,10 +92,14 @@ ABC addresses 4 critical questions: (1) Foundry customers need this—14-day con
 
 ## How It Works
 
+**Two Verticals, One Platform:**
+- **Investigations & FIUs:** Foundry compiles intelligence → ABC verifies → Multi-agency consensus
+- **AML & Crypto Compliance:** Foundry compiles blockchain data → ABC verifies → ML model verification
+
 **The Stack:**
 - **Palantir Foundry** — Data integration and compilation (existing)
-- **ABC** — AI analysis + cryptographic verification (new layer)
-- **Agency AI Systems** — Proprietary analysis with blockchain commitment (enhanced)
+- **ABC** — Cryptographic verification (new layer)
+- **Agency AI Systems / ML Models** — Proprietary analysis with blockchain commitment (enhanced)
 - **Consensus Engine** — Conflict detection and resolution (new)
 
 **Chain-Agnostic Architecture** — Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
