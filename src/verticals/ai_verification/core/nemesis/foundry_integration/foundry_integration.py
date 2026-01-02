@@ -7,12 +7,21 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 from typing import Dict, Any, Optional
 import logging
+import os
 
 from .foundry_connector import FoundryConnector
 from .compilation_validator import CompilationValidator
 from .data_mapper import FoundryDataMapper
 
 logger = logging.getLogger(__name__)
+
+# Try to import AIP connector
+try:
+    from .foundry_aip_connector import FoundryAIPConnector
+    FOUNDRY_AIP_AVAILABLE = True
+except ImportError:
+    FOUNDRY_AIP_AVAILABLE = False
+    logger.debug("Foundry AIP connector not available (SDK may not be installed)")
 
 
 class FoundryIntegration:
@@ -29,19 +38,53 @@ class FoundryIntegration:
     def __init__(
         self,
         foundry_api_url: Optional[str] = None,
-        api_key: Optional[str] = None
+        api_key: Optional[str] = None,
+        use_aip: bool = True
     ):
         """
         Initialize Foundry integration.
         
         Args:
-            foundry_api_url: Foundry API base URL
-            api_key: Foundry API key
+            foundry_api_url: Foundry API base URL (legacy mode)
+            api_key: Foundry API key (legacy mode)
+            use_aip: If True, use Foundry AIP connector (OAuth2). 
+                    If False, use legacy API key connector.
+                    Defaults to True.
         """
-        self.connector = FoundryConnector(
-            foundry_api_url=foundry_api_url,
-            api_key=api_key
-        )
+        self.use_aip = use_aip
+        
+        if use_aip and FOUNDRY_AIP_AVAILABLE:
+            # Use AIP connector with OAuth2
+            try:
+                self.connector = FoundryAIPConnector(
+                    foundry_url=foundry_api_url,
+                    client_id=os.getenv("FOUNDRY_CLIENT_ID"),
+                    client_secret=os.getenv("FOUNDRY_CLIENT_SECRET")
+                )
+                logger.info("Using Foundry AIP connector (OAuth2)")
+            except (ImportError, ValueError) as e:
+                logger.warning(
+                    f"Failed to initialize Foundry AIP connector: {e}. "
+                    "Falling back to legacy connector."
+                )
+                self.connector = FoundryConnector(
+                    foundry_api_url=foundry_api_url,
+                    api_key=api_key
+                )
+                self.use_aip = False
+        else:
+            # Use legacy connector
+            self.connector = FoundryConnector(
+                foundry_api_url=foundry_api_url,
+                api_key=api_key
+            )
+            self.use_aip = False
+            if use_aip:
+                logger.warning(
+                    "Foundry AIP requested but not available. "
+                    "Using legacy connector. Install abc_integration_sdk for AIP support."
+                )
+        
         self.validator = CompilationValidator()
         self.mapper = FoundryDataMapper()
     

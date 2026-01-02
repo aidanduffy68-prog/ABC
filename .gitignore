@@ -114,6 +114,13 @@ test_*.sh
 # Temporary exclusions
 GH Systems Deck .pdf
 
+# Verification outputs (temporary test results)
+verification_output/
+
+# Generated synthetic data (keep directory, ignore data files)
+examples/synthetic_data/*.json
+!examples/synthetic_data/.gitkeep
+
 # Business Strategy (Proprietary) - Added for IP protection
 CUSTOMER_FUNNEL.md
 Deal Room/Strategy/
