@@ -13,7 +13,7 @@ Copyright (c) 2025 GH Systems. All rights reserved.
 
 ## The Problem
 
-When government AI systems generate conflicting assessments:
+When government AI systems (training models) generate conflicting assessments:
 
 - **CIA says 85% confidence**
 - **DHS says 60% confidence**
@@ -23,15 +23,17 @@ When government AI systems generate conflicting assessments:
 
 Question: Did they analyze the same data? There's no way to verify.
 
+**Important:** These are training models analyzing synthetic data, not deployed production models analyzing real customer data. ABC verifies that training models analyzed identical synthetic datasets when they disagree.
+
 Result: **14 days to manually reconcile conflicts.**
 
 ---
 
 ## The Solution
 
-**ABC proves AI systems analyzed the same data.**
+**ABC proves AI systems (training models) analyzed the same data.**
 
-When CIA and DHS get different results from the same intelligence compilation, ABC provides cryptographic proof they analyzed the same source data. The disagreement is methodology, not data quality.
+When CIA and DHS training models get different results from the same intelligence compilation, ABC provides cryptographic proof they analyzed the same source data. The disagreement is methodology, not data quality. ABC verifies synthetic training data integrity, ensuring all training models analyzed identical datasets.
 
 **Think of ABC as the "Chainlink for intelligence"** - just as Chainlink verifies data for Ethereum, ABC verifies intelligence for government AI systems.
 
@@ -44,35 +46,37 @@ When CIA and DHS get different results from the same intelligence compilation, A
 **🔍 Investigations & FIUs: Multi-agency intelligence verification**
 - **Target:** Government intelligence agencies (CIA, DHS, NSA, Treasury, DoD, FIUs)
 - **Platform:** Palantir Foundry
-- **Use Case:** When multiple agencies analyze the same Foundry compilation and get conflicting results, ABC provides cryptographic proof they analyzed identical data
+- **Use Case:** When multiple agency training models analyze the same Foundry compilation and get conflicting results, ABC provides cryptographic proof they analyzed identical synthetic training data. The disagreement is in model methodology, not data quality.
 
 **🏦 AML & Crypto Compliance: Blockchain data verification for Foundry**
 - **Target:** Banks and financial institutions
 - **Platform:** Foundry for AML
-- **Use Case:** When multiple ML models produce conflicting risk scores, ABC provides cryptographic proof all models analyzed identical customer data for regulatory audit compliance
+- **Use Case:** When multiple ML training models produce conflicting risk scores on synthetic AML data, ABC provides cryptographic proof all models analyzed identical synthetic training datasets. This enables safe model training on complex exploits (like DeFi protocol layering) without exposing real customer data.
 
 ---
 
 **Beyond Government: Financial Services**
 
-**Regulatory Audit Scenario:**
+**Regulatory Audit Scenario (Training Models):**
 
-Bank deploys Foundry for AML with three ML models. Customer risk: Chainalysis 85%, TRM 60%, Foundry ML 72%.
+Bank trains three ML models on synthetic AML data using Foundry. Training models produce different risk scores: Chainalysis 85%, TRM 60%, Foundry ML 72%.
 
 **Without ABC:**
 ```
-Regulator: "Prove all models used same data."
+Regulator: "Prove all training models used same synthetic data."
 Bank: "We can explain our methodology..."
 Result: 6-week audit, compliance risk.
 ```
 
 **With ABC:**
 ```
-Regulator: "Prove all models used same data."
+Regulator: "Prove all training models used same synthetic data."
 Bank: "Blockchain receipt: 0x789abc... Verify: abc.ghsystems.io/verify/0x789..."
-Regulator: "Confirmed. All models analyzed identical data. Audit closed."
+Regulator: "Confirmed. All training models analyzed identical synthetic data. Audit closed."
 Result: Same-day closure, zero risk.
 ```
+
+**Note:** ABC verifies synthetic training data integrity. Training models analyze synthetic data (not real customer data), and ABC proves all models analyzed the same synthetic dataset when they disagree.
 
 **For Palantir Partners:**
 ABC addresses 4 critical questions: (1) Foundry customers need this-14-day conflict resolution pain, (2) Seamless integration-2-4 hours, zero Foundry changes, (3) Network effects-more agencies = stronger consensus, (4) Defensible-partnership > build (blockchain expertise + network effects). [Learn more](docs/PARTNERSHIP_MODEL.md#for-palantir-partners-core-value-propositions)
@@ -93,14 +97,14 @@ ABC addresses 4 critical questions: (1) Foundry customers need this-14-day confl
 ## How It Works
 
 **Two Verticals, One Platform:**
-- **Investigations & FIUs:** Foundry compiles intelligence → ABC verifies → Multi-agency consensus
-- **AML & Crypto Compliance:** Foundry compiles blockchain data → ABC verifies → ML model verification
+- **Investigations & FIUs:** Foundry compiles synthetic intelligence → ABC verifies → Multi-agency training model consensus
+- **AML & Crypto Compliance:** Foundry compiles synthetic blockchain data → ABC verifies → ML training model verification
 
 **The Stack:**
 - **Palantir Foundry** - Data integration and compilation (existing)
-- **ABC** - Cryptographic verification (new layer)
-- **Agency AI Systems / ML Models** - Proprietary analysis with blockchain commitment (enhanced)
-- **Consensus Engine** - Conflict detection and resolution (new)
+- **ABC** - Cryptographic verification of synthetic training data (new layer)
+- **Agency AI Training Models / ML Training Models** - Training models analyzing synthetic data with blockchain commitment (enhanced)
+- **Consensus Engine** - Conflict detection and resolution when training models disagree (new)
 
 **Chain-Agnostic Architecture** - Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain. Agencies choose their preferred chain; we provide the oracle.
 
