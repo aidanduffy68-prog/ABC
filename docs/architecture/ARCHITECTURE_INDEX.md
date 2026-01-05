@@ -166,12 +166,11 @@ ABC/
 ## 📖 Additional Resources
 
 - **[Main README](../../README.md)** - Project overview and quick start
-- **[Getting Started](../../GETTING_STARTED.md)** - Setup and development guide
 - **[Repository Structure](../../REPOSITORY_STRUCTURE.md)** - Codebase organization
 
 ---
 
-**Questions?** See [../../GETTING_STARTED.md](../../GETTING_STARTED.md) or contact the team.
+**Questions?** Contact the team.
 
 *Last updated: December 16, 2025*
 

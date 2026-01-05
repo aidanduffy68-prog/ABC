@@ -86,7 +86,7 @@ Bank deploys three ML models. Models produce different risk scores: Chainalysis 
   <p><em>Foundry Chain: ABC as Cryptographic Verification Layer for Palantir Foundry</em></p>
 </div>
 
-**[📖 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** | **[🚀 Get Started](GETTING_STARTED.md)**
+**[📖 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** | **[🎥 Watch Demo](https://www.youtube.com/watch?v=LXLNb0QoKgI&t=2s)**
 
 ---
 
@@ -107,24 +107,19 @@ Bank deploys three ML models. Models produce different risk scores: Chainalysis 
 
 ---
 
-## 🚀 Quick Start
+## 🎥 Demo
 
-**Fastest path (one command):**
+**See ABC in action:**
 
-```bash
-git clone https://github.com/aidanduffy68-prog/ABC.git
-cd ABC
-pip install -r requirements.txt
-bash scripts/instant_demo.sh
-```
+[![ABC Demo](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=LXLNb0QoKgI&t=2s)
 
-**[📖 Full Getting Started Guide](GETTING_STARTED.md)**
+**[Watch the full demo →](https://www.youtube.com/watch?v=LXLNb0QoKgI&t=2s)**
 
 ---
 
 ## Documentation
 
-- **[Getting Started](GETTING_STARTED.md)** - Quick start guide
+- **[🎥 Demo Video](https://www.youtube.com/watch?v=LXLNb0QoKgI&t=2s)** - See ABC in action
 - **[Foundry Integration](docs/integrations/FOUNDRY_INTEGRATION_QUICKSTART.md)** - ABC + Foundry setup
 - **[Architecture](docs/architecture/ARCHITECTURE_SPEC.md)** - Technical specification
 - **[Use Cases](docs/USE_CASES.md)** - Scenarios and applications

@@ -95,7 +95,7 @@ This document provides a compliance checklist for GH Systems ABC to align with g
 
 - [x] **Training Materials**
   - [x] Architecture documentation (`docs/ARCHITECTURE_SPEC.md`)
-  - [x] Getting started guide (`GETTING_STARTED.md`)
+  - [x] Architecture documentation (`docs/architecture/ARCHITECTURE_SPEC.md`)
   - [x] API documentation
   - [ ] **TODO**: Add AI fundamentals training materials
   - [ ] **TODO**: Add threat modeling training

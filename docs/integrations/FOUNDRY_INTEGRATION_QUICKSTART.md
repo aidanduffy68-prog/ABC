@@ -24,7 +24,7 @@ This guide shows you how to integrate ABC with Palantir Foundry for cryptographi
 ## Prerequisites
 
 - Palantir Foundry instance (or demo mode)
-- ABC installed and running (see [Getting Started Guide](../../GETTING_STARTED.md))
+- ABC installed and running
 - Foundry API credentials (for production)
 
 ---

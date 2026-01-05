@@ -105,7 +105,7 @@ ABC provides cryptographic proof that all agencies analyzed the same source data
    ```bash
    bash scripts/instant_demo.sh
    ```
-   See [Getting Started Guide](../GETTING_STARTED.md) for full setup instructions.
+   See [Architecture Specification](architecture/ARCHITECTURE_SPEC.md) for technical details.
 
 2. **Review examples** — See real intelligence assessments:
    - [Department of War & DHS Assessment](../examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md)

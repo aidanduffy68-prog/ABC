@@ -10,7 +10,6 @@ This directory contains all documentation for GH Systems ABC.
 
 **Developers:**
 - [Architecture Specification](architecture/ARCHITECTURE_SPEC.md) - Complete technical spec
-- [Getting Started Guide](../GETTING_STARTED.md) - Setup and development guide
 - [Foundry Chain Specification](integrations/FOUNDRY_CHAIN_SPEC.md) - Integration details
 
 **Security Teams:**
@@ -18,7 +17,6 @@ This directory contains all documentation for GH Systems ABC.
 - [Tiered Security Model](security/TIERED_SECURITY_MODEL.md) - Classification handling
 
 **Intelligence Analysts:**
-- [Getting Started Guide](../GETTING_STARTED.md) - Quick start and demos
 - [Intelligence Audit Examples](../examples/intelligence_audits/) - Real-world assessments
 
 ## Structure
@@ -51,7 +49,6 @@ This directory contains all documentation for GH Systems ABC.
 
 ## Quick Links
 
-- [Getting Started](../GETTING_STARTED.md)
 - [Architecture Overview](architecture/ARCHITECTURE_SPEC.md)
 - [Security Documentation](security/)
 - [Deployment Guide](deployment/DEVELOPMENT_STATUS.md)
