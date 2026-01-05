@@ -63,8 +63,7 @@ class CryptographicReceiptGenerator:
     """
     Generates cryptographic receipts for intelligence outputs.
     
-    **ABC verifies inputs, not outputs. ABC is infrastructure for verification, not
-    decision-making. Humans stay in the loop where it matters.**
+    **ABC verifies data integrity: hash match = good, hash mismatch = bad.**
     
     This generator creates cryptographic proofs that prove data integrity - enabling
     downstream AI systems and human analysts to trust that all systems analyzed identical

@@ -33,6 +33,12 @@ When multiple models get different results from the same intelligence compilatio
 
 **ABC makes Foundry unstoppable** - infrastructure that amplifies Foundry's value. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data.
 
+**Core Mechanism:**
+- Hash match = Synthetic (good) data ✅
+- Hash mismatch = Artificial (bad) data ❌
+
+When AI systems struggle, ABC detects whether data is synthetic (good) or artificial (bad). Human verifies and commits on-chain.
+
 ---
 
 ## Use Cases
@@ -42,7 +48,7 @@ When multiple models get different results from the same intelligence compilatio
 - When models disagree on threat assessments, ABC proves they analyzed the same data
 
 **🏦 AML & Crypto Compliance**
-- Banks and financial institutions
+- Detects synthetic (good) vs artificial (bad) data for AML model training
 - When ML models produce conflicting risk scores, ABC proves all models analyzed identical data
 
 ---
@@ -70,7 +76,6 @@ Bank deploys three ML models. Models produce different risk scores: Chainalysis 
 **The Stack:**
 - **Palantir Foundry** - Data integration and compilation
 - **ABC** - Cryptographic verification layer
-- **Consensus Engine** - Conflict detection and resolution when models disagree
 
 **Chain-Agnostic Architecture** - Works with Bitcoin, Ethereum, Polygon, Arbitrum, Base, Optimism, or any supported blockchain.
 

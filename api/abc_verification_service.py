@@ -29,7 +29,7 @@ load_dotenv()
 # Initialize FastAPI app
 app = FastAPI(
     title="ABC Verification API",
-    description="API for verifying ABC receipt hashes from Foundry pipeline",
+    description="API for verifying ABC receipt hashes. Detects synthetic (good) vs artificial (bad) data for AML model training.",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
