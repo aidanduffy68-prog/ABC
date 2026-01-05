@@ -23,13 +23,19 @@ This API service provides endpoints to verify that ABC receipt hashes generated 
 
 3. **Run the service:**
    ```bash
+   # Using startup script (recommended)
+   ./scripts/start_api_simple.sh
+   
+   # Or using uvicorn directly
+   uvicorn api.abc_verification_service:app --reload --port 8000
+   
+   # Or using Python directly
    python api/abc_verification_service.py
    ```
-   
-   Or using uvicorn directly:
-   ```bash
-   uvicorn api.abc_verification_service:app --reload --port 8000
-   ```
+
+4. **Access the API:**
+   - API Docs: http://localhost:8000/docs
+   - Health check: http://localhost:8000/health
 
 ## API Endpoints
 
