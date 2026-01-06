@@ -27,7 +27,7 @@ Result: **14 days to manually reconcile conflicts.**
 
 ## The Solution
 
-**ABC proves AI systems analyzed the same data.**
+**ABC proves AIML systems analyzed the same data.**
 
 When multiple models get different results from the same intelligence compilation, ABC provides cryptographic proof they analyzed identical source data. The disagreement is methodology, not data quality.
 
@@ -88,13 +88,6 @@ Bank deploys three ML models. Models produce different risk scores: Chainalysis 
 </div>
 
 **[📖 Foundry Chain Specification](docs/integrations/FOUNDRY_CHAIN_SPEC.md)** | **[🎥 Watch Demo](https://www.youtube.com/watch?v=LXLNb0QoKgI&t=2s)**
-
----
-
-## Recent Threat Intel Compilations
-
-- **Department of War & DHS AI Infrastructure** - 88% Risk (Critical) | [View Assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_DOD_DHS_002.md)
-- **Treasury Department AI Infrastructure** - 85% Risk (Critical) | [View Assessment](examples/intelligence_audits/INTELLIGENCE_AUDIT_TREASURY_003.md)
 
 ---
 
