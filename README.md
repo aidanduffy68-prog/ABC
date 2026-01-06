@@ -139,12 +139,4 @@ Bank deploys three ML models. Models produce different risk scores: Chainalysis 
 
 ---
 
-## Key Benefits
-
-- **Resolve conflicts faster** - 14 days → hours
-- **Verifiable intelligence** - Cryptographic proof without revealing proprietary methods
-- **Classification support** - Works with Unclassified, SBU, and Classified intelligence tiers
-
----
-
 **GH Systems** - Compiling behavioral bytecode so lawful actors win the economic battlefield.
