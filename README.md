@@ -1,5 +1,5 @@
 # ABC: Truth Verification for AI Intelligence
-**When AI systems disagree, ABC proves they analyzed the same data**
+**When AIML systems disagree, ABC proves they analyzed the same data**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
 ![Palantir Foundry](https://img.shields.io/badge/Palantir-Foundry-red?style=flat-square)
@@ -13,7 +13,7 @@ Copyright (c) 2026 GH Systems. All rights reserved.
 
 ## The Problem
 
-When AI systems (inference models) generate conflicting assessments on the same data:
+When AIML systems (inference models) generate conflicting assessments on the same data:
 
 - **CIA says 85% confidence**
 - **DHS says 60% confidence**
