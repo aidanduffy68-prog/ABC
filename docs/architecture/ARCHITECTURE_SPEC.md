@@ -369,13 +369,13 @@ GH Systems does not compete with existing vendors—it amplifies them.
   - Consensus calculation engine (`src/consensus/engine.py`)
 - **Vector Database Integration**: Long-term memory and semantic search (FAISS/Qdrant backends)
 - **Real-Time Dashboard**: PostgreSQL-backed dashboard with historical metrics and Chart.js visualizations
-- **Kubernetes Deployment**: Production-ready K8s manifests with HA, auto-scaling, monitoring (`k8s/`)
+- **Docker Deployment**: Production-ready Docker Compose configuration with all services
 - **Performance Optimizations**: Redis caching layer, Prometheus metrics (`src/core/middleware/cache.py`)
 
 ### In Development 🚧
 
 - **GNN inference engine**: Graph neural network relationship inference (currently using heuristic rules)
-- **Production deployment**: Full containerization and orchestration (Docker, Kubernetes, CI/CD)
+- **Production deployment**: Full containerization and orchestration (Docker Compose, CI/CD)
 - **Receipt verification**: Full blockchain query implementation for receipt chain verification
 
 ### Planned 📋

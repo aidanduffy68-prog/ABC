@@ -254,46 +254,24 @@ volumes:
   qdrant_data:
 ```
 
-### Kubernetes Deployment
+### Docker Compose Deployment
 
-Add to `k8s/qdrant-deployment.yaml`:
+Add to `docker-compose.yml`:
 
 ```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: abc-qdrant
-  namespace: abc-intelligence
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: abc-qdrant
-  template:
-    metadata:
-      labels:
-        app: abc-qdrant
-    spec:
-      containers:
-      - name: qdrant
-        image: qdrant/qdrant:latest
-        ports:
-        - containerPort: 6333
-        - containerPort: 6334
-        volumeMounts:
-        - name: qdrant-data
-          mountPath: /qdrant/storage
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
-      volumes:
-      - name: qdrant-data
-        persistentVolumeClaim:
-          claimName: qdrant-data
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: abc-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - abc-network
+    restart: unless-stopped
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
 ```
 
 ## Performance Considerations
