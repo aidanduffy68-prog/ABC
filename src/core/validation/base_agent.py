@@ -5,7 +5,7 @@ Inspired by Chaos Labs' Agent pattern for modular validation
 Each agent validates one specific type of intelligence update before compilation.
 Agents are lightweight, single-purpose, and follow a standard interface.
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from abc import ABC, abstractmethod

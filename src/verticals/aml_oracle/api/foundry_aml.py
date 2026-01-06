@@ -2,7 +2,7 @@
 Palantir Foundry Integration API Endpoints - AML Oracle Vertical
 Provides AML-specific Foundry endpoints for blockchain data ingestion and ML model verification
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import Dict, Any, List, Optional

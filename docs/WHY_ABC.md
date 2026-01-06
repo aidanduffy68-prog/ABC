@@ -109,7 +109,7 @@ Just as Chainlink solved Ethereum's oracle problem (can't trust off-chain data),
 
 1. **[Beginner Guide](BEGINNER_GUIDE.md)** — Non-technical overview
 2. **[Use Cases](USE_CASES.md)** — Specific scenarios and applications
-3. **[Architecture Specification](architecture/ARCHITECTURE_SPEC.md)** — Technical details
+3. **[Getting Started](../GETTING_STARTED.md)** — Technical setup guide
 4. **[Architecture Specification](architecture/ARCHITECTURE_SPEC.md)** — Complete technical details
 
 **Questions?** Review the [full documentation](../README.md) or explore specific use cases.

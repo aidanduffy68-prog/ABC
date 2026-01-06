@@ -3,7 +3,7 @@
 GH Systems ABC - Software Bill of Materials (SBOM) Generator
 Generates SBOM in SPDX format for AI system components
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import json

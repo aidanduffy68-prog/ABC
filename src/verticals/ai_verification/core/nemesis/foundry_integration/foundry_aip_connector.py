@@ -2,7 +2,7 @@
 Foundry AIP (Application Integration Platform) Connector
 Uses OAuth2 authentication and Foundry SDK for workspace-based access
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

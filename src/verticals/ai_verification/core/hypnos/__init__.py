@@ -2,7 +2,7 @@
 Hypnos: Long-Term Memory System
 Pattern consolidation and dormant threat tracking with vector database integration
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from src.core.hypnos.pattern_consolidation import HypnosPatternConsolidator

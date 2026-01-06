@@ -2,7 +2,7 @@
 Key Derivation Functions
 PBKDF2 and Argon2 key derivation for secure key generation
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

@@ -2,7 +2,7 @@
 Redis Caching Middleware
 Caching layer for API responses using Redis
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import redis

@@ -2,7 +2,7 @@
 Foundry API Connector
 Connects ABC to Palantir Foundry output
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

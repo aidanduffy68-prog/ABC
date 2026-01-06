@@ -2,7 +2,7 @@
 
 **Complete setup guide for Foundry Application Integration Platform (AIP)**
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 
 ---
 

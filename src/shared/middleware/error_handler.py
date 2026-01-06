@@ -2,7 +2,7 @@
 Error Handling and Sanitization
 Provides secure error messages that don't leak system information
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

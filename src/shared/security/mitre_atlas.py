@@ -5,7 +5,7 @@ AI-specific threat modeling and attack pattern detection
 MITRE ATLAS (Adversarial Threat Landscape for Artificial-Intelligence Systems)
 provides tactics, techniques, and procedures (TTPs) specific to AI systems.
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import logging

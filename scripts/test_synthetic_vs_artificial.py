@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-Test script for Synthetic vs Artificial data detection workflow
+Test script for data integrity and provenance verification workflow
 
 Tests:
-1. /foundry/scan-hash-mismatches - Scan for artificial (bad) data
+1. /foundry/scan-hash-mismatches - Scan for ungoverned or mis-scoped data
 2. /commit-on-chain - Commit verified classification to blockchain
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+ABC detects ungoverned or mis-scoped data (e.g., artificial data from scenario_forge that violates declared intent/provenance).
+
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import requests
@@ -22,9 +24,9 @@ API_BASE_URL = "http://localhost:8000"
 
 
 def test_scan_foundry():
-    """Test scanning Foundry compilation for hash mismatches"""
+    """Test scanning Foundry compilation for ungoverned data"""
     print("=" * 80)
-    print("TEST 1: Scan Foundry for Synthetic vs Artificial Data")
+    print("TEST 1: Scan Foundry for Ungoverned or Mis-Scoped Data")
     print("=" * 80)
     print()
     
@@ -50,13 +52,13 @@ def test_scan_foundry():
         
         print(f"📊 Summary:")
         print(f"   Total records: {result.get('total_records', 0)}")
-        print(f"   ✅ Synthetic (good): {result.get('synthetic_count', 0)}")
-        print(f"   ❌ Artificial (bad): {result.get('artificial_count', 0)}")
+        print(f"   ✅ Verified (integrity confirmed): {result.get('verified_count', 0)}")
+        print(f"   ⚠️  Ungoverned (violates intent/provenance): {result.get('ungoverned_count', 0)}")
         print()
         
-        if result.get('artificial_count', 0) > 0:
-            print("⚠️  Artificial (bad) data detected:")
-            for record in result.get('artificial_records', [])[:3]:  # Show first 3
+        if result.get('ungoverned_count', 0) > 0:
+            print("⚠️  Ungoverned or mis-scoped data detected:")
+            for record in result.get('ungoverned_records', [])[:3]:  # Show first 3
                 print(f"   - Block {record.get('block_height')}: {record.get('issue')}")
             print()
         
@@ -77,16 +79,16 @@ def test_scan_foundry():
         return False
 
 
-def test_commit_synthetic():
-    """Test committing synthetic (good) data to blockchain"""
+def test_commit_verified():
+    """Test committing verified data to blockchain"""
     print("=" * 80)
-    print("TEST 2: Commit Synthetic (Good) Data to Blockchain")
+    print("TEST 2: Commit Verified Data to Blockchain")
     print("=" * 80)
     print()
     
     url = f"{API_BASE_URL}/commit-on-chain"
     
-    # Use test data from video script (synthetic - hash matches)
+    # Use test data from video script (verified - hash matches)
     payload = {
         "block_data": {
             "block_height": 825000,
@@ -97,12 +99,12 @@ def test_commit_synthetic():
         },
         "abc_receipt_hash": "472dc3097fb9f4a1228e6cb5a0202b11a9fe3751dffa1065b781eca848ddb94b",
         "human_analyst": "analyst_001",
-        "data_classification": "synthetic",
-        "verification_notes": "Hash matches - legitimate synthetic data for AML training"
+        "data_classification": "verified",
+        "verification_notes": "Hash matches - data integrity verified, provenance matches declared intent"
     }
     
     print(f"Request: POST {url}")
-    print(f"Classification: {payload['data_classification']} (good)")
+    print(f"Classification: {payload['data_classification']} (integrity confirmed)")
     print()
     
     try:
@@ -116,7 +118,7 @@ def test_commit_synthetic():
         
         print(f"📊 Summary:")
         print(f"   ✅ Committed: {result.get('committed', False)}")
-        print(f"   Classification: {result.get('data_classification')} (good)")
+        print(f"   Classification: {result.get('data_classification')} (integrity confirmed)")
         print(f"   Receipt ID: {result.get('receipt_id', 'N/A')}")
         print(f"   TX Hash: {result.get('tx_hash', 'N/A')}")
         print(f"   Publicly verifiable: {result.get('publicly_verifiable', False)}")
@@ -138,16 +140,16 @@ def test_commit_synthetic():
         return False
 
 
-def test_commit_artificial():
-    """Test committing artificial (bad) data to blockchain"""
+def test_commit_ungoverned():
+    """Test committing ungoverned data classification to blockchain"""
     print("=" * 80)
-    print("TEST 3: Commit Artificial (Bad) Data to Blockchain")
+    print("TEST 3: Commit Ungoverned Data Classification to Blockchain")
     print("=" * 80)
     print()
     
     url = f"{API_BASE_URL}/commit-on-chain"
     
-    # Use test data with mismatched hash (artificial - hash doesn't match)
+    # Use test data with mismatched hash (ungoverned - hash doesn't match)
     payload = {
         "block_data": {
             "block_height": 835023,
@@ -156,14 +158,14 @@ def test_commit_artificial():
             "tx_count": 2069,
             "transactions": "[{\"txid\":\"defi_layering_835023_1\",\"pattern\":\"defi_layering\",\"value\":84.17}]"
         },
-        "abc_receipt_hash": "WRONG_HASH_TO_SIMULATE_ARTIFICIAL_DATA",
+        "abc_receipt_hash": "WRONG_HASH_TO_SIMULATE_UNGOVERNED_DATA",
         "human_analyst": "analyst_001",
-        "data_classification": "artificial",
-        "verification_notes": "Hash mismatch detected - artificial (bad) data injection in DeFi layering transaction"
+        "data_classification": "ungoverned",
+        "verification_notes": "Hash mismatch detected - ungoverned data (e.g., artificial data from scenario_forge violating declared intent/provenance)"
     }
     
     print(f"Request: POST {url}")
-    print(f"Classification: {payload['data_classification']} (bad)")
+    print(f"Classification: {payload['data_classification']} (violates declared intent/provenance)")
     print()
     
     try:
@@ -177,12 +179,13 @@ def test_commit_artificial():
         
         print(f"📊 Summary:")
         print(f"   ✅ Committed: {result.get('committed', False)}")
-        print(f"   Classification: {result.get('data_classification')} (bad)")
+        print(f"   Classification: {result.get('data_classification')} (violates declared intent/provenance)")
         print(f"   Receipt ID: {result.get('receipt_id', 'N/A')}")
         print(f"   TX Hash: {result.get('tx_hash', 'N/A')}")
         print(f"   Publicly verifiable: {result.get('publicly_verifiable', False)}")
         print()
-        print("💡 Note: This documents the artificial (bad) data on-chain")
+        print("💡 Note: This documents the ungoverned data on-chain")
+        print("   (e.g., artificial data from scenario_forge not properly labeled/governed)")
         print("   so AI systems can filter it out and resolve the bottleneck.")
         print()
         
@@ -260,12 +263,12 @@ def main():
     results.append(("Scan Foundry", test_scan_foundry()))
     print()
     
-    # Test 2: Commit Synthetic (good)
-    results.append(("Commit Synthetic", test_commit_synthetic()))
+    # Test 2: Commit Verified
+    results.append(("Commit Verified", test_commit_verified()))
     print()
     
-    # Test 3: Commit Artificial (bad)
-    results.append(("Commit Artificial", test_commit_artificial()))
+    # Test 3: Commit Ungoverned
+    results.append(("Commit Ungoverned", test_commit_ungoverned()))
     print()
     
     # Test 4: Validation

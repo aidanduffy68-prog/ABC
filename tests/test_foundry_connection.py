@@ -3,7 +3,7 @@
 Test Foundry API Connection
 Tests ABC's connection to Palantir Foundry API (demo/staging environment)
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import sys

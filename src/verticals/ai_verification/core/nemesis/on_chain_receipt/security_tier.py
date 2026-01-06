@@ -6,7 +6,7 @@ Tier 1 (Unclassified): Public blockchains, anyone can verify
 Tier 2 (SBU): Permissioned chains, controlled access
 Tier 3 (Classified): Hash-only commitments, zero data exposure
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from enum import Enum

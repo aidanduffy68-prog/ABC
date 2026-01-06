@@ -2,7 +2,7 @@
 Audit Logging Middleware
 Provides comprehensive audit trail for security-relevant events
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

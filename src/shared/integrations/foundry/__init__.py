@@ -2,7 +2,7 @@
 Palantir Foundry Data Export Integration
 Handles exporting ABC compilation data to Palantir Foundry
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from .connector import FoundryDataExportConnector

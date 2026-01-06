@@ -2,7 +2,7 @@
 Threat Actor Schema
 Rigid Pydantic data structure for threat actor entities
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import List, Optional, Dict, Any

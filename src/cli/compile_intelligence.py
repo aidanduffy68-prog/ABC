@@ -7,7 +7,7 @@ Usage:
     python scripts/compile_intelligence.py --actor-id "lazarus_001" --actor-name "Lazarus Group" --intel-file data.json
     python scripts/compile_intelligence.py --federal-ai --agency "DoD" --vuln-file vulns.json
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import sys

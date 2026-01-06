@@ -2,7 +2,7 @@
 Palantir Foundry Integration API Endpoints - AI Verification Vertical
 Provides Foundry-compatible data feeds and exports for intelligence compilation
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import Dict, Any, List, Optional

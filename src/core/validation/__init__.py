@@ -10,7 +10,7 @@ Provides modular validation agents for intelligence updates:
 - Minimum delay validation
 - Agent hub for routing and coordination
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from src.core.validation.base_agent import (

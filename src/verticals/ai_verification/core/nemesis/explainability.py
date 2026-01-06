@@ -2,7 +2,7 @@
 Explainable AI (XAI) Tools
 Provides explanations for AI model decisions and outputs
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import logging

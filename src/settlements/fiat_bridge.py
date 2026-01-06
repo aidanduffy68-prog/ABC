@@ -3,7 +3,7 @@ Fiat Bridge / Oracle Service
 Enables fiat-compatible settlement for government clients
 Government pays in USD, system settles in BTC to vendors
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import Dict, Any, Optional, List

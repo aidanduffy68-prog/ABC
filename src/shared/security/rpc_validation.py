@@ -2,7 +2,7 @@
 RPC URL Validation
 Validates blockchain RPC endpoints to prevent connection to malicious servers
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import Optional, List

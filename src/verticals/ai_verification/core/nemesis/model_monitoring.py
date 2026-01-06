@@ -2,7 +2,7 @@
 Model Drift Detection and Monitoring
 Monitors AI model performance and detects drift
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import logging

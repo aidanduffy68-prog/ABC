@@ -2,7 +2,7 @@
 ABC Compilation Engine
 Orchestrates Hades → Echo → Nemesis pipeline to compile intelligence in <500ms
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import time

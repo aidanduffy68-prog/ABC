@@ -2,7 +2,7 @@
 Palantir Foundry Data Export
 Formats and exports data in Foundry-compatible formats
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import json

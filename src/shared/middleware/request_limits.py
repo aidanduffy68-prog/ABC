@@ -2,7 +2,7 @@
 Request Size Limits Middleware
 Prevents DoS attacks via large request payloads
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

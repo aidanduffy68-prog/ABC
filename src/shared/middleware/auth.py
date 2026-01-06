@@ -2,7 +2,7 @@
 Authentication and Authorization Middleware
 Provides authentication and authorization for API endpoints
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

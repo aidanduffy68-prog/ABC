@@ -2,7 +2,7 @@
 
 **ABC transforms Palantir Foundry into blockchain-verified intelligence with mathematical proof for conflict resolution.**
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 
 ---
 

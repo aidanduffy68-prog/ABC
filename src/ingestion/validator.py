@@ -3,7 +3,7 @@ Ingestion Validator
 Validates vendor feeds before compilation
 Compiler fails if syntax is wrong (like a real compiler)
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import List, Dict, Any, Optional

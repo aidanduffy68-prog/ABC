@@ -2,7 +2,7 @@
 Real-Time Threat Intelligence Platform API
 WebSocket and REST API for real-time threat intelligence delivery
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

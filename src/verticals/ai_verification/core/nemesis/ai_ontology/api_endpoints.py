@@ -2,7 +2,7 @@
 API Endpoints for AI-Powered Threat Intelligence
 RESTful API for accessing ABC AI ontology capabilities
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import List, Dict, Any, Optional

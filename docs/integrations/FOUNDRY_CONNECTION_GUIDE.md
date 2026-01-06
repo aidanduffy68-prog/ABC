@@ -2,7 +2,7 @@
 
 **How to connect ABC to Palantir Foundry API (demo/staging/production)**
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 
 ---
 

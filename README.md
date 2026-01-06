@@ -5,7 +5,7 @@
 ![Palantir Foundry](https://img.shields.io/badge/Palantir-Foundry-red?style=flat-square)
 ![FastAPI](https://img.shields.io/badge/FastAPI-High_Performance-green?style=flat-square)
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 
 <img src="docs/assets/ghsystems_logo.png" alt="GH Systems Logo" width="120"/>
 

@@ -2,7 +2,7 @@
 
 **Adversarial Behavior Compiler v2.0 - Full Technical Specification**
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 
 ---
 

@@ -2,7 +2,7 @@
 Threat Monitoring Dashboard
 Real-time dashboard for monitoring compiled intelligence and threats
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from flask import Flask, render_template_string, jsonify, request

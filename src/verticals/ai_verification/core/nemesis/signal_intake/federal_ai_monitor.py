@@ -2,7 +2,7 @@
 Federal AI System Signal Intake
 Automated monitoring and vulnerability detection for government AI infrastructure
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import os

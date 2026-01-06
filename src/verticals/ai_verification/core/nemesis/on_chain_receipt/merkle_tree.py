@@ -2,7 +2,7 @@
 Merkle Tree for Cryptographic Receipts
 Allows revealing part of intelligence without revealing the whole tree
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from typing import List, Dict, Any, Optional

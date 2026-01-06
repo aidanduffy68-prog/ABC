@@ -2,7 +2,7 @@
 Hash Utility Functions
 Provides both SHA-256 and BLAKE2b hashing options
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import hashlib

@@ -3,7 +3,7 @@
 ABC Verification API Service
 REST API for verifying ABC receipt hashes from Foundry pipeline
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 from fastapi import FastAPI, HTTPException

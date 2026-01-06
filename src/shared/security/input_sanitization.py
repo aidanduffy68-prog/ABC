@@ -2,7 +2,7 @@
 Input Sanitization Utilities
 Security utilities for sanitizing user inputs and preventing injection attacks
 
-Copyright (c) 2025 GH Systems. All rights reserved.
+Copyright (c) 2026 GH Systems. All rights reserved.
 """
 
 import html
