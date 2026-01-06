@@ -29,7 +29,7 @@ load_dotenv()
 # Initialize FastAPI app
 app = FastAPI(
     title="ABC Verification API",
-    description="API for verifying ABC receipt hashes. Detects synthetic (good) vs artificial (bad) data for AML model training.",
+    description="API for verifying ABC receipt hashes. Detects ungoverned or mis-scoped data for AIML model training (e.g., artificial data that violates declared intent/provenance).",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
@@ -324,9 +324,9 @@ class ScanFoundryResponse(BaseModel):
     """Response from scanning Foundry compilation"""
     compilation_id: str
     total_records: int
-    synthetic_count: int = Field(..., description="Good data: hash matches (synthetic)")
-    artificial_count: int = Field(..., description="Bad data: hash mismatch (artificial)")
-    artificial_records: List[Dict[str, Any]] = Field(..., description="Artificial (bad) data detected")
+    verified_count: int = Field(..., description="Data with verified integrity: hash matches")
+    ungoverned_count: int = Field(..., description="Ungoverned/mis-scoped data: hash mismatch")
+    ungoverned_records: List[Dict[str, Any]] = Field(..., description="Ungoverned or mis-scoped data detected")
     timestamp: str
 
 
@@ -335,7 +335,7 @@ class CommitOnChainRequest(BaseModel):
     block_data: BlockData = Field(..., description="Block data to commit")
     abc_receipt_hash: str = Field(..., description="ABC receipt hash")
     human_analyst: str = Field(..., description="Human analyst ID")
-    data_classification: str = Field(..., description="'synthetic' (good) or 'artificial' (bad)")
+    data_classification: str = Field(..., description="'verified' (integrity confirmed) or 'ungoverned' (violates declared intent/provenance)")
     verification_notes: Optional[str] = Field(None, description="Verification notes")
 
 
@@ -344,7 +344,7 @@ class CommitOnChainResponse(BaseModel):
     committed: bool
     tx_hash: Optional[str]
     receipt_id: Optional[str]
-    data_classification: str = Field(..., description="'synthetic' (good) or 'artificial' (bad)")
+    data_classification: str = Field(..., description="'verified' (integrity confirmed) or 'ungoverned' (violates declared intent/provenance)")
     publicly_verifiable: bool
     timestamp: str
 
@@ -352,15 +352,15 @@ class CommitOnChainResponse(BaseModel):
 @app.post("/foundry/scan-hash-mismatches", response_model=ScanFoundryResponse)
 async def scan_foundry_for_mismatches(request: ScanFoundryRequest):
     """
-    Scan Foundry compilation to detect Artificial (bad) vs Synthetic (good) data.
+    Scan Foundry compilation to detect ungoverned or mis-scoped data.
     
-    **Purpose:** Detect data integrity issues for AML model training.
+    **Purpose:** Detect data integrity and provenance violations for AIML model training.
     
-    - **Synthetic (good):** Legitimate synthetic data for training - hash matches ✅
-    - **Artificial (bad):** Deceptive data injection - hash mismatch ❌
+    - **Hash match:** Data integrity verified, provenance matches declared intent ✅
+    - **Hash mismatch:** Data integrity issue, possible ungoverned or mis-scoped data ⚠️
     
-    **Use Case:** AI system struggles with AML analysis → Human scans Foundry
-    to detect artificial (bad) data that's corrupting model training.
+    **Use Case:** AI system struggles with AIML analysis → Human scans Foundry
+    to detect ungoverned data (e.g., artificial data from scenario_forge that violates declared intent/provenance).
     
     **Example Request:**
     ```json
@@ -389,9 +389,9 @@ async def scan_foundry_for_mismatches(request: ScanFoundryRequest):
             return ScanFoundryResponse(
                 compilation_id=request.compilation_id,
                 total_records=0,
-                synthetic_count=0,
-                artificial_count=0,
-                artificial_records=[],
+                verified_count=0,
+                ungoverned_count=0,
+                ungoverned_records=[],
                 timestamp=datetime.now().isoformat()
             )
         
@@ -402,15 +402,15 @@ async def scan_foundry_for_mismatches(request: ScanFoundryRequest):
             return ScanFoundryResponse(
                 compilation_id=request.compilation_id,
                 total_records=0,
-                synthetic_count=0,
-                artificial_count=0,
-                artificial_records=[],
+                verified_count=0,
+                ungoverned_count=0,
+                ungoverned_records=[],
                 timestamp=datetime.now().isoformat()
             )
         
-        # Scan: Synthetic (good) vs Artificial (bad)
-        synthetic_count = 0
-        artificial_records = []
+        # Scan: Verified integrity vs Ungoverned/mis-scoped data
+        verified_count = 0
+        ungoverned_records = []
         
         for record in compilation_data:
             try:
@@ -428,29 +428,29 @@ async def scan_foundry_for_mismatches(request: ScanFoundryRequest):
                     verification = verify_single(block_data, abc_receipt_hash)
                     
                     if verification.verified:
-                        # Synthetic (good): Hash matches = legitimate synthetic data
-                        synthetic_count += 1
+                        # Hash matches: Data integrity verified, provenance matches declared intent
+                        verified_count += 1
                     else:
-                        # Artificial (bad): Hash mismatch = deceptive data injection
-                        artificial_records.append({
+                        # Hash mismatch: Data integrity issue, possible ungoverned or mis-scoped data
+                        ungoverned_records.append({
                             "block_height": record.get("block_height"),
                             "foundry_hash": verification.foundry_hash,
                             "computed_hash": verification.computed_hash,
-                            "classification": "artificial",
-                            "issue": "Hash mismatch - artificial (bad) data detected",
+                            "classification": "ungoverned",
+                            "issue": "Hash mismatch - possible ungoverned or mis-scoped data (e.g., artificial data violating declared intent/provenance)",
                             "verification_timestamp": verification.timestamp
                         })
             except Exception as e:
                 continue
         
-        artificial_count = len(artificial_records)
+        ungoverned_count = len(ungoverned_records)
         
         return ScanFoundryResponse(
             compilation_id=request.compilation_id,
             total_records=len(compilation_data),
-            synthetic_count=synthetic_count,
-            artificial_count=artificial_count,
-            artificial_records=artificial_records,
+            verified_count=verified_count,
+            ungoverned_count=ungoverned_count,
+            ungoverned_records=ungoverned_records,
             timestamp=datetime.now().isoformat()
         )
         
@@ -466,13 +466,14 @@ async def human_commit_to_blockchain(request: CommitOnChainRequest):
     """
     Human commits verified data classification to blockchain.
     
-    **Purpose:** Document data integrity classification (Synthetic vs Artificial).
+    **Purpose:** Document data integrity and provenance classification.
     
-    - **Synthetic (good):** Legitimate synthetic data for AML model training ✅
-    - **Artificial (bad):** Deceptive data injection that corrupts training ❌
+    - **verified:** Data integrity confirmed, provenance matches declared intent ✅
+    - **ungoverned:** Data violates declared intent, provenance, or usage policy ⚠️
+      (e.g., artificial data from scenario_forge that's not properly labeled/governed)
     
-    **Use Case:** Human verifies hash mismatch → Classifies as artificial (bad) →
-    Commits on-chain to document data provenance and resolve AI bottleneck.
+    **Use Case:** Human verifies hash mismatch → Classifies as ungoverned →
+    Commits on-chain to document data provenance violation and resolve AI bottleneck.
     
     **Example Request:**
     ```json
@@ -486,16 +487,16 @@ async def human_commit_to_blockchain(request: CommitOnChainRequest):
         },
         "abc_receipt_hash": "472dc3097fb9f4a1228e6cb5a0202b11a9fe3751dffa1065b781eca848ddb94b",
         "human_analyst": "analyst_001",
-        "data_classification": "artificial",
-        "verification_notes": "Hash mismatch indicates artificial (bad) data injection in DeFi layering transaction"
+        "data_classification": "ungoverned",
+        "verification_notes": "Hash mismatch indicates ungoverned data - artificial data violating declared intent/provenance"
     }
     ```
     """
     # Validate classification
-    if request.data_classification not in ["synthetic", "artificial"]:
+    if request.data_classification not in ["verified", "ungoverned"]:
         raise HTTPException(
             status_code=400,
-            detail="data_classification must be 'synthetic' (good) or 'artificial' (bad)"
+            detail="data_classification must be 'verified' (integrity confirmed) or 'ungoverned' (violates declared intent/provenance)"
         )
     
     try:
@@ -513,17 +514,17 @@ async def human_commit_to_blockchain(request: CommitOnChainRequest):
             "transactions": request.block_data.transactions
         }
         
-        # Metadata with explicit Synthetic vs Artificial classification
+        # Metadata with explicit governance/provenance classification
         metadata = {
             "verified_by": request.human_analyst,
             "verification_timestamp": datetime.now().isoformat(),
             "verification_notes": request.verification_notes or "",
-            "data_classification": request.data_classification,  # "synthetic" or "artificial"
+            "data_classification": request.data_classification,  # "verified" or "ungoverned"
             "provenance": {
-                "data_type": "aml_defi_layering",
-                "data_quality": "synthetic" if request.data_classification == "synthetic" else "artificial",
+                "data_type": "aiml_defi_layering",
+                "governance_status": "verified" if request.data_classification == "verified" else "ungoverned",
                 "human_verified": True,
-                "issue": "artificial (bad) data detected" if request.data_classification == "artificial" else "synthetic (good) data verified"
+                "issue": "Ungoverned data detected - violates declared intent/provenance (e.g., artificial data not properly labeled)" if request.data_classification == "ungoverned" else "Data integrity verified, provenance matches declared intent"
             },
             "abc_receipt_hash": request.abc_receipt_hash
         }

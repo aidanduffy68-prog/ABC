@@ -63,12 +63,15 @@ class CryptographicReceiptGenerator:
     """
     Generates cryptographic receipts for intelligence outputs.
     
-    **ABC verifies data integrity: hash match = good, hash mismatch = bad.**
+    **ABC verifies data integrity and provenance: hash match = verified, hash mismatch = ungoverned.**
     
-    This generator creates cryptographic proofs that prove data integrity - enabling
+    This generator creates cryptographic proofs that prove data integrity and provenance - enabling
     downstream AI systems and human analysts to trust that all systems analyzed identical
-    source data. The receipt proves the input was verified, not that a particular output
-    is correct.
+    source data with verified governance. The receipt proves the input was verified and properly
+    governed (matches declared intent/provenance), not that a particular output is correct.
+    
+    ABC detects ungoverned or mis-scoped data (e.g., artificial data from scenario_forge that
+    violates declared intent, provenance, or usage policy).
     
     Keeps all proprietary systems off-chain, only puts proof on-chain.
     

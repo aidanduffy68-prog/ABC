@@ -34,10 +34,10 @@ When multiple models get different results from the same intelligence compilatio
 **ABC makes Foundry unstoppable** - infrastructure that amplifies Foundry's value. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data.
 
 **Core Mechanism:**
-- Hash match = Synthetic (good) data ✅
-- Hash mismatch = Artificial (bad) data ❌
+- Hash match = Data integrity verified, provenance matches declared intent ✅
+- Hash mismatch = Data integrity issue, possible ungoverned or mis-scoped data ⚠️
 
-When AI systems struggle, ABC detects whether data is synthetic (good) or artificial (bad). Human verifies and commits on-chain.
+ABC detects ungoverned or mis-scoped data entering pipelines — including artificial data that violates declared intent, provenance, or usage policy. Human verifies and commits on-chain.
 
 ---
 
@@ -47,8 +47,9 @@ When AI systems struggle, ABC detects whether data is synthetic (good) or artifi
 - Government agencies (CIA, DHS, NSA, Treasury, DoD, FIUs)
 - When models disagree on threat assessments, ABC proves they analyzed the same data
 
-**🏦 AML & Crypto Compliance**
-- Detects synthetic (good) vs artificial (bad) data for AML model training
+**🏦 AIML & Crypto Compliance**
+- Detects ungoverned or mis-scoped data for AIML model training
+- Verifies data provenance and declared intent (e.g., scenario_forge artificial data must be properly labeled)
 - When ML models produce conflicting risk scores, ABC proves all models analyzed identical data
 
 ---
