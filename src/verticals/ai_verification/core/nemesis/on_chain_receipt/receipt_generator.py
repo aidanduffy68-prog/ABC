@@ -63,6 +63,8 @@ class CryptographicReceiptGenerator:
     """
     Generates cryptographic receipts for intelligence outputs.
     
+    **ABC says: "Here is cryptographic proof that this evaluation/training run used only approved data, under declared intent, at this time."**
+    
     **ABC verifies data integrity and provenance: hash match = verified, hash mismatch = ungoverned.**
     
     This generator creates cryptographic proofs that prove data integrity and provenance - enabling

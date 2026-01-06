@@ -29,7 +29,7 @@ load_dotenv()
 # Initialize FastAPI app
 app = FastAPI(
     title="ABC Verification API",
-    description="API for verifying ABC receipt hashes. Detects ungoverned or mis-scoped data for AIML model training (e.g., artificial data that violates declared intent/provenance).",
+    description='ABC: "Here is cryptographic proof that this evaluation/training run used only approved data, under declared intent, at this time." Detects ungoverned or mis-scoped data for AIML model training.',
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"

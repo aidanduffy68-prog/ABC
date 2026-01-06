@@ -29,6 +29,8 @@ Result: **14 days to manually reconcile conflicts.**
 
 **ABC proves AIML systems analyzed the same data.**
 
+**ABC says:** *"Here is cryptographic proof that this evaluation/training run used only approved data, under declared intent, at this time."*
+
 When multiple models get different results from the same intelligence compilation, ABC provides cryptographic proof they analyzed identical source data. The disagreement is methodology, not data quality.
 
 **ABC makes Foundry unstoppable** - infrastructure that amplifies Foundry's value. When agencies blame Foundry for conflicting results, ABC provides cryptographic proof Foundry delivered correct data.
@@ -36,6 +38,8 @@ When multiple models get different results from the same intelligence compilatio
 **Core Mechanism:**
 - Hash match = Data integrity verified, provenance matches declared intent ✅
 - Hash mismatch = Data integrity issue, possible ungoverned or mis-scoped data ⚠️
+
+**ABC says:** *"Here is cryptographic proof that this evaluation/training run used only approved data, under declared intent, at this time."*
 
 ABC detects ungoverned or mis-scoped data entering pipelines — including artificial data that violates declared intent, provenance, or usage policy. Human verifies and commits on-chain.
 
