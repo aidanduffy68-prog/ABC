@@ -47,14 +47,13 @@ ABC detects ungoverned or mis-scoped data entering pipelines — including artif
 
 ## Use Cases
 
-**🔍 Multi-Agency Intelligence Verification**
-- Government agencies (CIA, DHS, NSA, Treasury, DoD, FIUs)
-- When models disagree on threat assessments, ABC proves they analyzed the same data
-
 **🏦 AIML & Crypto Compliance**
 - Detects ungoverned or mis-scoped data for AIML model training
 - Verifies data provenance and declared intent (e.g., scenario_forge artificial data must be properly labeled)
 - When ML models produce conflicting risk scores, ABC proves all models analyzed identical data
+
+**🔍 Multi-Agency Intelligence Verification**
+- Coming soon... 
 
 ---
 
