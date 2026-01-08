@@ -27,8 +27,8 @@ services:
   # Main FastAPI service
   api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile.api
     image: gh-systems-abc:latest
     container_name: abc-api
     ports:
@@ -144,8 +144,8 @@ services:
   # Real-time dashboard (optional)
   dashboard:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile.api
     image: gh-systems-abc:latest
     container_name: abc-dashboard
     command: ["python", "-m", "src.core.nemesis.real_time_platform.dashboard"]
