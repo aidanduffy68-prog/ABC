@@ -4,7 +4,7 @@ services:
   # Bitcoin Node (for Oracle Layer)
   bitcoin-node:
     build:
-      context: ./docker/bitcoin-node
+      context: ./docker
       dockerfile: Dockerfile
     container_name: abc-bitcoin-node
     volumes:
