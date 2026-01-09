@@ -1,4 +1,4 @@
-# ABC: Truth Verification for AI Intelligence
+# ABC: The verification layer for adversarial compliance
 **When AIML systems disagree, ABC proves they analyzed the same data**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
