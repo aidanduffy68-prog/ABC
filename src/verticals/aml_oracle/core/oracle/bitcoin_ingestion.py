@@ -88,6 +88,9 @@ class BitcoinOracle:
         self.receipt_generator = CryptographicReceiptGenerator()
         self.blockchain_anchor = BlockchainAnchor(network="bitcoin")
         self.parser = BitcoinTransactionParser()
+        # Receipt storage for retrieval
+        from .verification import MultiSourceVerifier
+        self._verifier = MultiSourceVerifier()
     
     def get_block(self, block_height: int) -> Dict[str, Any]:
         """
@@ -178,6 +181,9 @@ class BitcoinOracle:
                 classification="UNCLASSIFIED",
                 blockchain="bitcoin" if anchor_to_blockchain else None
             )
+            # Store receipt for later retrieval
+            if receipt:
+                self._verifier.store_receipt(receipt)
         
         # Anchor to blockchain if requested
         blockchain_anchor_result = None
@@ -238,11 +244,15 @@ class BitcoinOracle:
             receipt_id: Receipt ID to retrieve
             
         Returns:
-            Receipt object or None (database retrieval to be implemented)
+            Receipt object or None if not found
         """
-        # TODO: Implement receipt storage/retrieval
-        logger.warning(f"Receipt retrieval not yet implemented: {receipt_id}")
-        return None
+        # Use the verifier's receipt storage
+        receipt = self._verifier._get_receipt(receipt_id)
+        
+        if not receipt:
+            logger.warning(f"Receipt not found: {receipt_id[:16]}...")
+        
+        return receipt
     
     def verify_external_source(
         self,

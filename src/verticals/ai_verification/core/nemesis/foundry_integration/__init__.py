@@ -13,17 +13,29 @@ from .foundry_integration import FoundryIntegration
 # Try to import AIP connector (may not be available if SDK not installed)
 try:
     from .foundry_aip_connector import FoundryAIPConnector
-    __all__ = [
-        "FoundryConnector",
-        "FoundryAIPConnector",
-        "CompilationValidator",
-        "FoundryDataMapper",
-        "FoundryIntegration"
-    ]
+    AIP_AVAILABLE = True
 except ImportError:
-    __all__ = [
-        "FoundryConnector",
-        "CompilationValidator",
-        "FoundryDataMapper",
-        "FoundryIntegration"
-    ]
+    AIP_AVAILABLE = False
+    FoundryAIPConnector = None
+
+# Try to import workflow (includes scenario_forge support)
+try:
+    from .foundry_workflow import FoundryWorkflow
+    WORKFLOW_AVAILABLE = True
+except ImportError:
+    WORKFLOW_AVAILABLE = False
+    FoundryWorkflow = None
+
+# Build __all__ list
+__all__ = [
+    "FoundryConnector",
+    "CompilationValidator",
+    "FoundryDataMapper",
+    "FoundryIntegration"
+]
+
+if AIP_AVAILABLE:
+    __all__.append("FoundryAIPConnector")
+
+if WORKFLOW_AVAILABLE:
+    __all__.append("FoundryWorkflow")

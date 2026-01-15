@@ -260,12 +260,12 @@ Add to `docker-compose.yml`:
 
 ```yaml
   qdrant:
-    image: qdrant/qdrant:latest
+        image: qdrant/qdrant:latest
     container_name: abc-qdrant
-    ports:
+        ports:
       - "6333:6333"
       - "6334:6334"
-    volumes:
+      volumes:
       - qdrant-data:/qdrant/storage
     networks:
       - abc-network

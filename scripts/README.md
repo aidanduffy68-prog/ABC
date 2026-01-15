@@ -11,6 +11,12 @@ This directory contains utility scripts for GH Systems ABC.
 - **analyze_atlas_threats.py** - MITRE ATLAS threat analysis
 - **export_to_foundry.py** - Export data to Palantir Foundry
 
+### Pipeline Demos (Easy to Use!)
+- **demo_scenario_forge_entry.py** - Pipeline entry demo (scenario_forge data generation)
+- **demo_scenario_output_exit.py** - Pipeline exit demo (Hades/Echo/Nemesis compilation)
+- **video_script.md** - Video script for explaining pipeline and Palantir issues
+- **DEMO_QUICKSTART.md** - Quick start guide for demo scripts
+
 ### Tests (`scripts/tests/`)
 - **test_intelligence_verification.py** - Cryptographic receipt verification tests
 - **test_validation_agents.py** - Validation agents test suite
@@ -30,6 +36,16 @@ This directory contains utility scripts for GH Systems ABC.
 ```bash
 bash scripts/instant_demo.sh
 ```
+
+### Pipeline Demos (Entry & Exit)
+```bash
+# Pipeline entry: scenario_forge data generation
+python scripts/demo_scenario_forge_entry.py
+
+# Pipeline exit: Hades/Echo/Nemesis compilation
+python scripts/demo_scenario_output_exit.py
+```
+See `DEMO_QUICKSTART.md` for more details.
 
 ### Compile Intelligence
 ```bash

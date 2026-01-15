@@ -74,10 +74,10 @@ class FoundryIntegration:
                 self.use_aip = False
         else:
             # Use legacy connector
-        self.connector = FoundryConnector(
-            foundry_api_url=foundry_api_url,
-            api_key=api_key
-        )
+            self.connector = FoundryConnector(
+                foundry_api_url=foundry_api_url,
+                api_key=api_key
+            )
             self.use_aip = False
             if use_aip:
                 logger.warning(

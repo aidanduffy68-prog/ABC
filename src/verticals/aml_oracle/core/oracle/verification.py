@@ -23,7 +23,8 @@ class MultiSourceVerifier:
     
     def __init__(self):
         self.verification_engine = VerificationEngine()
-        # TODO: Add receipt storage/retrieval in Phase 5
+        # Simple in-memory receipt storage (can be replaced with database later)
+        self._receipt_store: Dict[str, IntelligenceReceipt] = {}
     
     def verify_external_source(
         self,
@@ -154,9 +155,51 @@ class MultiSourceVerifier:
             sources=sources
         )
     
+    def store_receipt(self, receipt: IntelligenceReceipt) -> bool:
+        """
+        Store a receipt for later retrieval.
+        
+        Args:
+            receipt: IntelligenceReceipt to store
+            
+        Returns:
+            True if stored successfully
+        """
+        if not receipt or not receipt.receipt_id:
+            logger.warning("Cannot store receipt: missing receipt_id")
+            return False
+        
+        self._receipt_store[receipt.receipt_id] = receipt
+        logger.info(f"Stored receipt: {receipt.receipt_id[:16]}...")
+        return True
+    
     def _get_receipt(self, receipt_id: str) -> Optional[IntelligenceReceipt]:
-        """Retrieve receipt from database"""
-        # TODO: Implement database retrieval in Phase 5
-        logger.warning(f"Receipt retrieval not yet implemented: {receipt_id}")
-        return None
+        """
+        Retrieve receipt from storage.
+        
+        Args:
+            receipt_id: Receipt ID to retrieve
+            
+        Returns:
+            IntelligenceReceipt if found, None otherwise
+        """
+        receipt = self._receipt_store.get(receipt_id)
+        if receipt:
+            logger.debug(f"Retrieved receipt: {receipt_id[:16]}...")
+        else:
+            logger.warning(f"Receipt not found: {receipt_id[:16]}...")
+        return receipt
+    
+    def list_receipts(self) -> List[str]:
+        """
+        List all stored receipt IDs.
+        
+        Returns:
+            List of receipt IDs
+        """
+        return list(self._receipt_store.keys())
+    
+    def get_receipt_count(self) -> int:
+        """Get count of stored receipts"""
+        return len(self._receipt_store)
 

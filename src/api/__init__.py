@@ -14,6 +14,14 @@ import logging
 from src.verticals.ai_verification.api import ingest, agency, foundry_verification
 from src.api.routes import status, monitoring
 
+# Import workflow endpoints (if available)
+try:
+    from src.verticals.ai_verification.api import foundry_workflow_endpoints
+    WORKFLOW_ENDPOINTS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_ENDPOINTS_AVAILABLE = False
+    foundry_workflow_endpoints = None
+
 # Conditional import for oracle routes
 try:
     from src.verticals.aml_oracle.api import oracle, foundry_aml
@@ -77,6 +85,10 @@ app = FastAPI(
             "description": "Palantir Foundry integration endpoints. Verify Foundry compilations and commit to blockchain.",
         },
         {
+            "name": "foundry-workflow",
+            "description": "Foundry workflow endpoints. Process data through scenario_forge → ABC → Hades/Echo/Nemesis pipeline.",
+        },
+        {
             "name": "agency",
             "description": "Agency AI assessment submission and multi-agency consensus endpoints. Submit assessments and retrieve consensus calculations.",
         },
@@ -113,6 +125,10 @@ if allowed_origins and allowed_origins != ['']:
 app.include_router(ingest.router)
 app.include_router(agency.router)
 app.include_router(foundry_verification.router)
+
+# Foundry workflow endpoints (if available)
+if WORKFLOW_ENDPOINTS_AVAILABLE:
+    app.include_router(foundry_workflow_endpoints.router)
 
 # AML Oracle vertical (if enabled)
 ORACLE_ENABLED = os.getenv("ORACLE_ENABLED", "false").lower() == "true"
