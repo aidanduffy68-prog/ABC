@@ -202,4 +202,16 @@ class MultiSourceVerifier:
     def get_receipt_count(self) -> int:
         """Get count of stored receipts"""
         return len(self._receipt_store)
+    
+    def clear_receipts(self) -> int:
+        """
+        Clear all stored receipts (useful for testing/reset).
+        
+        Returns:
+            Number of receipts that were cleared
+        """
+        count = len(self._receipt_store)
+        self._receipt_store.clear()
+        logger.info(f"Cleared {count} stored receipts")
+        return count
 
