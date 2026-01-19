@@ -13,7 +13,7 @@ Copyright (c) 2026 GH Systems. All rights reserved.
 
 ## The Problem
 
-When AIML systems (inference models) generate conflicting assessments on the same data:
+When AI/ML systems (inference models) generate conflicting assessments on the same data:
 
 - **CIA says 85% confidence**
 - **DHS says 60% confidence**
