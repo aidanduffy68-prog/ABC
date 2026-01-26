@@ -204,6 +204,18 @@ class MultiSourceVerifier:
         """Get count of stored receipts"""
         return len(self._receipt_store)
     
+    def has_receipt(self, receipt_id: str) -> bool:
+        """
+        Check if a receipt exists in storage.
+        
+        Args:
+            receipt_id: Receipt ID to check
+            
+        Returns:
+            True if receipt exists, False otherwise
+        """
+        return receipt_id in self._receipt_store
+    
     def clear_receipts(self) -> int:
         """
         Clear all stored receipts (useful for testing/reset).
