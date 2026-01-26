@@ -2,69 +2,55 @@
 
 This directory contains utility scripts for GH Systems ABC.
 
-## Structure
+## Core Scripts
 
-### Core Scripts
-- **compile_intelligence.py** - Main intelligence compilation script
+### Setup & Configuration
+- **setup_foundry_aip.py** - Setup and verify Foundry AIP configuration
+- **start_api.sh** - Start the ABC API server
+
+### Data Generation & Verification
+- **generate_synthetic_compliance_data.py** - Generate synthetic compliance data for training
+- **verify_foundry_hashes.py** - Verify Foundry pipeline hashes match ABC-generated hashes
+
+### Foundry Integration
+- **foundry_transform_code.py** - Foundry transform code template
+- **foundry_transform_template.py** - Foundry transform template
+- **foundry_hades_echo_nemesis_transform.py** - Hades/Echo/Nemesis compilation transform
+
+### Quick Demo
 - **instant_demo.sh** - One-command demo script
-- **generate_sbom.py** - Generate Software Bill of Materials
-- **analyze_atlas_threats.py** - MITRE ATLAS threat analysis
-- **export_to_foundry.py** - Export data to Palantir Foundry
-
-### Pipeline Demos (Easy to Use!)
-- **demo_scenario_forge_entry.py** - Pipeline entry demo (scenario_forge data generation)
-- **demo_scenario_output_exit.py** - Pipeline exit demo (Hades/Echo/Nemesis compilation)
-- **video_script.md** - Video script for explaining pipeline and Palantir issues
-- **DEMO_QUICKSTART.md** - Quick start guide for demo scripts
-
-### Tests (`scripts/tests/`)
-- **test_intelligence_verification.py** - Cryptographic receipt verification tests
-- **test_validation_agents.py** - Validation agents test suite
-- **test_vector_integration.py** - Vector database integration tests
 
 ### Visualization (`scripts/visualization/`)
+- **generate_sbom.py** - Generate Software Bill of Materials
+- **export_to_foundry.py** - Export data to Palantir Foundry
+- **create_foundry_chain_diagram.py** - Create Foundry chain diagram
 - **generate_ethereum_risk_bubblemap.py** - Ethereum risk bubble map generator
 - **export_risks_to_bubblemaps.py** - Export risks to bubblemaps.io format
 - **create_interactive_bubblemap.html** - Interactive bubble map HTML
 
-### Deployment (`scripts/deployment/`)
-- **run_api_server.py** - Run FastAPI server locally
-
 ## Usage
+
+### Setup Foundry AIP
+```bash
+python scripts/setup_foundry_aip.py
+```
+
+### Generate Synthetic Data
+```bash
+python scripts/generate_synthetic_compliance_data.py --count 100
+```
+
+### Verify Foundry Hashes
+```bash
+python scripts/verify_foundry_hashes.py
+```
 
 ### Quick Demo
 ```bash
 bash scripts/instant_demo.sh
 ```
 
-### Pipeline Demos (Entry & Exit)
+### Start API Server
 ```bash
-# Pipeline entry: scenario_forge data generation
-python scripts/demo_scenario_forge_entry.py
-
-# Pipeline exit: Hades/Echo/Nemesis compilation
-python scripts/demo_scenario_output_exit.py
-```
-See `DEMO_QUICKSTART.md` for more details.
-
-### Compile Intelligence
-```bash
-python3 scripts/compile_intelligence.py --target "Department of War" --blockchain ethereum
-```
-
-### Run Tests
-```bash
-python3 scripts/tests/test_validation_agents.py
-python3 scripts/tests/test_vector_integration.py
-python3 scripts/tests/test_intelligence_verification.py
-```
-
-### Generate Visualizations
-```bash
-python3 scripts/visualization/generate_ethereum_risk_bubblemap.py
-```
-
-### Run API Server
-```bash
-python3 scripts/deployment/run_api_server.py
+bash scripts/start_api.sh
 ```
