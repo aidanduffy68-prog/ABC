@@ -25,6 +25,7 @@ class MultiSourceVerifier:
         self.verification_engine = VerificationEngine()
         # Simple in-memory receipt storage (can be replaced with database later)
         self._receipt_store: Dict[str, IntelligenceReceipt] = {}
+        logger.debug("MultiSourceVerifier initialized with in-memory receipt storage")
     
     def verify_external_source(
         self,
