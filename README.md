@@ -1,5 +1,5 @@
 # ABC: The verification layer for adversarial compliance
-**When AIML systems disagree, ABC proves they analyzed the same data**
+**When AI/ML systems disagree, ABC proves they analyzed the same data**
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
 ![Palantir Foundry](https://img.shields.io/badge/Palantir-Foundry-red?style=flat-square)
