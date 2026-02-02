@@ -197,9 +197,9 @@ class MultiSourceVerifier:
         List all stored receipt IDs.
         
         Returns:
-            List of receipt IDs
+            List of receipt IDs (sorted for consistent ordering)
         """
-        return list(self._receipt_store.keys())
+        return sorted(list(self._receipt_store.keys()))
     
     def get_receipt_count(self) -> int:
         """Get count of stored receipts"""
