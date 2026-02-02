@@ -164,14 +164,15 @@ class MultiSourceVerifier:
             receipt: IntelligenceReceipt to store
             
         Returns:
-            True if stored successfully
+            True if stored successfully, False otherwise
         """
         if not receipt or not receipt.receipt_id:
             logger.warning("Cannot store receipt: missing receipt_id")
             return False
         
+        # Store receipt (overwrites if already exists)
         self._receipt_store[receipt.receipt_id] = receipt
-        logger.info(f"Stored receipt: {receipt.receipt_id[:16]}...")
+        logger.info(f"Stored receipt: {receipt.receipt_id[:16]}... (total: {len(self._receipt_store)})")
         return True
     
     def _get_receipt(self, receipt_id: str) -> Optional[IntelligenceReceipt]:
